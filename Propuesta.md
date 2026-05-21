@@ -71,4 +71,69 @@ INSERTAR TABLA
 
 <p align="center"><em>Figura 1: Diagrama en bloques del sistema</em></p>
 
+### **2\. Elicitación de requisitos y casos de uso**
 
+#### **2.1 Requisitos del proyecto**
+
+| Grupo | ID | Descripción |
+|---|---|---|
+| Sensores ambientales | 1.1 | El sistema contará con un termómetro sumergible para supervisar la temperatura del agua de la pecera. |
+|  | 1.2 | El sistema realizará lecturas periódicas de la temperatura a una frecuencia configurable y mostrará los valores en un display LED. |
+|  | 1.3 | El sistema enviará alertas visuales o notificaciones si la temperatura supera los umbrales configurados. |
+| Actuadores — Alimentación | 2.1 | El sistema contará con un servomotor encargado de accionar el mecanismo de alimentación automática de los peces. |
+|  | 2.2 | La alimentación automática se realizará en horarios configurables definidos por el usuario. |
+|  | 2.3 | El usuario podrá activar manualmente la alimentación desde la aplicación o mediante un botón físico de prueba. |
+| Actuadores — Iluminación | 2.4 | El sistema contará con luces LED para simular ciclos de día y noche dentro de la pecera. |
+|  | 2.5 | La intensidad lumínica y los horarios de encendido/apagado serán configurables para definir ciclos automáticos. |
+|  | 2.6 | El sistema podrá realizar transiciones graduales de iluminación para simular amanecer y atardecer. |
+| Actuadores — Filtrado | 2.7 | El sistema controlará un filtro de agua mediante un relay para activar o desactivar el sistema de filtrado. |
+|  | 2.8 | El filtro operará en estado continuo, a excepción de los períodos de alimentación, durante los cuales se apagará. |
+|  | 2.9 | El sistema verificará el estado del relay y notificará posibles fallos de activación del filtro. |
+| Visualización | 3.1 | El sistema contará con un display LED para visualizar la temperatura actual del agua y estados básicos del sistema. |
+|  | 3.2 | El display mostrará mensajes de alerta ante condiciones críticas o errores de sensores. |
+| Almacenamiento | 4.1 | La configuración del sistema (horarios de alimentación, ciclos de iluminación y parámetros de temperatura) se persistirá en la memoria interna del microcontrolador. |
+|  | 4.2 | El sistema recuperará automáticamente la configuración guardada al iniciar y validará su integridad. |
+| Interfaz/App | 5.1 | Toda la interacción de usuario, notificaciones y alarmas podrá realizarse mediante una aplicación móvil conectada por BLE o Wi-Fi. |
+|  | 5.2 | La aplicación permitirá configurar horarios de alimentación, ciclos de iluminación y umbrales de temperatura. |
+|  | 5.3 | El sistema enviará a la aplicación lecturas periódicas de temperatura y eventos críticos (ej. sobretemperatura, fallo del sensor o error del relay). |
+
+<p align="center"><em>Tabla 2.1: Requisitos del proyecto</em></p>
+
+En las Tablas 2.2 a 2.4 se presentan 3 casos de uso para el sistema:
+
+## Caso de uso 1 — Alimentación automática
+
+| Elemento | Definición |
+|---|---|
+| Disparador | El sistema detecta que se ha alcanzado el horario de alimentación configurado en la aplicación o recibe una orden de alimentación manual. |
+| Precondiciones | El sistema está encendido. El servomotor de alimentación está conectado y funcional. El horario de alimentación está configurado y almacenado en memoria. El sistema no se encuentra en estado de mantenimiento. |
+| Flujo principal | El sistema entra en estado de alimentación. Desactiva temporalmente el filtro de agua para evitar dispersión del alimento. Espera un tiempo de estabilización del agua. Activa el servomotor para dispensar alimento durante un tiempo definido. Finalizada la acción, el sistema vuelve al estado normal y reactiva el filtro. Se notifica a la app la ejecución de la alimentación. |
+| Flujos alternativos | a. El sistema está en estado de error o mantenimiento: la alimentación no se ejecuta y se envía una notificación a la app. |
+
+<p align="center"><em>Tabla 2.2: Control de alimentación</em></p>
+
+---
+
+## Caso de uso 2 — Control de iluminación día/noche
+
+| Elemento | Definición |
+|---|---|
+| Disparador | El sistema detecta un cambio de horario programado para el ciclo de iluminación o recibe una modificación de parámetros desde la aplicación. |
+| Precondiciones | El sistema está encendido. La tira LED está conectada y funcional. Los horarios de encendido/apagado o nivel de brillo están configurados y almacenados en memoria. |
+| Flujo principal | El sistema ajusta el estado de la iluminación según el ciclo configurado. Enciende o apaga la tira LED o modifica su intensidad mediante PWM. Mantiene el estado hasta el próximo cambio programado. El estado de iluminación se actualiza en la app y en el display local. |
+| Flujos alternativos | a. Falla en la tira LED o en el canal PWM: el sistema apaga la salida afectada y notifica error a la aplicación. |
+
+<p align="center"><em>Tabla 2.3: Control de iluminación día/noche</em></p>
+
+---
+
+## Caso de uso 3 — Control de filtrado de agua
+
+| Elemento | Definición |
+|---|---|
+| Disparador | El sistema ejecuta el modo automático de mantenimiento o recibe una orden desde la aplicación para activar/desactivar el filtro. |
+| Precondiciones | El sistema está encendido. El relay del filtro está conectado y funcional. El estado del filtro está definido en la configuración del sistema. |
+| Flujo principal | El sistema activa el relay para encender el filtro de agua durante el funcionamiento normal. En caso de rutina de alimentación, el sistema desactiva temporalmente el filtro y lo reactiva una vez finalizado el ciclo. El estado del filtro se reporta a la aplicación y al display. |
+| Flujos alternativos | a. Fallo del relay o ausencia de respuesta del filtro: el sistema desactiva el control automático del filtro y notifica la falla a la aplicación. |
+
+<p align="center"><em>Tabla 2.4: Control de filtrado de agua</em></p>
