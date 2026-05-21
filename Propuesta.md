@@ -12,7 +12,7 @@ Curso 2 – Grupo 3
 ## Autores
 Lautaro Gastón Fritz - 102320  
 Mauro Axel Tedesco - 102958  
-Francisco López García - 
+Francisco López García - n20240046
 
 **Cuatrimestre de cursada:** 1er cuatrimestre 2026  
 
