@@ -66,3 +66,9 @@ La siguiente tabla (Tabla 1.2.1) muestra los valores ponderados asignados a cada
 INSERTAR TABLA
 
 <p align="center"><em>Tabla 1: Comparación de alternativas de proyecto</em></p>
+
+<img width="877" height="495" alt="image" src="https://github.com/user-attachments/assets/19fef76c-687e-4594-8d79-d77ae98347cb" />
+
+<p align="center"><em>Figura 1: Diagrama en bloques del sistema</em></p>
+
+
