@@ -191,9 +191,9 @@ En las Tablas 2.2 a 2.4 se presentan 3 casos de uso para el sistema:
 | Elemento | Definición |
 |---|---|
 | Disparador | El sistema detecta que se ha alcanzado el horario de alimentación configurado en la aplicación o recibe una orden de alimentación manual. |
-| Precondiciones | El sistema está encendido. El servomotor de alimentación está conectado y funcional. El horario de alimentación está configurado y almacenado en memoria. El sistema no se encuentra en estado de mantenimiento. |
+| Precondiciones | El sistema está encendido. El servomotor de alimentación está conectado y funcional. El horario de alimentación está configurado y almacenado en memoria. |
 | Flujo principal | El sistema entra en estado de alimentación. Desactiva temporalmente el filtro de agua para evitar dispersión del alimento. Espera un tiempo de estabilización del agua. Activa el servomotor para dispensar alimento durante un tiempo definido. Finalizada la acción, el sistema vuelve al estado normal y reactiva el filtro. Se notifica a la app la ejecución de la alimentación. |
-| Flujos alternativos | a. El sistema está en estado de error o mantenimiento: la alimentación no se ejecuta y se envía una notificación a la app. |
+| Flujos alternativos | a. El sistema está en estado de error: la alimentación no se ejecuta y se envía una notificación a la app. |
 
 <p align="center"><em>Tabla 2.2: Control de alimentación</em></p>
 
@@ -203,10 +203,10 @@ En las Tablas 2.2 a 2.4 se presentan 3 casos de uso para el sistema:
 
 | Elemento | Definición |
 |---|---|
-| Disparador | El sistema detecta un cambio de horario programado para el ciclo de iluminación o recibe una modificación de parámetros desde la aplicación. |
-| Precondiciones | El sistema está encendido. La tira LED está conectada y funcional. Los horarios de encendido/apagado o nivel de brillo están configurados y almacenados en memoria. |
-| Flujo principal | El sistema ajusta el estado de la iluminación según el ciclo configurado. Enciende o apaga la tira LED o modifica su intensidad mediante PWM. Mantiene el estado hasta el próximo cambio programado. El estado de iluminación se actualiza en la app y en el display local. |
-| Flujos alternativos | a. Falla en la tira LED o en el canal PWM: el sistema apaga la salida afectada y notifica error a la aplicación. |
+| Disparador | El sistema detecta un cambio de horario programado para el ciclo de iluminación. |
+| Precondiciones | El sistema está encendido. La tira LED está conectada y funcional. Los horarios de encendido/apagado están configurados y almacenados en memoria. |
+| Flujo principal | El sistema ajusta el estado de la iluminación según el ciclo configurado. Enciende o apaga la tira LED. Mantiene el estado hasta el próximo cambio programado. El estado de iluminación se actualiza en la app y en el display local. |
+| Flujos alternativos | a. Falla en la tira LED: el sistema apaga la salida afectada y notifica error a la aplicación. |
 
 <p align="center"><em>Tabla 2.3: Control de iluminación día/noche</em></p>
 
