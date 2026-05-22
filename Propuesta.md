@@ -19,9 +19,9 @@ Francisco López García - n20240046
 *Trabajo realizado entre mayo y julio de 2026.*
 </div>
 
-### **1\. Selección del proyecto a implementar**
+## **1\. Selección del proyecto a implementar**
 
-#### **1.1 Objetivo del proyecto y resultados esperados**
+### **1.1 Objetivo del proyecto y resultados esperados**
 
 El objetivo del presente proyecto es diseñar e implementar un sistema embebido de automatización y monitoreo para peceras domésticas. El sistema busca automatizar determinadas tareas de cuidado, atención y operación de la pecera, como el control del sistema de filtrado y la coordinación de ciclos de alimentación, permitiendo además la configuración manual de parámetros de funcionamiento.
 
@@ -34,11 +34,11 @@ Como resultados esperados, se pretende obtener un prototipo funcional capaz de:
 * permitir el control y supervisión remota del sistema mediante un dispositivo móvil,
 * y servir como base para futuras ampliaciones.
 
-#### **1.2 Motivación**
+### **1.2 Motivación**
 
 En la actualidad existen soluciones comerciales orientadas a la automatización y monitoreo de peceras domésticas, incluyendo sistemas de control de filtrado, iluminación, alimentación y supervisión ambiental. Sin embargo, gran parte de estas soluciones corresponden a productos importados, lo que implica elevados costos de adquisición, limitada disponibilidad en el mercado local y menor flexibilidad para su personalización o mantenimiento.
 
-#### **1.3 Proyectos similares**
+### **1.3 Proyectos similares**
 
 En base a los objetivos planteados, se consideran distintas variantes posibles del sistema, las cuales implican diferentes niveles de complejidad en términos de hardware, sensores y actuadores requeridos.
 
@@ -154,9 +154,9 @@ Los principales desafíos que se van a afrontar son la integración eficiente de
 
 <p align="center"><em>Figura 1: Diagrama en bloques del sistema</em></p>
 
-### **2\. Elicitación de requisitos y casos de uso**
+## **2\. Elicitación de requisitos y casos de uso**
 
-#### **2.1 Requisitos del proyecto**
+### **2.1 Requisitos del proyecto**
 
 | Grupo | ID | Descripción |
 |---|---|---|
@@ -182,9 +182,11 @@ Los principales desafíos que se van a afrontar son la integración eficiente de
 
 <p align="center"><em>Tabla 2.1: Requisitos del proyecto</em></p>
 
+### **2.2 Casos de uso**
+
 En las Tablas 2.2 a 2.4 se presentan 3 casos de uso para el sistema:
 
-## Caso de uso 1 — Alimentación automática
+#### Caso de uso 1 — Alimentación automática
 
 | Elemento | Definición |
 |---|---|
@@ -197,7 +199,7 @@ En las Tablas 2.2 a 2.4 se presentan 3 casos de uso para el sistema:
 
 ---
 
-## Caso de uso 2 — Control de iluminación día/noche
+#### Caso de uso 2 — Control de iluminación día/noche
 
 | Elemento | Definición |
 |---|---|
@@ -210,7 +212,7 @@ En las Tablas 2.2 a 2.4 se presentan 3 casos de uso para el sistema:
 
 ---
 
-## Caso de uso 3 — Control de filtrado de agua
+#### Caso de uso 3 — Control de filtrado de agua
 
 | Elemento | Definición |
 |---|---|
