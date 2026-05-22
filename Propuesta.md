@@ -177,14 +177,14 @@ Los principales desafíos que se van a afrontar son la integración eficiente de
 |  | 4.2 | El sistema recuperará automáticamente la configuración guardada al iniciar y validará su integridad. |
 | Interfaz/App | 5.1 | Toda la interacción de usuario, notificaciones y alarmas podrá realizarse mediante una aplicación móvil conectada por BLE. |
 |  | 5.2 | La aplicación permitirá configurar horarios de alimentación, ciclos de iluminación y umbrales de temperatura. |
-|  | 5.3 | La aplicación móvil permitirá la activación manual de los actuadores. |
-|  | 5.4 | El sistema enviará a la aplicación lecturas periódicas de temperatura y eventos críticos (ej. sobretemperatura, fallo del sensor o error del relay). |
+|  | 5.3 | La aplicación móvil permitirá alternar entre el modo manual y el modo automático de operación. En el modo manual, la misma aplicación podrá activar o desactivar los actuadores. |
+|  | 5.4 | El sistema enviará a la aplicación notificaciones de eventos normales y críticos (ej. ciclo de alimentación completado, sobretemperatura, fallo del sensor o error del relay). |
 
 <p align="center"><em>Tabla 2.1: Requisitos del proyecto</em></p>
 
 ### **2.2 Casos de uso**
 
-En las Tablas 2.2 a 2.4 se presentan 3 casos de uso para el sistema:
+En las Tablas 2.2 a 2.7 se presentan 3 casos de uso para el sistema:
 
 #### Caso de uso 1 — Alimentación automática
 
@@ -222,3 +222,43 @@ En las Tablas 2.2 a 2.4 se presentan 3 casos de uso para el sistema:
 | Flujos alternativos | a. Fallo del relay o ausencia de respuesta del filtro: el sistema desactiva el control automático del filtro y notifica la falla a la aplicación. |
 
 <p align="center"><em>Tabla 2.4: Control de filtrado de agua</em></p>
+
+---
+
+#### Caso de uso 4 — Monitoreo de temperatura y alarma
+
+| Elemento | Definición |
+|---|---|
+| Disparador | El sensor de temperatura detecta un valor fuera de los límites configurados por el usuario. |
+| Precondiciones | El sistema está encendido. El sensor de temperatura está conectado y funcionando correctamente. Los umbrales de temperatura mínima y máxima están configurados en el sistema. |
+| Flujo principal | El sistema monitorea continuamente la temperatura del agua. Cuando la temperatura supera el umbral máximo o desciende por debajo del mínimo permitido, el sistema activa una alarma sonora y visual, además de enviar una notificación a la aplicación móvil. La alarma permanece activa hasta que la temperatura vuelve a encontrarse dentro de los valores normales configurados. Una vez restablecida la temperatura, el sistema desactiva automáticamente la alarma y actualiza el estado en la aplicación y el display. |
+| Flujos alternativos | a. Fallo del sensor de temperatura: el sistema informa la falla en el display y la aplicación móvil, deshabilitando el monitoreo automático hasta que el sensor vuelva a estar disponible. |
+
+<p align="center"><em>Tabla 2.5:  Monitoreo de temperatura y alarma</em></p>
+
+---
+
+#### Caso de uso 5 — Configuración de parámetros desde la aplicación móvil
+
+| Elemento | Definición |
+|---|---|
+| Disparador | El usuario accede a la aplicación móvil y modifica parámetros de configuración del sistema. |
+| Precondiciones | El sistema está encendido y conectado a la aplicación móvil. El usuario tiene acceso autorizado a la configuración. |
+| Flujo principal | El usuario modifica parámetros como horarios de alimentación, duración de ciclos de iluminación, límites de temperatura o tiempos de filtrado desde la aplicación móvil. El sistema almacena los nuevos parámetros en memoria no volátil y notifica al usuario que es necesario reiniciar el sistema para aplicar los cambios realizados. |
+| Flujos alternativos | a. Error de comunicación entre la aplicación y el sistema: la configuración no se guarda y se informa el fallo al usuario. |
+
+<p align="center"><em>Tabla 2.6: Configuración de parámetros</em></p>
+
+---
+
+#### Caso de uso 6 — Control manual de actuadores desde la aplicación móvil
+
+| Elemento | Definición |
+|---|---|
+| Disparador | El usuario selecciona manualmente un actuador desde la aplicación móvil. |
+| Precondiciones | El sistema está encendido y conectado a la aplicación móvil. Los actuadores están correctamente conectados y funcionales. |
+| Flujo principal | El usuario activa o desactiva manualmente actuadores del sistema, tales como iluminación, filtro o alimentador, mediante la aplicación móvil. El sistema recibe la orden, ejecuta la acción correspondiente y actualiza el estado del actuador tanto en la aplicación como en el display local. |
+| Flujos alternativos | a. Fallo de comunicación con la aplicación móvil: la orden no se ejecuta y el sistema informa el error al usuario.  
+| | b. El actuador solicitado ya se encuentra en el estado pedido y no se realiza ninguna acción.|
+
+<p align="center"><em>Tabla 2.7: Control manual de actuadores</em></p>
