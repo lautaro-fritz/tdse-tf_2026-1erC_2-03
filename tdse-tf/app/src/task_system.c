@@ -49,6 +49,8 @@
 #include "task_actuator_interface.h"
 #include "task_relay_attribute.h"
 #include "task_relay_interface.h"
+#include "task_pwm_attribute.h"
+#include "task_pwm_interface.h"
 
 /********************** macros and definitions *******************************/
 #define DEL_SYS_MIN			0ul
@@ -153,6 +155,23 @@ void task_system_normal_statechart(void)
 		p_task_system_dta->event = get_event_task_system();
 	}
 
+	static uint32_t last_relay_time = 0, last_pwm_time = 0;
+	uint32_t current_time = HAL_GetTick();
+
+	if (current_time - last_relay_time >= 2000)
+	{
+		put_event_task_relay(EV_REL_TOGGLE, ID_REL_LAMP);
+
+		last_relay_time = current_time;
+	}
+
+	if (current_time - last_pwm_time >= 5000)
+	{
+		put_event_task_pwm(EV_PWM_MOVE, ID_PWM_MOTOR);
+
+		last_pwm_time = current_time;
+	}
+
 	switch (p_task_system_dta->state)
 	{
 		case ST_SYS_IDLE:
@@ -191,28 +210,6 @@ void task_system_normal_statechart(void)
 void task_system_set_mode(task_system_mode_t task_system_mode)
 {
 	g_task_system_mode = task_system_mode;
-}
-
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  static int lamp_relay_counter = 0;
-  static int filter_relay_counter = 0;
-
-  if (htim->Instance == TIM2)
-  {
-	  lamp_relay_counter++;
-	  filter_relay_counter++;
-
-	  if(lamp_relay_counter % 2 == 0) {
-		  put_event_task_relay(EV_REL_TOGGLE, ID_REL_LAMP);
-		  lamp_relay_counter = 0;
-	  }
-
-	  if(filter_relay_counter % 5 == 0) {
-		  put_event_task_relay(EV_REL_TOGGLE, ID_REL_FILTER);
-		  filter_relay_counter = 0;
-	  }
-  }
 }
 
 /********************** end of file ******************************************/

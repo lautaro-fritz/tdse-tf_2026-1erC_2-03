@@ -46,6 +46,7 @@
 #include "task_system.h"
 #include "task_actuator.h"
 #include "task_relay.h"
+#include "task_pwm.h"
 
 /********************** macros and definitions *******************************/
 #define G_APP_CNT_INI		0ul
@@ -77,7 +78,8 @@ const task_cfg_t task_cfg_list[]	= {
 		{task_sensor_init, 		task_sensor_update, 	NULL},
 		{task_system_init, 		task_system_update, 	NULL},
 		{task_actuator_init,	task_actuator_update, 	NULL},
-		{task_relay_init,	task_relay_update, 	NULL}
+		{task_relay_init,	task_relay_update, 	NULL},
+		{task_pwm_init,	task_pwm_update, 	NULL}
 };
 
 #define TASK_QTY	(sizeof(task_cfg_list)/sizeof(task_cfg_t))
@@ -207,4 +209,12 @@ void HAL_SYSTICK_Callback(void)
 	/* Update Tick Counter */
 	g_app_tick_cnt++;
 }
+
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+//{
+//  if (htim->Instance == TIM2)
+//  {
+//	  task_system_tick();
+//  }
+//}
 /********************** end of file ******************************************/
