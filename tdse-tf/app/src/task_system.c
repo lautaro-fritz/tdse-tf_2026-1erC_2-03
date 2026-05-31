@@ -47,8 +47,6 @@
 #include "task_system_interface.h"
 #include "task_actuator_attribute.h"
 #include "task_actuator_interface.h"
-#include "task_relay_attribute.h"
-#include "task_relay_interface.h"
 #include "task_pwm_attribute.h"
 #include "task_pwm_interface.h"
 
@@ -155,14 +153,19 @@ void task_system_normal_statechart(void)
 		p_task_system_dta->event = get_event_task_system();
 	}
 
-	static uint32_t last_relay_time = 0, last_pwm_time = 0;
+	static uint32_t last_relay_cycle_time = 0, last_pwm_time = 0;
 	uint32_t current_time = HAL_GetTick();
+	static bool relay_on = false;
 
-	if (current_time - last_relay_time >= 2000)
+	if (current_time - last_relay_cycle_time >= 2000)
 	{
-		put_event_task_relay(EV_REL_TOGGLE, ID_REL_LAMP);
+		if (relay_on)
+			put_event_task_actuator(EV_ACT_IDLE, ID_REL_LAMP);
+		else
+			put_event_task_actuator(EV_ACT_ACTIVE, ID_REL_LAMP);
 
-		last_relay_time = current_time;
+		relay_on = !relay_on;
+		last_relay_cycle_time = current_time;
 	}
 
 	if (current_time - last_pwm_time >= 5000)
@@ -179,7 +182,7 @@ void task_system_normal_statechart(void)
 			if ((true == p_task_system_dta->flag) && (EV_SYS_ACTIVE == p_task_system_dta->event))
 			{
 				p_task_system_dta->flag = false;
-				put_event_task_actuator(EV_LED_ACTIVE, ID_LED_A);
+				put_event_task_actuator(EV_ACT_ACTIVE, ID_LED_A);
 				p_task_system_dta->state = ST_SYS_ACTIVE;
 			}
 
@@ -190,7 +193,7 @@ void task_system_normal_statechart(void)
 			if ((true == p_task_system_dta->flag) && (EV_SYS_IDLE == p_task_system_dta->event))
 			{
 				p_task_system_dta->flag = false;
-				put_event_task_actuator(EV_LED_IDLE, ID_LED_A);
+				put_event_task_actuator(EV_ACT_IDLE, ID_LED_A);
 				p_task_system_dta->state = ST_SYS_IDLE;
 			}
 

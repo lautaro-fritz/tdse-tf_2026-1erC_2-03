@@ -46,23 +46,23 @@ extern "C" {
 
 /********************** typedef **********************************************/
 /* Events to excite Task Actuator */
-typedef enum task_actuator_ev {EV_LED_IDLE,
-							   EV_LED_ACTIVE} task_actuator_ev_t;
+typedef enum task_actuator_ev {EV_ACT_IDLE,
+							   EV_ACT_ACTIVE} task_actuator_ev_t;
 
 /* States of Task Actuator */
-typedef enum task_actuator_st {ST_LED_IDLE,
-							   ST_LED_ACTIVE} task_actuator_st_t;
+typedef enum task_actuator_st {ST_ACT_IDLE,
+							   ST_ACT_ACTIVE} task_actuator_st_t;
 
 /* Identifier of Task Actuator */
-typedef enum task_actuator_id {ID_LED_A} task_actuator_id_t;
+typedef enum task_actuator_id {ID_LED_A, ID_REL_LAMP} task_actuator_id_t;
 
 typedef struct
 {
 	task_actuator_id_t	identifier;
 	GPIO_TypeDef *		gpio_port;
 	uint16_t			pin;
-	GPIO_PinState		led_on;
-	GPIO_PinState		led_off;
+	GPIO_PinState		act_on;
+	GPIO_PinState		act_off;
 	uint32_t			tick_max;
 } task_actuator_cfg_t;
 
