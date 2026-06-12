@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:sgraph="http://www.yakindu.org/sct/sgraph/2.0.0">
   <sgraph:Statechart xmi:id="_LUXawGX9EfG6oPh7YyT6Bw" specification="// Use the event driven execution model.&#xA;// Switch to cycle based behavior&#xA;// by specifying '@CycleBased(200)'.&#xA;@EventDriven&#xD;&#xA;&#xD;&#xA;interface:&#xD;&#xA;&#x9;// Define events and variables here. &#xA;&#x9;// Use CTRL + Space for content assist.&#xA;&#x9;in event EV_ACT_FILTER_ON&#xA;&#x9;in event EV_ACT_FILTER_OFF&#xA;&#x9;in event EV_ACT_FEEDER_OPEN&#xA;&#x9;in event EV_ACT_FEEDER_CLOSE&#xA;&#x9;in event EV_ACT_LIGHT_ON&#xA;&#x9;in event EV_ACT_LIGHT_OFF" name="Statechart_Actuator1">
     <regions xmi:id="_PqS5MGX9EfG6oPh7YyT6Bw" name="Actuator_Filter">
       <vertices xsi:type="sgraph:State" xmi:id="_PqS5MWX9EfG6oPh7YyT6Bw" specification="" name="ST_FILTER_ON" incomingTransitions="_PqS5OWX9EfG6oPh7YyT6Bw">
@@ -16,7 +16,7 @@
       <vertices xsi:type="sgraph:State" xmi:id="_PqS5QGX9EfG6oPh7YyT6Bw" specification="" name="ST_FEEDER_OPEN" incomingTransitions="_PqTgQGX9EfG6oPh7YyT6Bw">
         <outgoingTransitions xmi:id="_PqS5QmX9EfG6oPh7YyT6Bw" specification="EV_ACT_FEEDER_CLOSE" target="_PqS5RmX9EfG6oPh7YyT6Bw"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_PqS5RmX9EfG6oPh7YyT6Bw" specification="" name="ST_FEEDER_CLOSE" incomingTransitions="_PqS5QmX9EfG6oPh7YyT6Bw _PqTgRWX9EfG6oPh7YyT6Bw">
+      <vertices xsi:type="sgraph:State" xmi:id="_PqS5RmX9EfG6oPh7YyT6Bw" specification="" name="ST_FEEDER_CLOSED" incomingTransitions="_PqS5QmX9EfG6oPh7YyT6Bw _PqTgRWX9EfG6oPh7YyT6Bw">
         <outgoingTransitions xmi:id="_PqTgQGX9EfG6oPh7YyT6Bw" specification="EV_ACT_FEEDER_OPEN" target="_PqS5QGX9EfG6oPh7YyT6Bw"/>
       </vertices>
       <vertices xsi:type="sgraph:Entry" xmi:id="_PqTgRGX9EfG6oPh7YyT6Bw">
@@ -24,10 +24,10 @@
       </vertices>
     </regions>
     <regions xmi:id="_QAmD4GX-EfG6oPh7YyT6Bw" name="Actuator_Light">
-      <vertices xsi:type="sgraph:State" xmi:id="_QAmD4WX-EfG6oPh7YyT6Bw" specification="" name="ST_FEEDER_OPEN" incomingTransitions="_QAmD6WX-EfG6oPh7YyT6Bw">
+      <vertices xsi:type="sgraph:State" xmi:id="_QAmD4WX-EfG6oPh7YyT6Bw" specification="" name="ST_LIGHT_ON" incomingTransitions="_QAmD6WX-EfG6oPh7YyT6Bw">
         <outgoingTransitions xmi:id="_QAmD42X-EfG6oPh7YyT6Bw" specification="EV_ACT_LIGHT_OFF" target="_QAmD52X-EfG6oPh7YyT6Bw"/>
       </vertices>
-      <vertices xsi:type="sgraph:State" xmi:id="_QAmD52X-EfG6oPh7YyT6Bw" specification="" name="ST_FEEDER_CLOSE" incomingTransitions="_QAmD42X-EfG6oPh7YyT6Bw _QAmD7mX-EfG6oPh7YyT6Bw">
+      <vertices xsi:type="sgraph:State" xmi:id="_QAmD52X-EfG6oPh7YyT6Bw" specification="" name="ST_LIGHT_OFF" incomingTransitions="_QAmD42X-EfG6oPh7YyT6Bw _QAmD7mX-EfG6oPh7YyT6Bw">
         <outgoingTransitions xmi:id="_QAmD6WX-EfG6oPh7YyT6Bw" specification="EV_ACT_LIGHT_ON" target="_QAmD4WX-EfG6oPh7YyT6Bw"/>
       </vertices>
       <vertices xsi:type="sgraph:Entry" xmi:id="_QAmD7WX-EfG6oPh7YyT6Bw">
