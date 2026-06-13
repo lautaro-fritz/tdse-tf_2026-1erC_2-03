@@ -28,3 +28,4 @@
 "./app/src/task_sensor.o"
 "./app/src/task_system.o"
 "./app/src/task_system_interface.o"
+"./app/src/task_timer.o"

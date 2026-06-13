@@ -164,7 +164,8 @@ void task_sensor_statechart(uint32_t index)
 					p_task_sensor_dta->tick  = DEL_BTN_MIN;
 					p_task_sensor_dta->state = ST_BTN_IDLE;
 				} else if (EV_BTN_DOWN == p_task_sensor_dta->event) {
-					put_event_task_system(p_task_sensor_cfg->signal_down);
+					task_system_ev_t event = {p_task_sensor_cfg->signal_down, MANUAL};
+					put_event_task_system(event);
 					p_task_sensor_dta->tick  = DEL_BTN_MIN;
 					p_task_sensor_dta->state = ST_BTN_ACTIVE;
 				}
@@ -195,7 +196,8 @@ void task_sensor_statechart(uint32_t index)
 				if (EV_BTN_UP == p_task_sensor_dta->event) {
 					p_task_sensor_dta->tick  = DEL_BTN_MIN;
 					p_task_sensor_dta->state = ST_BTN_IDLE;
-					put_event_task_system(p_task_sensor_cfg->signal_up);
+					task_system_ev_t event = {p_task_sensor_cfg->signal_up, MANUAL};
+					put_event_task_system(event);
 				} else if (EV_BTN_DOWN == p_task_sensor_dta->event) {
 					p_task_sensor_dta->tick  = DEL_BTN_MIN;
 					p_task_sensor_dta->state = ST_BTN_ACTIVE;

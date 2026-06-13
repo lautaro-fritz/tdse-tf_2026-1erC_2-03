@@ -55,9 +55,6 @@
 #define DEL_SYS_MED			250ul
 #define DEL_SYS_MAX			500ul
 
-/* Modes to excite Task System */
-typedef enum task_system_mode {NORMAL, MODE_QTY} task_system_mode_t;
-
 #define SYSTEM_DTA_QTY	MODE_QTY
 
 /********************** internal data declaration ****************************/
@@ -94,8 +91,6 @@ void task_system_init(void *parameters)
 
 	init_event_task_system();
 
-	task_system_set_mode(NORMAL);
-
 	for (index = 0; SYSTEM_DTA_QTY > index; index++)
 	{
 		/* Update Task System Data Pointer */
@@ -105,7 +100,7 @@ void task_system_init(void *parameters)
 		state = ST_SYS_IDLE;
 		p_task_system_dta->state = state;
 
-		event = EV_SYS_IDLE;
+		event.event = EV_SYS_IDLE;
 		p_task_system_dta->event = event;
 
 		b_event = false;
@@ -114,11 +109,11 @@ void task_system_init(void *parameters)
 		LOGGER_INFO(" ");
 		LOGGER_INFO("   %s = %lu   %s = %lu   %s = %s",
 					GET_NAME(state), (uint32_t)state,
-					GET_NAME(event), (uint32_t)event,
+					GET_NAME(event.event), (uint32_t)event.event,
 					GET_NAME(b_event), (b_event ? "true" : "false"));
 	}
 
-	task_system_set_mode(NORMAL);
+	task_system_set_mode(AUTO);
 }
 
 void task_system_update(void *parameters)
@@ -126,26 +121,26 @@ void task_system_update(void *parameters)
 	/* Run Task Statechart */
 	switch (g_task_system_mode)
 	{
-		case NORMAL:
+		case AUTO:
 
-			task_system_normal_statechart();
+			task_system_auto_statechart();
 
 			break;
 
 		default:
 
-			task_system_set_mode(NORMAL);
+			task_system_set_mode(AUTO);
 
 			break;
 		}
 }
 
-void task_system_normal_statechart(void)
+void task_system_auto_statechart(void)
 {
 	task_system_dta_t *p_task_system_dta;
 
 	/* Update Task System Data Pointer */
-	p_task_system_dta = &task_system_dta_list[NORMAL];
+	p_task_system_dta = &task_system_dta_list[AUTO];
 
 	if (true == any_event_task_system())
 	{
@@ -153,44 +148,64 @@ void task_system_normal_statechart(void)
 		p_task_system_dta->event = get_event_task_system();
 	}
 
-	static uint32_t last_relay_cycle_time = 0, last_pwm_time = 0;
-	uint32_t current_time = HAL_GetTick();
-	static bool relay_on = false;
-
-	if (current_time - last_relay_cycle_time >= 2000)
-	{
-		if (relay_on)
-			put_event_task_actuator(EV_ACT_IDLE, ID_REL_LAMP);
-		else
-			put_event_task_actuator(EV_ACT_ACTIVE, ID_REL_LAMP);
-
-		relay_on = !relay_on;
-		last_relay_cycle_time = current_time;
-	}
-
-	if (current_time - last_pwm_time >= 5000)
-	{
-		put_event_task_pwm(EV_PWM_MOVE, ID_PWM_MOTOR);
-
-		last_pwm_time = current_time;
-	}
-
 	switch (p_task_system_dta->state)
 	{
 		case ST_SYS_IDLE:
 
-			if ((true == p_task_system_dta->flag) && (EV_SYS_ACTIVE == p_task_system_dta->event))
+			if ((true == p_task_system_dta->flag) && (EV_SYS_ACTIVE == p_task_system_dta->event.event))
 			{
 				p_task_system_dta->flag = false;
 				put_event_task_actuator(EV_ACT_ACTIVE, ID_LED_A);
 				p_task_system_dta->state = ST_SYS_ACTIVE;
 			}
 
+			if ((true == p_task_system_dta->flag) && (EV_SYS_FILTER_ON == p_task_system_dta->event.event))
+			{
+				p_task_system_dta->flag = false;
+				put_event_task_actuator(EV_ACT_ACTIVE, ID_RELAY_FILTER);
+				p_task_system_dta->state = ST_SYS_FILTERING;
+			}
+
+			if ((true == p_task_system_dta->flag) && (EV_SYS_FEEDER_ON == p_task_system_dta->event.event))
+			{
+				p_task_system_dta->flag = false;
+				put_event_task_pwm(EV_PWM_MOVE, ID_PWM_MOTOR);
+				p_task_system_dta->state = ST_SYS_FEEDING;
+			}
+
+			break;
+
+		case ST_SYS_FILTERING:
+			if ((true == p_task_system_dta->flag) && (EV_SYS_FILTER_OFF == p_task_system_dta->event.event))
+			{
+				p_task_system_dta->flag = false;
+				put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+				p_task_system_dta->state = ST_SYS_IDLE;
+			}
+
+			if ((true == p_task_system_dta->flag) && (EV_SYS_FEEDER_ON == p_task_system_dta->event.event))
+			{
+				p_task_system_dta->flag = false;
+				put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+				put_event_task_pwm(EV_PWM_MOVE, ID_PWM_MOTOR);
+				p_task_system_dta->state = ST_SYS_FEEDING;
+			}
+
+			break;
+
+		case ST_SYS_FEEDING:
+			if ((true == p_task_system_dta->flag) && (EV_SYS_FEEDER_OFF == p_task_system_dta->event.event))
+			{
+				p_task_system_dta->flag = false;
+				put_event_task_pwm(EV_PWM_MOVE, ID_PWM_MOTOR);
+				p_task_system_dta->state = ST_SYS_IDLE;
+			}
+
 			break;
 
 		case ST_SYS_ACTIVE:
 
-			if ((true == p_task_system_dta->flag) && (EV_SYS_IDLE == p_task_system_dta->event))
+			if ((true == p_task_system_dta->flag) && (EV_SYS_IDLE == p_task_system_dta->event.event))
 			{
 				p_task_system_dta->flag = false;
 				put_event_task_actuator(EV_ACT_IDLE, ID_LED_A);
@@ -203,7 +218,7 @@ void task_system_normal_statechart(void)
 
 			p_task_system_dta->tick  = DEL_SYS_MIN;
 			p_task_system_dta->state = ST_SYS_IDLE;
-			p_task_system_dta->event = EV_SYS_IDLE;
+			p_task_system_dta->event.event = EV_SYS_IDLE;
 			p_task_system_dta->flag = false;
 
 			break;

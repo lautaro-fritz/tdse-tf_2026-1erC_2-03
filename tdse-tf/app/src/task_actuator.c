@@ -57,7 +57,7 @@
 /********************** internal data declaration ****************************/
 const task_actuator_cfg_t task_actuator_cfg_list[] = {
 	{ID_LED_A,  LED_A_PORT,  LED_A_PIN, LED_A_ON,  LED_A_OFF, DEL_LED_MAX},
-	{ID_REL_LAMP,  GPIOB,  GPIO_PIN_5, REL_LAMP_ON,  REL_LAMP_OFF, DEL_LED_MAX}
+	{ID_RELAY_FILTER,  GPIOB,  GPIO_PIN_5, REL_LAMP_ON,  REL_LAMP_OFF, DEL_LED_MAX}
 };
 
 task_actuator_dta_t task_actuator_dta_list[ACTUATOR_DTA_QTY];

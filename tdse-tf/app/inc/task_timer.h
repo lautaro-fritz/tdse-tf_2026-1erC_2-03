@@ -32,8 +32,8 @@
  * @author : Juan Manuel Cruz <jcruz@fi.uba.ar> <jcruz@frba.utn.edu.ar>
  */
 
-#ifndef TASK_RELAY_INTERFACE_H_
-#define TASK_RELAY_INTERFACE_H_
+#ifndef TASK_TIMER_H_
+#define TASK_TIMER_H_
 
 /********************** CPP guard ********************************************/
 #ifdef __cplusplus
@@ -49,13 +49,14 @@ extern "C" {
 /********************** external data declaration ****************************/
 
 /********************** external functions declaration ***********************/
-extern void put_event_task_relay(task_relay_ev_t event, task_relay_id_t identifier);
+extern void task_timer_init(void *parameters);
+extern void task_timer_update(void *parameters);
 
 /********************** End of CPP guard *************************************/
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* TASK_RELAY_INTERFACE_H_ */
+#endif /* TASK_TIMER_H_ */
 
 /********************** end of file ******************************************/
