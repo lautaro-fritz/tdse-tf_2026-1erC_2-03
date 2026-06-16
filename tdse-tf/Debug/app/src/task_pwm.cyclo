@@ -1,0 +1,3 @@
+../app/src/task_pwm.c:73:6:task_pwm_init	6
+../app/src/task_pwm.c:117:6:task_pwm_update	2
+../app/src/task_pwm.c:128:6:task_pwm_statechart	14
