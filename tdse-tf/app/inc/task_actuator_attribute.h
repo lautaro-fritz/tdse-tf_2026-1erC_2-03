@@ -54,7 +54,7 @@ typedef enum task_actuator_st {ST_ACT_IDLE,
 							   ST_ACT_ACTIVE} task_actuator_st_t;
 
 /* Identifier of Task Actuator */
-typedef enum task_actuator_id {ID_LED_A, ID_REL_LAMP} task_actuator_id_t;
+typedef enum task_actuator_id {ID_LED_A, ID_RELAY_FILTER} task_actuator_id_t;
 
 typedef struct
 {
