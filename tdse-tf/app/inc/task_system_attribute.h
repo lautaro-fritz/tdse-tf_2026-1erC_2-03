@@ -57,7 +57,9 @@ typedef enum task_system_ev_type {EV_SYS_IDLE,
 							 EV_SYS_FILTER_ON,
 							 EV_SYS_FILTER_OFF,
 							 EV_SYS_FEEDER_ON,
-							 EV_SYS_FEEDER_OFF} task_system_ev_type_t;
+							 EV_SYS_FEEDER_OFF,
+							 EV_SYS_APP_CONNECTED,
+							 EV_SYS_APP_DISCONNECTED} task_system_ev_type_t;
 
 /* Modes to excite Task System */
 typedef enum task_system_mode {AUTO, MANUAL, MODE_QTY} task_system_mode_t;
@@ -79,6 +81,7 @@ typedef struct
 extern task_system_dta_t task_system_dta_list[];
 
 /********************** external functions declaration ***********************/
+extern void task_system_set_mode(task_system_mode_t);
 
 /********************** End of CPP guard *************************************/
 #ifdef __cplusplus

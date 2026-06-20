@@ -43,13 +43,32 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	uint8_t command_string[DMA_BUFFER_SIZE + 1];
 	strcpy(command_string, command);
 	command_string[DMA_BUFFER_SIZE] = '\0';
+	task_system_ev_t event = {EV_SYS_IDLE, MANUAL};
+	char* message;
 
     if (huart->Instance == USART3) {
-    	if(strcmp(command_string, (uint8_t*) "/filter:1\r\n") == 0) {
-    		printf("aaa\n");
-    	}
+    	if(strcmp(command_string, (uint8_t*) "/manual:1\r\n") == 0) {
+    		event.event = EV_SYS_APP_CONNECTED;
+    		message = "MANUAL MODE: ON\r\n";
+		} else if(strcmp(command_string, (uint8_t*) "/manual:0\r\n") == 0) {
+			event.event = EV_SYS_APP_DISCONNECTED;
+			message = "MANUAL MODE: OFF\r\n";
+		} else if(strcmp(command_string, (uint8_t*) "/filter:1\r\n") == 0) {
+    		event.event = EV_SYS_FILTER_ON;
+    		message = "FILTER: ON\r\n";
+    	} else if(strcmp(command_string, (uint8_t*) "/filter:0\r\n") == 0) {
+			event.event = EV_SYS_FILTER_OFF;
+			message = "FILTER: OFF\r\n";
+		} else if(strcmp(command_string, (uint8_t*) "/feeder:1\r\n") == 0) {
+			event.event = EV_SYS_FEEDER_ON;
+			message = "FEEDER: ON\r\n";
+		} else if(strcmp(command_string, (uint8_t*) "/feeder:0\r\n") == 0) {
+			event.event = EV_SYS_FEEDER_OFF;
+			message = "FEEDER: OFF\r\n";
+		}
 
-        HAL_UART_Transmit(&huart3, command, DMA_BUFFER_SIZE, 100);
+    	put_event_task_system(event);
+        HAL_UART_Transmit(&huart3, message, strlen(message), 100);
     }
 
     HAL_UART_Receive_DMA(&huart3, command, DMA_BUFFER_SIZE);

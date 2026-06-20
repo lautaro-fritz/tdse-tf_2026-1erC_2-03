@@ -46,11 +46,11 @@ extern "C" {
 
 /********************** typedef **********************************************/
 /* Events to excite Task PWM */
-typedef enum task_pwm_ev {EV_PWM_IDLE, EV_PWM_MOVE} task_pwm_ev_t;
+typedef enum task_pwm_ev {EV_PWM_OFF, EV_PWM_ON} task_pwm_ev_t;
 
 /* States of Task PWM */
-typedef enum task_pwm_st {ST_PWM_IDLE,
-							   ST_PWM_MOVING} task_pwm_st_t;
+typedef enum task_pwm_st {ST_PWM_OFF,
+							   ST_PWM_MOVING, ST_PWM_ON} task_pwm_st_t;
 
 /* Identifier of Task PWM */
 typedef enum task_pwm_id {ID_PWM_MOTOR} task_pwm_id_t;
