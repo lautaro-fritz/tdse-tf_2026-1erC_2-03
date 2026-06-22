@@ -156,8 +156,6 @@ void task_system_auto_statechart(void)
 	if ((true == p_task_system_dta->flag) && (EV_SYS_APP_CONNECTED == p_task_system_dta->event.event)) {
 		p_task_system_dta->flag = false;
 		task_system_set_mode(MANUAL);
-		//tengo que apagar el alimentador
-		//put_event_task_pwm(EV_PWM_MOVE, ID_PWM_MOTOR);
 		put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
 		put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
 		p_task_system_dta->state = ST_SYS_IDLE;
@@ -271,10 +269,10 @@ void task_system_manual_statechart(void)
 	} else if ((true == p_task_system_dta->flag) && (EV_SYS_APP_DISCONNECTED == p_task_system_dta->event.event)) {
 		p_task_system_dta->flag = false;
 		task_system_set_mode(AUTO);
-		//al pasar de manual a auto, apago todos los actuadores, y dejo que se vayan prendiendo solos con los eventos automaticos
 		//tengo que reiniciar los timers de alguna forma
 		put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
 		put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+		reset_timers();
 		return;
 	}
 
@@ -305,7 +303,6 @@ void task_system_manual_statechart(void)
 			if ((true == p_task_system_dta->flag) && (EV_SYS_FEEDER_ON == p_task_system_dta->event.event))
 			{
 				p_task_system_dta->flag = false;
-				//put_event_task_pwm(EV_PWM_MOVE, ID_PWM_MOTOR);
 				put_event_task_pwm(EV_PWM_ON, ID_PWM_MOTOR);
 				p_task_system_dta->state = ST_SYS_FEEDING;
 			}

@@ -15,6 +15,9 @@ const char *p_task_timer 		= "Task Timer";
 const char *p_task_timer_ 		= "Non-Blocking Code";
 const char *p_task_timer__ 	= "(Update by Time Code, period = 1mS)";
 
+static uint32_t last_relay_cycle_time = 0, last_feeder_cycle_time = 0;
+uint32_t current_time;
+
 void task_timer_init(void *parameters)
 {
 	/* Print out: Task Initialized */
@@ -29,8 +32,7 @@ void task_timer_init(void *parameters)
 
 void task_timer_update(void *parameters)
 {
-	static uint32_t last_relay_cycle_time = 0, last_feeder_cycle_time = 0;
-	uint32_t current_time = HAL_GetTick();
+	current_time = HAL_GetTick();
 	static bool relay_on, feeder_on = false;
 	task_system_ev_t system_event = {EV_SYS_IDLE, AUTO};
 
@@ -59,4 +61,9 @@ void task_timer_update(void *parameters)
 		feeder_on = !feeder_on;
 		last_feeder_cycle_time = current_time;
 	}
+}
+
+void reset_timers() {
+	last_relay_cycle_time = 0, last_feeder_cycle_time = 0;
+	current_time = HAL_GetTick();
 }
