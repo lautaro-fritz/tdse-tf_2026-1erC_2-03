@@ -49,27 +49,31 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (huart->Instance == USART3) {
     	if(strcmp(command_string, (uint8_t*) "/manual:1\r\n") == 0) {
     		event.event = EV_SYS_APP_CONNECTED;
-    		message = "MANUAL MODE: ON\r\n";
 		} else if(strcmp(command_string, (uint8_t*) "/manual:0\r\n") == 0) {
 			event.event = EV_SYS_APP_DISCONNECTED;
-			message = "MANUAL MODE: OFF\r\n";
 		} else if(strcmp(command_string, (uint8_t*) "/filter:1\r\n") == 0) {
     		event.event = EV_SYS_FILTER_ON;
-    		message = "FILTER: ON\r\n";
     	} else if(strcmp(command_string, (uint8_t*) "/filter:0\r\n") == 0) {
 			event.event = EV_SYS_FILTER_OFF;
-			message = "FILTER: OFF\r\n";
 		} else if(strcmp(command_string, (uint8_t*) "/feeder:1\r\n") == 0) {
 			event.event = EV_SYS_FEEDER_ON;
-			message = "FEEDER: ON\r\n";
 		} else if(strcmp(command_string, (uint8_t*) "/feeder:0\r\n") == 0) {
 			event.event = EV_SYS_FEEDER_OFF;
-			message = "FEEDER: OFF\r\n";
+		} else {
+			sendMessage("Comando no reconocido.\r\n");
+			HAL_UART_Receive_DMA(&huart3, command, DMA_BUFFER_SIZE);
+			return;
 		}
-
     	put_event_task_system(event);
-        HAL_UART_Transmit(&huart3, message, strlen(message), 100);
     }
 
     HAL_UART_Receive_DMA(&huart3, command, DMA_BUFFER_SIZE);
+}
+
+void sendMessage(char* message){
+	uint8_t dma_buffer[64];
+
+	strcpy(dma_buffer, message);
+
+    HAL_UART_Transmit_DMA(&huart3, message, strlen(message));
 }

@@ -1,5 +1,6 @@
-../app/src/task_system.c:75:6:task_system_init	64	static,ignoring_inline_asm
-../app/src/task_system.c:118:6:task_system_update	16	static
-../app/src/task_system.c:143:6:task_system_auto_statechart	24	static
-../app/src/task_system.c:252:6:task_system_manual_statechart	24	static
-../app/src/task_system.c:362:6:task_system_set_mode	16	static
+../app/src/task_system.c:77:6:task_system_init	64	static,ignoring_inline_asm
+../app/src/task_system.c:120:6:task_system_update	16	static
+../app/src/task_system.c:145:6:statechart	16	static
+../app/src/task_system.c:198:6:task_system_auto_statechart	24	static
+../app/src/task_system.c:235:6:task_system_manual_statechart	24	static
+../app/src/task_system.c:271:6:task_system_set_mode	16	static
