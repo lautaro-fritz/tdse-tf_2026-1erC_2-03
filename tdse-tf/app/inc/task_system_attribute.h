@@ -47,7 +47,6 @@ extern "C" {
 /********************** typedef **********************************************/
 /* State of Task System */
 typedef enum task_system_st {ST_SYS_IDLE,
-							 ST_SYS_ACTIVE,
 							 ST_SYS_FILTERING,
 							 ST_SYS_FEEDING} task_system_st_t;
 

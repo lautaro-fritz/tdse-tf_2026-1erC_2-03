@@ -1,5 +1,5 @@
-app/src/app.o: ../app/src/app.c ../Core/Inc/main.h \
- ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
+app/src/app.o: ../app/src/app.c ../app/inc/task_bluetooth.h \
+ ../Core/Inc/main.h ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
@@ -26,8 +26,9 @@ app/src/app.o: ../app/src/app.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
  ../app/inc/logger.h ../app/inc/dwt.h ../app/inc/board.h \
  ../app/inc/task_sensor.h ../app/inc/task_timer.h \
- ../app/inc/task_bt_input.h ../app/inc/task_system.h \
- ../app/inc/task_actuator.h ../app/inc/task_pwm.h
+ ../app/inc/task_system.h ../app/inc/task_actuator.h \
+ ../app/inc/task_pwm.h
+../app/inc/task_bluetooth.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -59,7 +60,6 @@ app/src/app.o: ../app/src/app.c ../Core/Inc/main.h \
 ../app/inc/board.h:
 ../app/inc/task_sensor.h:
 ../app/inc/task_timer.h:
-../app/inc/task_bt_input.h:
 ../app/inc/task_system.h:
 ../app/inc/task_actuator.h:
 ../app/inc/task_pwm.h:

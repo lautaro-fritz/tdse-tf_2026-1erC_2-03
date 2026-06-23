@@ -23,7 +23,7 @@
 "./app/src/systick.o"
 "./app/src/task_actuator.o"
 "./app/src/task_actuator_interface.o"
-"./app/src/task_bt_input.o"
+"./app/src/task_bluetooth.o"
 "./app/src/task_pwm.o"
 "./app/src/task_pwm_interface.o"
 "./app/src/task_sensor.o"

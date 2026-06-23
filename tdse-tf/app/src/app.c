@@ -34,6 +34,7 @@
 
 /********************** inclusions *******************************************/
 /* Project includes */
+#include <task_bluetooth.h>
 #include "main.h"
 
 /* Demo includes */
@@ -44,7 +45,6 @@
 #include "board.h"
 #include "task_sensor.h"
 #include "task_timer.h"
-#include "task_bt_input.h"
 #include "task_system.h"
 #include "task_actuator.h"
 #include "task_pwm.h"
@@ -78,7 +78,7 @@ typedef struct {
 const task_cfg_t task_cfg_list[]	= {
 		{task_sensor_init, 		task_sensor_update, 	NULL},
 		{task_timer_init, 		task_timer_update, 	NULL},
-		{task_bt_input_init, 		task_bt_input_update, 	NULL},
+		{task_bluetooth_init, 		task_bluetooth_update, 	NULL},
 		{task_system_init, 		task_system_update, 	NULL},
 		{task_actuator_init,	task_actuator_update, 	NULL},
 		{task_pwm_init,	task_pwm_update, 	NULL}
@@ -188,7 +188,7 @@ void app_update(void)
 
 			g_app_runtime_us += task_dta_list[index].LET;
 		}
-		//HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
+		HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
 
 		/* Protect shared resource */
 		__asm("CPSID i");	/* disable interrupts */

@@ -225,7 +225,7 @@ void task_system_auto_statechart(void)
 
 	if ((true == p_task_system_dta->flag) && (p_task_system_dta->event.mode != AUTO)) {
 		p_task_system_dta->flag = false;
-		printf("DENEGADO.\n");
+		sendMessage("Manual commands not allowed in AUTO mode.\r\n");
 		return;
 	}
 
@@ -261,7 +261,7 @@ void task_system_manual_statechart(void)
 
 	if ((true == p_task_system_dta->flag) && (p_task_system_dta->event.mode != MANUAL)) {
 		p_task_system_dta->flag = false;
-		sendMessage("Manual commands not allowed in AUTO mode.\r\n");
+		printf("AUTO event detected while in MANUAL mode, discarding...\n");
 		return;
 	}
 

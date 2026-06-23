@@ -1,4 +1,0 @@
-../app/src/task_bt_input.c:24:6:task_bt_input_init	32	static,ignoring_inline_asm
-../app/src/task_bt_input.c:36:6:task_bt_input_update	16	static
-../app/src/task_bt_input.c:42:6:HAL_UART_RxCpltCallback	32	static
-../app/src/task_bt_input.c:73:6:sendMessage	80	static

@@ -1,5 +1,5 @@
 /*
- * task_timer.c
+ * task_bluetooth.c
  *
  *  Created on: Jun 19, 2026
  *      Author: Lautaro Gastón Fritz
@@ -15,13 +15,13 @@
 
 extern UART_HandleTypeDef huart3;
 
-const char *p_task_bt 		= "Task BT Input";
+const char *p_task_bt 		= "Task Bluetooth";
 const char *p_task_bt_ 		= "Non-Blocking Code";
 const char *p_task_bt__ 	= "(Update by Time Code, period = 1mS)";
 
 uint8_t command[DMA_BUFFER_SIZE];
 
-void task_bt_input_init(void *parameters)
+void task_bluetooth_init(void *parameters)
 {
 	/* Print out: Task Initialized */
 	LOGGER_INFO(" ");
@@ -33,7 +33,7 @@ void task_bt_input_init(void *parameters)
 	HAL_UART_Receive_DMA(&huart3, command, DMA_BUFFER_SIZE);
 }
 
-void task_bt_input_update(void *parameters)
+void task_bluetooth_update(void *parameters)
 {
 
 }
@@ -71,9 +71,5 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 }
 
 void sendMessage(char* message){
-	uint8_t dma_buffer[64];
-
-	strcpy(dma_buffer, message);
-
     HAL_UART_Transmit_DMA(&huart3, message, strlen(message));
 }

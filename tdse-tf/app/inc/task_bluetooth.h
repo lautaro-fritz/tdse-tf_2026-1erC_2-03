@@ -32,8 +32,8 @@
  * @author : Juan Manuel Cruz <jcruz@fi.uba.ar> <jcruz@frba.utn.edu.ar>
  */
 
-#ifndef TASK_BT_INPUT_H_
-#define TASK_BT_INPUT_H_
+#ifndef TASK_BLUETOOTH_H_
+#define TASK_BLUETOOTH_H_
 
 /********************** CPP guard ********************************************/
 #ifdef __cplusplus
@@ -49,14 +49,14 @@ extern "C" {
 /********************** external data declaration ****************************/
 
 /********************** external functions declaration ***********************/
-extern void task_bt_input_init(void *parameters);
-extern void task_bt_input_update(void *parameters);
+extern void task_bluetooth_init(void *parameters);
+extern void task_bluetooth_update(void *parameters);
 
 /********************** End of CPP guard *************************************/
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* TASK_TIMER_H_ */
+#endif /* TASK_BLUETOOTH_H_ */
 
 /********************** end of file ******************************************/

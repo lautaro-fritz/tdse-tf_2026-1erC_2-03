@@ -1,0 +1,4 @@
+../app/src/task_bluetooth.c:24:6:task_bluetooth_init	32	static,ignoring_inline_asm
+../app/src/task_bluetooth.c:36:6:task_bluetooth_update	16	static
+../app/src/task_bluetooth.c:42:6:HAL_UART_RxCpltCallback	32	static
+../app/src/task_bluetooth.c:73:6:sendMessage	16	static

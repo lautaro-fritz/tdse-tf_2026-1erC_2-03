@@ -1,4 +1,4 @@
-app/src/task_bt_input.o: ../app/src/task_bt_input.c ../Core/Inc/main.h \
+app/src/task_bluetooth.o: ../app/src/task_bluetooth.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
