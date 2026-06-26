@@ -1,4 +1,4 @@
-app/src/app.o: ../app/src/app.c ../app/inc/task_bluetooth.h \
+app/src/ds18b20.o: ../app/src/ds18b20.c ../app/inc/ds18b20.h \
  ../Core/Inc/main.h ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -23,12 +23,9 @@ app/src/app.o: ../app/src/app.c ../app/inc/task_bluetooth.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
- ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../app/inc/logger.h ../app/inc/dwt.h ../app/inc/board.h \
- ../app/inc/task_sensor.h ../app/inc/task_timer.h \
- ../app/inc/task_system.h ../app/inc/task_actuator.h \
- ../app/inc/task_pwm.h ../app/inc/task_thermometer.h
-../app/inc/task_bluetooth.h:
+ ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h ../app/inc/ow.h \
+ ../app/inc/ow_config.h
+../app/inc/ds18b20.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 ../Core/Inc/stm32f1xx_hal_conf.h:
@@ -55,12 +52,5 @@ app/src/app.o: ../app/src/app.c ../app/inc/task_bluetooth.h \
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h:
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
-../app/inc/logger.h:
-../app/inc/dwt.h:
-../app/inc/board.h:
-../app/inc/task_sensor.h:
-../app/inc/task_timer.h:
-../app/inc/task_system.h:
-../app/inc/task_actuator.h:
-../app/inc/task_pwm.h:
-../app/inc/task_thermometer.h:
+../app/inc/ow.h:
+../app/inc/ow_config.h:

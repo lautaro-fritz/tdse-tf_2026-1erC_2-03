@@ -49,6 +49,7 @@
 #include "task_actuator_interface.h"
 #include "task_pwm_attribute.h"
 #include "task_pwm_interface.h"
+#include "task_thermometer_attribute.h"
 
 /********************** macros and definitions *******************************/
 #define DEL_SYS_MIN			0ul

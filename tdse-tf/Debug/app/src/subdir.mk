@@ -6,7 +6,9 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../app/src/app.c \
+../app/src/ds18b20.c \
 ../app/src/logger.c \
+../app/src/ow.c \
 ../app/src/systick.c \
 ../app/src/task_actuator.c \
 ../app/src/task_actuator_interface.c \
@@ -16,11 +18,15 @@ C_SRCS += \
 ../app/src/task_sensor.c \
 ../app/src/task_system.c \
 ../app/src/task_system_interface.c \
+../app/src/task_thermometer.c \
+../app/src/task_thermometer_interface.c \
 ../app/src/task_timer.c 
 
 OBJS += \
 ./app/src/app.o \
+./app/src/ds18b20.o \
 ./app/src/logger.o \
+./app/src/ow.o \
 ./app/src/systick.o \
 ./app/src/task_actuator.o \
 ./app/src/task_actuator_interface.o \
@@ -30,11 +36,15 @@ OBJS += \
 ./app/src/task_sensor.o \
 ./app/src/task_system.o \
 ./app/src/task_system_interface.o \
+./app/src/task_thermometer.o \
+./app/src/task_thermometer_interface.o \
 ./app/src/task_timer.o 
 
 C_DEPS += \
 ./app/src/app.d \
+./app/src/ds18b20.d \
 ./app/src/logger.d \
+./app/src/ow.d \
 ./app/src/systick.d \
 ./app/src/task_actuator.d \
 ./app/src/task_actuator_interface.d \
@@ -44,6 +54,8 @@ C_DEPS += \
 ./app/src/task_sensor.d \
 ./app/src/task_system.d \
 ./app/src/task_system_interface.d \
+./app/src/task_thermometer.d \
+./app/src/task_thermometer_interface.d \
 ./app/src/task_timer.d 
 
 
@@ -54,7 +66,7 @@ app/src/%.o app/src/%.su app/src/%.cyclo: ../app/src/%.c app/src/subdir.mk
 clean: clean-app-2f-src
 
 clean-app-2f-src:
-	-$(RM) ./app/src/app.cyclo ./app/src/app.d ./app/src/app.o ./app/src/app.su ./app/src/logger.cyclo ./app/src/logger.d ./app/src/logger.o ./app/src/logger.su ./app/src/systick.cyclo ./app/src/systick.d ./app/src/systick.o ./app/src/systick.su ./app/src/task_actuator.cyclo ./app/src/task_actuator.d ./app/src/task_actuator.o ./app/src/task_actuator.su ./app/src/task_actuator_interface.cyclo ./app/src/task_actuator_interface.d ./app/src/task_actuator_interface.o ./app/src/task_actuator_interface.su ./app/src/task_bluetooth.cyclo ./app/src/task_bluetooth.d ./app/src/task_bluetooth.o ./app/src/task_bluetooth.su ./app/src/task_pwm.cyclo ./app/src/task_pwm.d ./app/src/task_pwm.o ./app/src/task_pwm.su ./app/src/task_pwm_interface.cyclo ./app/src/task_pwm_interface.d ./app/src/task_pwm_interface.o ./app/src/task_pwm_interface.su ./app/src/task_sensor.cyclo ./app/src/task_sensor.d ./app/src/task_sensor.o ./app/src/task_sensor.su ./app/src/task_system.cyclo ./app/src/task_system.d ./app/src/task_system.o ./app/src/task_system.su ./app/src/task_system_interface.cyclo ./app/src/task_system_interface.d ./app/src/task_system_interface.o ./app/src/task_system_interface.su ./app/src/task_timer.cyclo ./app/src/task_timer.d ./app/src/task_timer.o ./app/src/task_timer.su
+	-$(RM) ./app/src/app.cyclo ./app/src/app.d ./app/src/app.o ./app/src/app.su ./app/src/ds18b20.cyclo ./app/src/ds18b20.d ./app/src/ds18b20.o ./app/src/ds18b20.su ./app/src/logger.cyclo ./app/src/logger.d ./app/src/logger.o ./app/src/logger.su ./app/src/ow.cyclo ./app/src/ow.d ./app/src/ow.o ./app/src/ow.su ./app/src/systick.cyclo ./app/src/systick.d ./app/src/systick.o ./app/src/systick.su ./app/src/task_actuator.cyclo ./app/src/task_actuator.d ./app/src/task_actuator.o ./app/src/task_actuator.su ./app/src/task_actuator_interface.cyclo ./app/src/task_actuator_interface.d ./app/src/task_actuator_interface.o ./app/src/task_actuator_interface.su ./app/src/task_bluetooth.cyclo ./app/src/task_bluetooth.d ./app/src/task_bluetooth.o ./app/src/task_bluetooth.su ./app/src/task_pwm.cyclo ./app/src/task_pwm.d ./app/src/task_pwm.o ./app/src/task_pwm.su ./app/src/task_pwm_interface.cyclo ./app/src/task_pwm_interface.d ./app/src/task_pwm_interface.o ./app/src/task_pwm_interface.su ./app/src/task_sensor.cyclo ./app/src/task_sensor.d ./app/src/task_sensor.o ./app/src/task_sensor.su ./app/src/task_system.cyclo ./app/src/task_system.d ./app/src/task_system.o ./app/src/task_system.su ./app/src/task_system_interface.cyclo ./app/src/task_system_interface.d ./app/src/task_system_interface.o ./app/src/task_system_interface.su ./app/src/task_thermometer.cyclo ./app/src/task_thermometer.d ./app/src/task_thermometer.o ./app/src/task_thermometer.su ./app/src/task_thermometer_interface.cyclo ./app/src/task_thermometer_interface.d ./app/src/task_thermometer_interface.o ./app/src/task_thermometer_interface.su ./app/src/task_timer.cyclo ./app/src/task_timer.d ./app/src/task_timer.o ./app/src/task_timer.su
 
 .PHONY: clean-app-2f-src
 
