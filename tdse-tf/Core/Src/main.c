@@ -366,8 +366,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(USART_TX_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin THERMO_1_Pin RELAY_FILTER_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|THERMO_1_Pin|RELAY_FILTER_Pin;
+  /*Configure GPIO pins : LD2_Pin RELAY_FILTER_Pin */
+  GPIO_InitStruct.Pin = LD2_Pin|RELAY_FILTER_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -378,6 +378,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : THERMO_1_Pin */
+  GPIO_InitStruct.Pin = THERMO_1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(THERMO_1_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : RELAY_LAMP_Pin */
   GPIO_InitStruct.Pin = RELAY_LAMP_Pin;

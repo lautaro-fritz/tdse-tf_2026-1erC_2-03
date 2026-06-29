@@ -61,8 +61,8 @@ all: main-build
 main-build: tdse-tf.elf secondary-outputs
 
 # Tool invocations
-tdse-tf.elf tdse-tf.map: $(OBJS) $(USER_OBJS) C:\Users\josef\OneDrive\Desktop\tdse-tf_2026-1erC_2-03\tdse-tf\STM32F103RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "tdse-tf.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\josef\OneDrive\Desktop\tdse-tf_2026-1erC_2-03\tdse-tf\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="tdse-tf.map" -Wl,--gc-sections -static -specs=rdimon.specs --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+tdse-tf.elf tdse-tf.map: $(OBJS) $(USER_OBJS) F:\Mauro\Facultad\Taller\ de\ sistemas\ embebidos\TPs\TP\ Final\tpf\ git\tdse-tf_2026-1erC_2-03\tdse-tf\STM32F103RBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "tdse-tf.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"F:\Mauro\Facultad\Taller de sistemas embebidos\TPs\TP Final\tpf git\tdse-tf_2026-1erC_2-03\tdse-tf\STM32F103RBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="tdse-tf.map" -Wl,--gc-sections -static -specs=rdimon.specs --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

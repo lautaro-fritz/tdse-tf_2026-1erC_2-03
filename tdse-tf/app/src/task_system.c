@@ -50,6 +50,7 @@
 #include "task_pwm_attribute.h"
 #include "task_pwm_interface.h"
 #include "task_thermometer_attribute.h"
+#include "task_thermometer_interface.h"
 
 /********************** macros and definitions *******************************/
 #define DEL_SYS_MIN			0ul
@@ -120,6 +121,22 @@ void task_system_init(void *parameters)
 
 void task_system_update(void *parameters)
 {
+	// ... tus otras variables estáticas ...
+	static uint32_t last_therm_time = 0;
+	uint32_t current_time = HAL_GetTick();
+
+	// ... (tus bloques existentes de relay y pwm) ...
+
+	// Nueva condición para probar el termómetro cada 3000 ms (3 segundos)
+	if (current_time - last_therm_time >= 3000)
+	{
+		// Enviamos el evento para que la tarea del termómetro se despierte y mida
+		put_event_task_thermometer(EV_THERM_START_READ, ID_THERM_A);
+		last_therm_time = current_time;
+	}
+
+
+
 	/* Run Task Statechart */
 	switch (g_task_system_mode)
 	{

@@ -198,7 +198,7 @@ void task_thermometer_statechart(uint32_t index)
 			// put_event_task_system(EV_SYS_TEMP_READY);
 
 			// Dividimos por 100 porque la librería NimaLTD devuelve enteros escalados (Ej: 2550 = 25.50°C)
-			LOGGER_LOG("Temperatura: %d.%02d C\r\n", p_dta->temperature / 100, abs(p_dta->temperature % 100));
+			//LOGGER_LOG("Temperatura: %d.%02d C\r\n", p_dta->temperature / 100, abs(p_dta->temperature % 100));
 
 			p_dta->state = ST_THERM_IDLE;
 		}
