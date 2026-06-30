@@ -57,6 +57,8 @@ typedef enum task_system_ev_type {EV_SYS_IDLE,
 							 EV_SYS_FILTER_OFF,
 							 EV_SYS_FEEDER_ON,
 							 EV_SYS_FEEDER_OFF,
+							 EV_SYS_LIGHT_ON,
+							 EV_SYS_LIGHT_OFF,
 							 EV_SYS_APP_CONNECTED,
 							 EV_SYS_APP_DISCONNECTED} task_system_ev_type_t;
 

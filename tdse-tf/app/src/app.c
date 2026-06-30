@@ -193,7 +193,7 @@ void app_update(void)
 
 			g_app_runtime_us += task_dta_list[index].LET;
 		}
-		HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
+		//HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
 
 		/* Protect shared resource */
 		__asm("CPSID i");	/* disable interrupts */

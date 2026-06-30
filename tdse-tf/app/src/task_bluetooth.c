@@ -38,13 +38,15 @@ void task_bluetooth_update(void *parameters)
 
 }
 
+void sendMessage(char* message){
+    HAL_UART_Transmit_DMA(&huart3, message, strlen(message));
+}
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 	uint8_t command_string[DMA_BUFFER_SIZE + 1];
 	strcpy(command_string, command);
 	command_string[DMA_BUFFER_SIZE] = '\0';
 	task_system_ev_t event = {EV_SYS_IDLE, MANUAL};
-	char* message;
 
     if (huart->Instance == USART3) {
     	if(strcmp(command_string, (uint8_t*) "/manual:1\r\n") == 0) {
@@ -59,6 +61,10 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 			event.event = EV_SYS_FEEDER_ON;
 		} else if(strcmp(command_string, (uint8_t*) "/feeder:0\r\n") == 0) {
 			event.event = EV_SYS_FEEDER_OFF;
+		} else if(strcmp(command_string, (uint8_t*) "/lights:1\r\n") == 0) {
+			event.event = EV_SYS_LIGHT_ON;
+		} else if(strcmp(command_string, (uint8_t*) "/lights:0\r\n") == 0) {
+			event.event = EV_SYS_LIGHT_OFF;
 		} else {
 			sendMessage("Comando no reconocido.\r\n");
 			HAL_UART_Receive_DMA(&huart3, command, DMA_BUFFER_SIZE);
@@ -68,8 +74,4 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     }
 
     HAL_UART_Receive_DMA(&huart3, command, DMA_BUFFER_SIZE);
-}
-
-void sendMessage(char* message){
-    HAL_UART_Transmit_DMA(&huart3, message, strlen(message));
 }
