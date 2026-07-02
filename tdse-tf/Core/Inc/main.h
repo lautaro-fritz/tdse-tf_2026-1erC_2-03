@@ -64,10 +64,12 @@ void Error_Handler(void);
 #define B1_EXTI_IRQn EXTI15_10_IRQn
 #define USART_TX_Pin GPIO_PIN_2
 #define USART_TX_GPIO_Port GPIOA
-#define USART_RX_Pin GPIO_PIN_3
-#define USART_RX_GPIO_Port GPIOA
 #define LD2_Pin GPIO_PIN_5
 #define LD2_GPIO_Port GPIOA
+#define THERMO_1_Pin GPIO_PIN_8
+#define THERMO_1_GPIO_Port GPIOA
+#define BUZZER_1_Pin GPIO_PIN_9
+#define BUZZER_1_GPIO_Port GPIOA
 #define RELAY_FILTER_Pin GPIO_PIN_10
 #define RELAY_FILTER_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13

@@ -51,10 +51,12 @@
 #define PWM_DTA_QTY	PWM_CFG_QTY
 
 extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim4;
 
 /********************** internal data declaration ****************************/
 task_pwm_cfg_t task_pwm_cfg_list[] = {
-	{ID_PWM_MOTOR,  GPIOB,  GPIO_PIN_4, 0.0, 0.0, &htim3, TIM_CHANNEL_1},
+	{ID_PWM_MOTOR,  GPIOB,  GPIO_PIN_4, 0.0, 180.0, 0.0, 0.0, &htim3, TIM_CHANNEL_1},
+	{ID_PWM_LIGHT,  GPIOB,  GPIO_PIN_6, 0.0, 1000.0, 0.0, 0.0, &htim4, TIM_CHANNEL_1},
 };
 
 task_pwm_dta_t task_pwm_dta_list[PWM_DTA_QTY];
@@ -93,10 +95,10 @@ void task_pwm_init(void *parameters)
 		p_task_pwm_dta = &task_pwm_dta_list[index];
 
 		/* Init & Print out: Index & Task execution FSM */
-		state = ST_PWM_IDLE;
+		state = ST_PWM_OFF;
 		p_task_pwm_dta->state = state;
 
-		event = EV_PWM_IDLE;
+		event = EV_PWM_OFF;
 		p_task_pwm_dta->event = event;
 
 		b_event = false;
@@ -109,7 +111,11 @@ void task_pwm_init(void *parameters)
 					 GET_NAME(event), (uint32_t)event,
 					 GET_NAME(b_event), (b_event ? "true" : "false"));
 
-		__HAL_TIM_SET_COMPARE(p_task_pwm_cfg->htim, p_task_pwm_cfg->channel, 1000);
+		if(p_task_pwm_cfg->identifier == ID_PWM_MOTOR)
+			__HAL_TIM_SET_COMPARE(p_task_pwm_cfg->htim, p_task_pwm_cfg->channel, 1000);
+		else
+			__HAL_TIM_SET_COMPARE(p_task_pwm_cfg->htim, p_task_pwm_cfg->channel, 0);
+
 		HAL_TIM_PWM_Start(p_task_pwm_cfg->htim, p_task_pwm_cfg->channel);
 	}
 }
@@ -136,40 +142,55 @@ void task_pwm_statechart(uint32_t index)
 
 	switch (p_task_pwm_dta->state)
 	{
-		case ST_PWM_IDLE:
-
-			if ((true == p_task_pwm_dta->flag) && (EV_PWM_MOVE == p_task_pwm_dta->event))
+		case ST_PWM_OFF:
+			if ((true == p_task_pwm_dta->flag) && (EV_PWM_ON == p_task_pwm_dta->event))
 			{
-				p_task_pwm_dta->flag = false;
-				//por si el servo no se posiciona exactamente en 0.0
-				if (p_task_pwm_cfg->current_angle < 1.0f)
-					p_task_pwm_cfg->target_angle = 180.0f;
-				else
-					p_task_pwm_cfg->target_angle = 0.0f;
+				if (p_task_pwm_cfg->current_value < 1.0f)
+					p_task_pwm_cfg->target_value = p_task_pwm_cfg->max_value;
+				p_task_pwm_dta->state = ST_PWM_MOVING;
+			}
+
+			break;
+
+		case ST_PWM_ON:
+			if ((true == p_task_pwm_dta->flag) && (EV_PWM_OFF == p_task_pwm_dta->event))
+			{
+				if (p_task_pwm_cfg->current_value > p_task_pwm_cfg->max_value - 1.0f)
+					p_task_pwm_cfg->target_value = p_task_pwm_cfg->min_value;
 				p_task_pwm_dta->state = ST_PWM_MOVING;
 			}
 
 			break;
 
 		case ST_PWM_MOVING:
-			if (p_task_pwm_cfg->current_angle < p_task_pwm_cfg->target_angle){
-				p_task_pwm_cfg->current_angle += 1.0f;
-				uint32_t ticks = 1000 + (uint32_t)((p_task_pwm_cfg->current_angle / 180.0f) * 1000.0f);
-				__HAL_TIM_SET_COMPARE(p_task_pwm_cfg->htim, p_task_pwm_cfg->channel, ticks);
-			} else if (p_task_pwm_cfg->current_angle > p_task_pwm_cfg->target_angle){
-				p_task_pwm_cfg->current_angle -= 1.0f;
-				uint32_t ticks = 1000 + (uint32_t)((p_task_pwm_cfg->current_angle / 180.0f) * 1000.0f);
-				__HAL_TIM_SET_COMPARE(p_task_pwm_cfg->htim, p_task_pwm_cfg->channel, ticks);
+			if (p_task_pwm_cfg->current_value < p_task_pwm_cfg->target_value) {
+			    p_task_pwm_cfg->current_value += 1.0f;
+			}
+			else if (p_task_pwm_cfg->current_value > p_task_pwm_cfg->target_value) {
+			    p_task_pwm_cfg->current_value -= 1.0f;
+			}
+
+			uint32_t ticks = 0;
+			if (p_task_pwm_cfg->current_value != p_task_pwm_cfg->target_value) {
+			    if (p_task_pwm_cfg->identifier == ID_PWM_MOTOR)
+			        ticks = 1000 + (uint32_t)((p_task_pwm_cfg->current_value / 180.0f) * 1000.0f);
+			    else
+			        ticks = (uint32_t)p_task_pwm_cfg->current_value;
+
+			    __HAL_TIM_SET_COMPARE(p_task_pwm_cfg->htim, p_task_pwm_cfg->channel, ticks);
 			} else {
-				p_task_pwm_dta->state = ST_PWM_IDLE;
+				if (p_task_pwm_cfg->current_value >= p_task_pwm_cfg->max_value - 1.0f)
+					p_task_pwm_dta->state = ST_PWM_ON;
+				else
+					p_task_pwm_dta->state = ST_PWM_OFF;
 			}
 
 		    break;
 
 		default:
 
-			p_task_pwm_dta->state = ST_PWM_IDLE;
-			p_task_pwm_dta->event = EV_PWM_IDLE;
+			p_task_pwm_dta->state = ST_PWM_OFF;
+			p_task_pwm_dta->event = EV_PWM_OFF;
 			p_task_pwm_dta->flag = false;
 
 			break;

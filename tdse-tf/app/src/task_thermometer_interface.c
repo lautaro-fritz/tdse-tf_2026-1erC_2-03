@@ -32,30 +32,38 @@
  * @author : Juan Manuel Cruz <jcruz@fi.uba.ar> <jcruz@frba.utn.edu.ar>
  */
 
-#ifndef TASK_RELAY_INTERFACE_H_
-#define TASK_RELAY_INTERFACE_H_
-
-/********************** CPP guard ********************************************/
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /********************** inclusions *******************************************/
+/* Project includes */
+#include "main.h"
 
-/********************** macros ***********************************************/
+/* Demo includes */
+#include "logger.h"
+#include "dwt.h"
 
-/********************** typedef **********************************************/
+/* Application & Tasks includes */
+#include "board.h"
+#include "app.h"
+#include "task_thermometer_attribute.h"
+
+/********************** macros and definitions *******************************/
+
+/********************** internal data declaration ****************************/
+
+/********************** internal functions declaration ***********************/
+
+/********************** internal data definition *****************************/
 
 /********************** external data declaration ****************************/
 
-/********************** external functions declaration ***********************/
-extern void put_event_task_relay(task_relay_ev_t event, task_relay_id_t identifier);
+/********************** external functions definition ************************/
+void put_event_task_thermometer(task_thermometer_ev_t event, task_thermometer_id_t identifier)
+{
+	task_thermometer_dta_t *p_task_thermometer_dta;
 
-/********************** End of CPP guard *************************************/
-#ifdef __cplusplus
+	p_task_thermometer_dta = &task_thermometer_dta_list[identifier];
+
+	p_task_thermometer_dta->event = event;
+	p_task_thermometer_dta->flag = true;
 }
-#endif
-
-#endif /* TASK_RELAY_INTERFACE_H_ */
 
 /********************** end of file ******************************************/

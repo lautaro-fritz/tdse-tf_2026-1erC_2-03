@@ -32,8 +32,8 @@
  * @author : Juan Manuel Cruz <jcruz@fi.uba.ar> <jcruz@frba.utn.edu.ar>
  */
 
-#ifndef TASK_RELAY_ATTRIBUTE_H_
-#define TASK_RELAY_ATTRIBUTE_H_
+#ifndef TASK_BLUETOOTH_H_
+#define TASK_BLUETOOTH_H_
 
 /********************** CPP guard ********************************************/
 #ifdef __cplusplus
@@ -45,42 +45,18 @@ extern "C" {
 /********************** macros ***********************************************/
 
 /********************** typedef **********************************************/
-/* Events to excite Task Relay */
-typedef enum task_relay_ev {EV_REL_TOGGLE} task_relay_ev_t;
-
-/* States of Task Relay */
-typedef enum task_relay_st {ST_REL_OFF,
-							   ST_REL_ON} task_relay_st_t;
-
-/* Identifier of Task Relay */
-typedef enum task_relay_id {ID_REL_LAMP, ID_REL_FILTER} task_relay_id_t;
-
-typedef struct
-{
-	task_relay_id_t	identifier;
-	GPIO_TypeDef *		gpio_port;
-	uint16_t			pin;
-	GPIO_PinState		rel_on;
-	GPIO_PinState		rel_off;
-} task_relay_cfg_t;
-
-typedef struct
-{
-	task_relay_st_t	state;
-	task_relay_ev_t	event;
-	bool				flag;
-} task_relay_dta_t;
 
 /********************** external data declaration ****************************/
-extern task_relay_dta_t task_relay_dta_list[];
 
 /********************** external functions declaration ***********************/
+extern void task_bluetooth_init(void *parameters);
+extern void task_bluetooth_update(void *parameters);
 
 /********************** End of CPP guard *************************************/
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* TASK_RELAY_ATTRIBUTE_H_ */
+#endif /* TASK_BLUETOOTH_H_ */
 
 /********************** end of file ******************************************/

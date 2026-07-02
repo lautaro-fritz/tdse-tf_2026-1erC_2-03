@@ -50,6 +50,7 @@
 #define DEL_LED_MIN		0ul
 #define DEL_LED_MED		250ul
 #define DEL_LED_MAX		500ul
+#define DEL_BUZZER_MAX		500ul
 
 #define ACTUATOR_CFG_QTY	(sizeof(task_actuator_cfg_list)/sizeof(task_actuator_cfg_t))
 #define ACTUATOR_DTA_QTY	ACTUATOR_CFG_QTY
@@ -57,7 +58,8 @@
 /********************** internal data declaration ****************************/
 const task_actuator_cfg_t task_actuator_cfg_list[] = {
 	{ID_LED_A,  LED_A_PORT,  LED_A_PIN, LED_A_ON,  LED_A_OFF, DEL_LED_MAX},
-	{ID_REL_LAMP,  GPIOB,  GPIO_PIN_5, REL_LAMP_ON,  REL_LAMP_OFF, DEL_LED_MAX}
+	{ID_RELAY_FILTER,  GPIOB,  GPIO_PIN_5, REL_LAMP_ON,  REL_LAMP_OFF, DEL_LED_MAX},
+	{ID_BUZZER,  BUZZER_1_GPIO_Port,  BUZZER_1_Pin, BUZZER_ON,  BUZZER_OFF, DEL_BUZZER_MAX}
 };
 
 task_actuator_dta_t task_actuator_dta_list[ACTUATOR_DTA_QTY];
@@ -146,7 +148,21 @@ void task_actuator_statechart(uint32_t index)
 				HAL_GPIO_WritePin(p_task_actuator_cfg->gpio_port, p_task_actuator_cfg->pin, p_task_actuator_cfg->act_on);
 				p_task_actuator_dta->state = ST_ACT_ACTIVE;
 			}
-
+			// Transición inicial para el Buzzer: Encendido Constante
+			else if ((true == p_task_actuator_dta->flag) && (EV_BUZZER_ON == p_task_actuator_dta->event))
+			{
+				p_task_actuator_dta->flag = false;
+				HAL_GPIO_WritePin(p_task_actuator_cfg->gpio_port, p_task_actuator_cfg->pin, p_task_actuator_cfg->act_on);
+				p_task_actuator_dta->state = ST_ACT_ON;
+			}
+			// Transición inicial para el Buzzer: Intermitencia (Alarma)
+			else if ((true == p_task_actuator_dta->flag) && (EV_BUZZER_BLINK == p_task_actuator_dta->event))
+			{
+				p_task_actuator_dta->flag = false;
+				HAL_GPIO_WritePin(p_task_actuator_cfg->gpio_port, p_task_actuator_cfg->pin, p_task_actuator_cfg->act_on);
+				p_task_actuator_dta->tick = HAL_GetTick();
+				p_task_actuator_dta->state = ST_ACT_BLINKING;
+			}
 			break;
 
 		case ST_ACT_ACTIVE:
@@ -158,6 +174,63 @@ void task_actuator_statechart(uint32_t index)
 				p_task_actuator_dta->state = ST_ACT_IDLE;
 			}
 
+			break;
+
+		case ST_ACT_OFF:
+			if ((true == p_task_actuator_dta->flag) && (EV_BUZZER_ON == p_task_actuator_dta->event))
+			{
+				p_task_actuator_dta->flag = false;
+				HAL_GPIO_WritePin(p_task_actuator_cfg->gpio_port, p_task_actuator_cfg->pin, p_task_actuator_cfg->act_on);
+				p_task_actuator_dta->state = ST_ACT_ON;
+			}
+			else if ((true == p_task_actuator_dta->flag) && (EV_BUZZER_BLINK == p_task_actuator_dta->event))
+			{
+				p_task_actuator_dta->flag = false;
+				HAL_GPIO_WritePin(p_task_actuator_cfg->gpio_port, p_task_actuator_cfg->pin, p_task_actuator_cfg->act_on);
+				p_task_actuator_dta->tick = HAL_GetTick();
+				p_task_actuator_dta->state = ST_ACT_BLINKING;
+			}
+			break;
+
+		case ST_ACT_ON:
+			if ((true == p_task_actuator_dta->flag) && (EV_BUZZER_OFF == p_task_actuator_dta->event))
+			{
+				p_task_actuator_dta->flag = false;
+				HAL_GPIO_WritePin(p_task_actuator_cfg->gpio_port, p_task_actuator_cfg->pin, p_task_actuator_cfg->act_off);
+				p_task_actuator_dta->state = ST_ACT_OFF;
+			}
+			else if ((true == p_task_actuator_dta->flag) && (EV_BUZZER_BLINK == p_task_actuator_dta->event))
+			{
+				p_task_actuator_dta->flag = false;
+				p_task_actuator_dta->tick = HAL_GetTick();
+				p_task_actuator_dta->state = ST_ACT_BLINKING;
+			}
+			break;
+
+		case ST_ACT_BLINKING:
+			// Condición de salida: Apagar buzzer
+			if ((true == p_task_actuator_dta->flag) && (EV_BUZZER_OFF == p_task_actuator_dta->event))
+			{
+				p_task_actuator_dta->flag = false;
+				HAL_GPIO_WritePin(p_task_actuator_cfg->gpio_port, p_task_actuator_cfg->pin, p_task_actuator_cfg->act_off);
+				p_task_actuator_dta->state = ST_ACT_OFF;
+			}
+			// Condición de salida: Pasar a encendido constante
+			else if ((true == p_task_actuator_dta->flag) && (EV_BUZZER_ON == p_task_actuator_dta->event))
+			{
+				p_task_actuator_dta->flag = false;
+				HAL_GPIO_WritePin(p_task_actuator_cfg->gpio_port, p_task_actuator_cfg->pin, p_task_actuator_cfg->act_on);
+				p_task_actuator_dta->state = ST_ACT_ON;
+			}
+			// Lógica de tiempo no bloqueante usando el parámetro tick_max (DEL_BUZZER_MAX = 500ms)
+			else
+			{
+				if ((HAL_GetTick() - p_task_actuator_dta->tick) >= p_task_actuator_cfg->tick_max)
+				{
+					p_task_actuator_dta->tick = HAL_GetTick();
+					HAL_GPIO_TogglePin(p_task_actuator_cfg->gpio_port, p_task_actuator_cfg->pin);
+				}
+			}
 			break;
 
 		default:

@@ -32,8 +32,8 @@
  * @author : Juan Manuel Cruz <jcruz@fi.uba.ar> <jcruz@frba.utn.edu.ar>
  */
 
-#ifndef TASK_RELAY_H_
-#define TASK_RELAY_H_
+#ifndef TASK_THERMOMETER_INTERFACE_H_
+#define TASK_THERMOMETER_INTERFACE_H_
 
 /********************** CPP guard ********************************************/
 #ifdef __cplusplus
@@ -49,14 +49,13 @@ extern "C" {
 /********************** external data declaration ****************************/
 
 /********************** external functions declaration ***********************/
-extern void task_relay_init(void *parameters);
-extern void task_relay_update(void *parameters);
+extern void put_event_task_thermometer(task_thermometer_ev_t event, task_thermometer_id_t identifier);
 
 /********************** End of CPP guard *************************************/
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* TASK_RELAY_H_ */
+#endif /* TASK_THERMOMETER_INTERFACE_H_ */
 
 /********************** end of file ******************************************/

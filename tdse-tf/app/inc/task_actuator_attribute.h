@@ -47,14 +47,21 @@ extern "C" {
 /********************** typedef **********************************************/
 /* Events to excite Task Actuator */
 typedef enum task_actuator_ev {EV_ACT_IDLE,
-							   EV_ACT_ACTIVE} task_actuator_ev_t;
+							   EV_ACT_ACTIVE,
+							   EV_BUZZER_OFF,
+							   EV_BUZZER_ON,
+							   EV_BUZZER_BLINK} task_actuator_ev_t;
+
 
 /* States of Task Actuator */
 typedef enum task_actuator_st {ST_ACT_IDLE,
-							   ST_ACT_ACTIVE} task_actuator_st_t;
+							   ST_ACT_ACTIVE,
+							   ST_ACT_OFF,
+						       ST_ACT_ON,
+						       ST_ACT_BLINKING} task_actuator_st_t;
 
 /* Identifier of Task Actuator */
-typedef enum task_actuator_id {ID_LED_A, ID_REL_LAMP} task_actuator_id_t;
+typedef enum task_actuator_id {ID_LED_A, ID_RELAY_FILTER, ID_BUZZER} task_actuator_id_t;
 
 typedef struct
 {

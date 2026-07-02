@@ -45,13 +45,30 @@ extern "C" {
 /********************** macros ***********************************************/
 
 /********************** typedef **********************************************/
-/* Events to excite Task System */
-typedef enum task_system_ev {EV_SYS_IDLE,
-							 EV_SYS_ACTIVE} task_system_ev_t;
-
 /* State of Task System */
 typedef enum task_system_st {ST_SYS_IDLE,
-							 ST_SYS_ACTIVE} task_system_st_t;
+							 ST_SYS_FILTERING,
+							 ST_SYS_FEEDING} task_system_st_t;
+
+/* Events to excite Task System */
+typedef enum task_system_ev_type {EV_SYS_IDLE,
+							 EV_SYS_ACTIVE,
+							 EV_SYS_FILTER_ON,
+							 EV_SYS_FILTER_OFF,
+							 EV_SYS_FEEDER_ON,
+							 EV_SYS_FEEDER_OFF,
+							 EV_SYS_LIGHT_ON,
+							 EV_SYS_LIGHT_OFF,
+							 EV_SYS_APP_CONNECTED,
+							 EV_SYS_APP_DISCONNECTED} task_system_ev_type_t;
+
+/* Modes to excite Task System */
+typedef enum task_system_mode {AUTO, MANUAL, MODE_QTY} task_system_mode_t;
+
+typedef struct task_system_ev {
+	task_system_ev_type_t event;
+	task_system_mode_t mode;
+} task_system_ev_t;
 
 typedef struct
 {
@@ -65,6 +82,7 @@ typedef struct
 extern task_system_dta_t task_system_dta_list[];
 
 /********************** external functions declaration ***********************/
+extern void task_system_set_mode(task_system_mode_t);
 
 /********************** End of CPP guard *************************************/
 #ifdef __cplusplus

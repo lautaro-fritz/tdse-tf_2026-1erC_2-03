@@ -49,31 +49,31 @@
 #include "task_actuator_interface.h"
 #include "task_pwm_attribute.h"
 #include "task_pwm_interface.h"
+#include "task_thermometer_attribute.h"
+#include "task_thermometer_interface.h"
 
 /********************** macros and definitions *******************************/
 #define DEL_SYS_MIN			0ul
 #define DEL_SYS_MED			250ul
 #define DEL_SYS_MAX			500ul
 
-/* Modes to excite Task System */
-typedef enum task_system_mode {NORMAL, MODE_QTY} task_system_mode_t;
-
 #define SYSTEM_DTA_QTY	MODE_QTY
+
+extern sendMessage(char* message);
+extern reset_timers();
 
 /********************** internal data declaration ****************************/
 task_system_dta_t task_system_dta_list[SYSTEM_DTA_QTY];
 
 /********************** internal functions declaration ***********************/
-void task_system_normal_statechart(void);
-
-void task_system_set_mode(task_system_mode_t);
+void task_system_auto_statechart(void);
+void task_system_manual_statechart(void);
 
 /********************** internal data definition *****************************/
 const char *p_task_system 		= "Task System (System Statechart)";
 const char *p_task_system_ 		= "Non-Blocking Code";
 const char *p_task_system__ 	= "(Update by Time Code, period = 1mS)";
 
-/********************** external data declaration ****************************/
 task_system_mode_t g_task_system_mode;
 
 /********************** external functions definition ************************/
@@ -94,8 +94,6 @@ void task_system_init(void *parameters)
 
 	init_event_task_system();
 
-	task_system_set_mode(NORMAL);
-
 	for (index = 0; SYSTEM_DTA_QTY > index; index++)
 	{
 		/* Update Task System Data Pointer */
@@ -105,7 +103,8 @@ void task_system_init(void *parameters)
 		state = ST_SYS_IDLE;
 		p_task_system_dta->state = state;
 
-		event = EV_SYS_IDLE;
+		event.event = EV_SYS_IDLE;
+		event.mode = AUTO;
 		p_task_system_dta->event = event;
 
 		b_event = false;
@@ -114,38 +113,124 @@ void task_system_init(void *parameters)
 		LOGGER_INFO(" ");
 		LOGGER_INFO("   %s = %lu   %s = %lu   %s = %s",
 					GET_NAME(state), (uint32_t)state,
-					GET_NAME(event), (uint32_t)event,
+					GET_NAME(event.event), (uint32_t)event.event,
 					GET_NAME(b_event), (b_event ? "true" : "false"));
 	}
 
-	task_system_set_mode(NORMAL);
+	task_system_set_mode(AUTO);
 }
 
 void task_system_update(void *parameters)
 {
+	static uint32_t last_therm_time = 0;
+	uint32_t current_time = HAL_GetTick();
+
+	// Termometro, se piden lecturas cada 3000 ms (3 segundos)
+	if (current_time - last_therm_time >= 3000)
+	{
+		// Enviamos el evento para que la tarea del termómetro se despierte y mida
+		put_event_task_thermometer(EV_THERM_START_READ, ID_THERM_A);
+		last_therm_time = current_time;
+	}
+
 	/* Run Task Statechart */
 	switch (g_task_system_mode)
 	{
-		case NORMAL:
+		case AUTO:
 
-			task_system_normal_statechart();
+			task_system_auto_statechart();
+
+			break;
+
+		case MANUAL:
+
+			task_system_manual_statechart();
 
 			break;
 
 		default:
 
-			task_system_set_mode(NORMAL);
+			//task_system_set_mode(AUTO);
 
 			break;
 		}
 }
 
-void task_system_normal_statechart(void)
+void statechart(task_system_dta_t *p_task_system_dta) {
+
+	if ((true == p_task_system_dta->flag)
+			&& (EV_SYS_LIGHT_ON == p_task_system_dta->event.event)) {
+		p_task_system_dta->flag = false;
+		put_event_task_pwm(EV_PWM_ON, ID_PWM_LIGHT);
+		sendMessage("Lights: ON\r\n");
+		p_task_system_dta->event.event = EV_SYS_IDLE;
+		return;
+	} else if ((true == p_task_system_dta->flag)
+			&& (EV_SYS_LIGHT_OFF == p_task_system_dta->event.event)) {
+		p_task_system_dta->flag = false;
+		put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
+		sendMessage("Lights: OFF\r\n");
+		return;
+	}
+
+	switch (p_task_system_dta->state) {
+	case ST_SYS_IDLE:
+		if ((true == p_task_system_dta->flag)
+				&& (EV_SYS_FILTER_ON == p_task_system_dta->event.event)) {
+			p_task_system_dta->flag = false;
+			put_event_task_actuator(EV_ACT_ACTIVE, ID_RELAY_FILTER);
+			p_task_system_dta->state = ST_SYS_FILTERING;
+			sendMessage("Filter: ON\r\n");
+		}
+		if ((true == p_task_system_dta->flag)
+				&& (EV_SYS_FEEDER_ON == p_task_system_dta->event.event)) {
+			p_task_system_dta->flag = false;
+			put_event_task_pwm(EV_PWM_ON, ID_PWM_MOTOR);
+			p_task_system_dta->state = ST_SYS_FEEDING;
+			sendMessage("Feeder: ON\r\n");
+		}
+		break;
+	case ST_SYS_FILTERING:
+		if ((true == p_task_system_dta->flag)
+				&& (EV_SYS_FILTER_OFF == p_task_system_dta->event.event)) {
+			p_task_system_dta->flag = false;
+			put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+			p_task_system_dta->state = ST_SYS_IDLE;
+			sendMessage("Filter: OFF\r\n");
+		}
+		if ((true == p_task_system_dta->flag)
+				&& (EV_SYS_FEEDER_ON == p_task_system_dta->event.event)) {
+			p_task_system_dta->flag = false;
+			put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+			put_event_task_pwm(EV_PWM_ON, ID_PWM_MOTOR);
+			p_task_system_dta->state = ST_SYS_FEEDING;
+			sendMessage("Feeder: ON\r\n");
+		}
+		break;
+	case ST_SYS_FEEDING:
+		if ((true == p_task_system_dta->flag)
+				&& (EV_SYS_FEEDER_OFF == p_task_system_dta->event.event)) {
+			p_task_system_dta->flag = false;
+			put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
+			p_task_system_dta->state = ST_SYS_IDLE;
+			sendMessage("Feeder: OFF\r\n");
+		}
+		break;
+	default:
+		p_task_system_dta->tick = DEL_SYS_MIN;
+		p_task_system_dta->state = ST_SYS_IDLE;
+		p_task_system_dta->event.event = EV_SYS_IDLE;
+		p_task_system_dta->flag = false;
+		break;
+	}
+}
+
+void task_system_auto_statechart(void)
 {
 	task_system_dta_t *p_task_system_dta;
 
 	/* Update Task System Data Pointer */
-	p_task_system_dta = &task_system_dta_list[NORMAL];
+	p_task_system_dta = &task_system_dta_list[AUTO];
 
 	if (true == any_event_task_system())
 	{
@@ -153,61 +238,69 @@ void task_system_normal_statechart(void)
 		p_task_system_dta->event = get_event_task_system();
 	}
 
-	static uint32_t last_relay_cycle_time = 0, last_pwm_time = 0;
-	uint32_t current_time = HAL_GetTick();
-	static bool relay_on = false;
-
-	if (current_time - last_relay_cycle_time >= 2000)
-	{
-		if (relay_on)
-			put_event_task_actuator(EV_ACT_IDLE, ID_REL_LAMP);
-		else
-			put_event_task_actuator(EV_ACT_ACTIVE, ID_REL_LAMP);
-
-		relay_on = !relay_on;
-		last_relay_cycle_time = current_time;
+	if ((true == p_task_system_dta->flag) && (EV_SYS_APP_CONNECTED == p_task_system_dta->event.event)) {
+		p_task_system_dta->flag = false;
+		task_system_set_mode(MANUAL);
+		put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
+		put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+		put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
+		p_task_system_dta->state = ST_SYS_IDLE;
+		sendMessage("MANUAL mode: ON\r\n");
+		return;
+	} else if ((true == p_task_system_dta->flag) && (EV_SYS_APP_DISCONNECTED == p_task_system_dta->event.event)) {
+		p_task_system_dta->flag = false;
+		//aviso de que ya esta en auto
+  		sendMessage("Already in AUTO mode.\r\n");
+		return;
 	}
 
-	if (current_time - last_pwm_time >= 5000)
-	{
-		put_event_task_pwm(EV_PWM_MOVE, ID_PWM_MOTOR);
-
-		last_pwm_time = current_time;
+	if ((true == p_task_system_dta->flag) && (p_task_system_dta->event.mode != AUTO)) {
+		p_task_system_dta->flag = false;
+		sendMessage("Manual commands not allowed in AUTO mode.\r\n");
+		return;
 	}
 
-	switch (p_task_system_dta->state)
+	statechart(p_task_system_dta);
+}
+
+void task_system_manual_statechart(void)
+{
+	task_system_dta_t *p_task_system_dta;
+
+	/* Update Task System Data Pointer */
+	p_task_system_dta = &task_system_dta_list[MANUAL];
+
+	if (true == any_event_task_system())
 	{
-		case ST_SYS_IDLE:
-
-			if ((true == p_task_system_dta->flag) && (EV_SYS_ACTIVE == p_task_system_dta->event))
-			{
-				p_task_system_dta->flag = false;
-				put_event_task_actuator(EV_ACT_ACTIVE, ID_LED_A);
-				p_task_system_dta->state = ST_SYS_ACTIVE;
-			}
-
-			break;
-
-		case ST_SYS_ACTIVE:
-
-			if ((true == p_task_system_dta->flag) && (EV_SYS_IDLE == p_task_system_dta->event))
-			{
-				p_task_system_dta->flag = false;
-				put_event_task_actuator(EV_ACT_IDLE, ID_LED_A);
-				p_task_system_dta->state = ST_SYS_IDLE;
-			}
-
-			break;
-
-		default:
-
-			p_task_system_dta->tick  = DEL_SYS_MIN;
-			p_task_system_dta->state = ST_SYS_IDLE;
-			p_task_system_dta->event = EV_SYS_IDLE;
-			p_task_system_dta->flag = false;
-
-			break;
+		p_task_system_dta->flag = true;
+		p_task_system_dta->event = get_event_task_system();
 	}
+
+	if ((true == p_task_system_dta->flag) && (EV_SYS_APP_CONNECTED == p_task_system_dta->event.event)) {
+		p_task_system_dta->flag = false;
+		sendMessage("Already in MANUAL mode.\r\n");
+		return;
+	} else if ((true == p_task_system_dta->flag) && (EV_SYS_APP_DISCONNECTED == p_task_system_dta->event.event)) {
+		p_task_system_dta->flag = false;
+		task_system_set_mode(AUTO);
+
+		//tengo que reiniciar los timers de alguna forma
+		reset_timers();
+
+		put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
+		put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+		put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
+		sendMessage("MANUAL mode: OFF\r\n");
+		return;
+	}
+
+	if ((true == p_task_system_dta->flag) && (p_task_system_dta->event.mode != MANUAL)) {
+		p_task_system_dta->flag = false;
+		printf("AUTO event detected while in MANUAL mode, discarding...\n");
+		return;
+	}
+
+	statechart(p_task_system_dta);
 }
 
 void task_system_set_mode(task_system_mode_t task_system_mode)
