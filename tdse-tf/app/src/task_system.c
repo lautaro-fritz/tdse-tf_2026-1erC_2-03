@@ -60,6 +60,7 @@
 #define SYSTEM_DTA_QTY	MODE_QTY
 
 extern sendMessage(char* message);
+extern reset_timers();
 
 /********************** internal data declaration ****************************/
 task_system_dta_t task_system_dta_list[SYSTEM_DTA_QTY];
@@ -156,6 +157,22 @@ void task_system_update(void *parameters)
 }
 
 void statechart(task_system_dta_t *p_task_system_dta) {
+
+	if ((true == p_task_system_dta->flag)
+			&& (EV_SYS_LIGHT_ON == p_task_system_dta->event.event)) {
+		p_task_system_dta->flag = false;
+		put_event_task_pwm(EV_PWM_ON, ID_PWM_LIGHT);
+		sendMessage("Lights: ON\r\n");
+		p_task_system_dta->event.event = EV_SYS_IDLE;
+		return;
+	} else if ((true == p_task_system_dta->flag)
+			&& (EV_SYS_LIGHT_OFF == p_task_system_dta->event.event)) {
+		p_task_system_dta->flag = false;
+		put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
+		sendMessage("Lights: OFF\r\n");
+		return;
+	}
+
 	switch (p_task_system_dta->state) {
 	case ST_SYS_IDLE:
 		if ((true == p_task_system_dta->flag)
@@ -226,6 +243,7 @@ void task_system_auto_statechart(void)
 		task_system_set_mode(MANUAL);
 		put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
 		put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+		put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
 		p_task_system_dta->state = ST_SYS_IDLE;
 		sendMessage("MANUAL mode: ON\r\n");
 		return;
@@ -265,9 +283,13 @@ void task_system_manual_statechart(void)
 	} else if ((true == p_task_system_dta->flag) && (EV_SYS_APP_DISCONNECTED == p_task_system_dta->event.event)) {
 		p_task_system_dta->flag = false;
 		task_system_set_mode(AUTO);
+
 		//tengo que reiniciar los timers de alguna forma
+		reset_timers();
+
 		put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
 		put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+		put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
 		sendMessage("MANUAL mode: OFF\r\n");
 		return;
 	}

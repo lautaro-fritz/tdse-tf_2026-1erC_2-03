@@ -15,7 +15,7 @@ const char *p_task_timer 		= "Task Timer";
 const char *p_task_timer_ 		= "Non-Blocking Code";
 const char *p_task_timer__ 	= "(Update by Time Code, period = 1mS)";
 
-static uint32_t last_relay_cycle_time = 0, last_feeder_cycle_time = 0;
+static uint32_t last_relay_cycle_time = 0, last_feeder_cycle_time = 0, last_light_cycle_time = 0;
 uint32_t current_time;
 
 void task_timer_init(void *parameters)
@@ -33,15 +33,15 @@ void task_timer_init(void *parameters)
 void task_timer_update(void *parameters)
 {
 	current_time = HAL_GetTick();
-	static bool relay_on, feeder_on = false;
+	static bool relay_on, feeder_on, light_on = false;
 	task_system_ev_t system_event = {EV_SYS_IDLE, AUTO};
 
 	if (current_time - last_relay_cycle_time >= 2000)
 	{
 		if (relay_on)
-			system_event.event = EV_SYS_FILTER_ON;
-		else
 			system_event.event = EV_SYS_FILTER_OFF;
+		else
+			system_event.event = EV_SYS_FILTER_ON;
 
 		put_event_task_system(system_event);
 
@@ -52,18 +52,30 @@ void task_timer_update(void *parameters)
 	if (current_time - last_feeder_cycle_time >= 5000)
 	{
 		if (feeder_on)
-			system_event.event = EV_SYS_FEEDER_ON;
-		else
 			system_event.event = EV_SYS_FEEDER_OFF;
+		else
+			system_event.event = EV_SYS_FEEDER_ON;
 
 		put_event_task_system(system_event);
 
 		feeder_on = !feeder_on;
 		last_feeder_cycle_time = current_time;
 	}
+
+	if (current_time - last_light_cycle_time >= 10000)
+	{
+		if (light_on)
+			system_event.event = EV_SYS_LIGHT_OFF;
+		else
+			system_event.event = EV_SYS_LIGHT_ON;
+
+		put_event_task_system(system_event);
+
+		light_on = !light_on;
+		last_light_cycle_time = current_time;
+	}
 }
 
 void reset_timers() {
-	last_relay_cycle_time = 0, last_feeder_cycle_time = 0;
-	current_time = HAL_GetTick();
+	last_relay_cycle_time = HAL_GetTick(), last_feeder_cycle_time = HAL_GetTick(), last_light_cycle_time = HAL_GetTick(), current_time = HAL_GetTick();
 }
