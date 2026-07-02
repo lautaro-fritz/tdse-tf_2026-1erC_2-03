@@ -120,9 +120,6 @@ void app_init(void)
 	g_app_cnt = G_APP_CNT_INI;
 	LOGGER_INFO(" %s = %lu", GET_NAME(g_app_cnt), g_app_cnt);
 
-	// Inicializa el driver del DS18B20
-	task_thermometer_init(NULL);
-
 	/* Init Cycle Counter */
 	cycle_counter_init();
 

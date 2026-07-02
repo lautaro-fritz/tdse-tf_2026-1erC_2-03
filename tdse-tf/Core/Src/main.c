@@ -349,7 +349,7 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LD2_Pin|THERMO_1_Pin|RELAY_FILTER_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LD2_Pin|THERMO_1_Pin|BUZZER_1_Pin|RELAY_FILTER_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(RELAY_LAMP_GPIO_Port, RELAY_LAMP_Pin, GPIO_PIN_RESET);
@@ -366,8 +366,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(USART_TX_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LD2_Pin RELAY_FILTER_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin|RELAY_FILTER_Pin;
+  /*Configure GPIO pins : LD2_Pin BUZZER_1_Pin RELAY_FILTER_Pin */
+  GPIO_InitStruct.Pin = LD2_Pin|BUZZER_1_Pin|RELAY_FILTER_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

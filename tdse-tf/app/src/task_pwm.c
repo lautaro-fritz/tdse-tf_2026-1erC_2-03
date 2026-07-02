@@ -137,18 +137,6 @@ void task_pwm_statechart(uint32_t index)
 	switch (p_task_pwm_dta->state)
 	{
 		case ST_PWM_OFF:
-		//case ST_PWM_IDLE:
-
-			/*if ((true == p_task_pwm_dta->flag) && (EV_PWM_MOVE == p_task_pwm_dta->event))
-			{
-				p_task_pwm_dta->flag = false;
-				//por si el servo no se posiciona exactamente en 0.0
-				if (p_task_pwm_cfg->current_angle < 1.0f)
-					p_task_pwm_cfg->target_angle = 180.0f;
-				else
-					p_task_pwm_cfg->target_angle = 0.0f;
-				p_task_pwm_dta->state = ST_PWM_MOVING;
-			}*/
 
 			if ((true == p_task_pwm_dta->flag) && (EV_PWM_ON == p_task_pwm_dta->event))
 			{

@@ -1,4 +1,4 @@
-../app/src/task_thermometer.c:85:6:ds18_tim_cb	1
-../app/src/task_thermometer.c:90:6:task_thermometer_init	3
-../app/src/task_thermometer.c:147:6:task_thermometer_update	2
-../app/src/task_thermometer.c:158:6:task_thermometer_statechart	10
+../app/src/task_thermometer.c:89:6:ds18_tim_cb	1
+../app/src/task_thermometer.c:94:6:task_thermometer_init	3
+../app/src/task_thermometer.c:154:6:task_thermometer_update	2
+../app/src/task_thermometer.c:165:6:task_thermometer_statechart	12

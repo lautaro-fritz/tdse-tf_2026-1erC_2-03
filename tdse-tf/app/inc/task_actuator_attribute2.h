@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2026 Juan Manuel Cruz <jcruz@fi.uba.ar>.
+ * Copyright (c) 2026 Juan Manuel Cruz <jcruz@fi.uba.ar> <jcruz@frba.utn.edu.ar>.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,8 +32,8 @@
  * @author : Juan Manuel Cruz <jcruz@fi.uba.ar> <jcruz@frba.utn.edu.ar>
  */
 
-#ifndef BOARD_H_
-#define BOARD_H_
+#ifndef TASK_ACTUATOR_ATTRIBUTE_H_
+#define TASK_ACTUATOR_ATTRIBUTE_H_
 
 /********************** CPP guard ********************************************/
 #ifdef __cplusplus
@@ -43,82 +43,51 @@ extern "C" {
 /********************** inclusions *******************************************/
 
 /********************** macros ***********************************************/
-#define NUCLEO_F103RC		(0)
-#define NUCLEO_F303K8		(1)
-#define NUCLEO_F401RE		(2)
-#define NUCLEO_F446RE		(3)
-#define NUCLEO_F413ZH		(4)
-#define NUCLEO_F429ZI		(5)
-#define NUCLEO_F439ZI		(6)
-#define NUCLEO_F767ZI		(7)
-#define STM32F407G_DISC1	(8)
-#define STM32F429I_DISC1	(9)
-
-#define BOARD (NUCLEO_F103RC)
-
-/* STM32 Nucleo Boards - 32 Pins */
-#if (BOARD == NUCLEO_F303K8)
-
-#endif
-
-/* STM32 Nucleo Boards - 64 Pins */
-#if ((BOARD == NUCLEO_F103RC) || (BOARD == NUCLEO_F401RE) || (BOARD == NUCLEO_F446RE))
-
-#define BTN_A_PIN		B1_Pin
-#define BTN_A_PORT		B1_GPIO_Port
-#define BTN_A_PRESSED	GPIO_PIN_RESET
-#define BTN_A_HOVER		GPIO_PIN_SET
-
-#define LED_A_PIN		LD2_Pin
-#define LED_A_PORT		LD2_GPIO_Port
-#define LED_A_ON		GPIO_PIN_SET
-#define LED_A_OFF		GPIO_PIN_RESET
-
-#define REL_LAMP_PIN		RELAY_LAMP_GPIO_Port
-#define REL_LAMP_PORT		RELAY_LAMP_Pin
-#define REL_LAMP_ON			GPIO_PIN_SET
-#define REL_LAMP_OFF		GPIO_PIN_RESET
-
-#define BUZZER_PIN		BUZZER_1_GPIO_Port
-#define BUZZER_PORT		BUZZER_1_Pin
-#define BUZZER_ON		GPIO_PIN_SET
-#define BUZZER_OFF		GPIO_PIN_RESET
-
-#endif
-
-/* STM32 Nucleo Boards - 144 Pins */
-#if ((BOARD == NUCLEO_F413ZH) || (BOARD == NUCLEO_F429ZI) || (BOARD == NUCLEO_F439ZI) || (BOARD == NUCLEO_F767ZI))
-
-#define BTN_A_PIN		USER_Btn_Pin
-#define BTN_A_PORT		USER_Btn_GPIO_Port
-#define BTN_A_PRESSED	GPIO_PIN_SET
-#define BTN_A_HOVER		GPIO_PIN_RESET
-
-#define LED_A_PIN		LD1_Pin
-#define LED_A_PORT		LD1_GPIO_Port
-#define LED_A_ON		GPIO_PIN_SET
-#define LED_A_OFF		GPIO_PIN_RESET
-
-#endif
-
-/* STM32 Discovery Kits */
-#if ((BOARD == STM32F407G_DISC1) || (BOARD == STM32F429I_DISC1))
-
-#define BTN_A_PIN		B1_Pin
-#define BTN_A_PORT		B1_GPIO_Port
-#define BTN_A_PRESSED	GPIO_PIN_SET
-#define BTN_A_HOVER		GPIO_PIN_RESET
-
-#define LED_A_PIN		LD3_Pin
-#define LED_A_PORT		LD3_GPIO_Port
-#define LED_A_ON		GPIO_PIN_SET
-#define LED_A_OFF		GPIO_PIN_RESET
-
-#endif
 
 /********************** typedef **********************************************/
+/* Events to excite Task Actuator */
+typedef enum task_actuator_ev {EV_ACT_IDLE,
+							   EV_ACT_ACTIVE,
+							   EV_BUZZER_OFF,
+							   EV_BUZZER_ON,
+							   EV_BUZZER_BLINK} task_actuator_ev_t;
+
+
+/* States of Task Actuator */
+typedef enum task_actuator_st {ST_ACT_IDLE,
+							   ST_ACT_ACTIVE,
+							   ST_ACT_OFF,
+						       ST_ACT_ON,
+						       ST_ACT_BLINKING} task_actuator_st_t;
+
+/* Identifier of Task Actuator */
+typedef enum task_actuator_id {ID_LED_A, ID_RELAY_FILTER, ID_BUZZER} task_actuator_id_t;
+
+typedef struct
+{
+	task_actuator_id_t	identifier;
+	GPIO_TypeDef *		gpio_port;
+	uint16_t			pin;
+	GPIO_PinState		act_on;
+	GPIO_PinState		act_off;
+	uint32_t			tick_max;
+
+	/* NUEVOS CAMPOS PARA DESACOPLAR */
+	task_actuator_st_t  init_state;  // Estado con el que arranca este componente
+	task_actuator_ev_t  init_event;  // Evento con el que arranca este componente
+	statechart_func_t   statechart;  // La función específica que maneja su lógica
+} task_actuator_cfg_t;
+
+typedef struct
+{
+	uint32_t			tick;
+	task_actuator_st_t	state;
+	task_actuator_ev_t	event;
+	bool				flag;
+} task_actuator_dta_t;
 
 /********************** external data declaration ****************************/
+extern task_actuator_dta_t task_actuator_dta_list[];
 
 /********************** external functions declaration ***********************/
 
@@ -127,6 +96,6 @@ extern "C" {
 }
 #endif
 
-#endif /* BOARD_H_ */
+#endif /* TASK_ACTUATOR_ATTRIBUTE_H_ */
 
 /********************** end of file ******************************************/

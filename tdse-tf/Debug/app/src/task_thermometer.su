@@ -1,4 +1,4 @@
-../app/src/task_thermometer.c:85:6:ds18_tim_cb	16	static
-../app/src/task_thermometer.c:90:6:task_thermometer_init	80	static,ignoring_inline_asm
-../app/src/task_thermometer.c:147:6:task_thermometer_update	24	static
-../app/src/task_thermometer.c:158:6:task_thermometer_statechart	24	static
+../app/src/task_thermometer.c:89:6:ds18_tim_cb	16	static
+../app/src/task_thermometer.c:94:6:task_thermometer_init	80	static,ignoring_inline_asm
+../app/src/task_thermometer.c:154:6:task_thermometer_update	24	static
+../app/src/task_thermometer.c:165:6:task_thermometer_statechart	40	static,ignoring_inline_asm

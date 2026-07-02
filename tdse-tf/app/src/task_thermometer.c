@@ -47,6 +47,8 @@
 #include "ds18b20.h"
 #include "task_system_attribute.h"
 #include "task_system_interface.h"
+#include "task_actuator_attribute.h"
+#include "task_actuator_interface.h"
 
 /********************** macros and definitions *******************************/
 #define DEL_BTN_MIN		0ul
@@ -55,6 +57,8 @@
 
 #define THERMOMETER_CFG_QTY		(sizeof(task_thermometer_cfg_list)/sizeof(task_thermometer_cfg_t))
 #define THERMOMETER_DTA_QTY		THERMOMETER_CFG_QTY
+#define TEMP_LIMIT_MAX 2200 // Representa 30.00 °C
+#define TEMP_LIMIT_MIN 1500 // Representa 15.00 °C
 
 
 extern TIM_HandleTypeDef htim1; // El timer que configuraste en CubeMX
@@ -130,6 +134,9 @@ void task_thermometer_init(void *parameters)
 		event = EV_THERM_IDLE;
 		p_task_thermometer_dta->event = event;
 
+		p_task_thermometer_dta->temp_limit_max = TEMP_LIMIT_MAX;
+		p_task_thermometer_dta->temp_limit_min = TEMP_LIMIT_MIN;
+
 		LOGGER_INFO(" ");
 		LOGGER_INFO("   %s = %lu   %s = %lu   %s = %lu",
 				    GET_NAME(index), index,
@@ -194,8 +201,14 @@ void task_thermometer_statechart(uint32_t index)
 			// 3. ¡Leemos la temperatura!
 			p_dta->temperature = ds18b20_read_c(&ds18);
 
-			// Acá ya tienes el dato listo para mandarlo a `task_system` o imprimirlo.
-			// put_event_task_system(EV_SYS_TEMP_READY);
+			// Evaluamos usando las variables mutables de la RAM
+			if (p_dta->temperature >= p_dta->temp_limit_max || p_dta->temperature <= p_dta->temp_limit_min) {
+				put_event_task_actuator(EV_BUZZER_BLINK, ID_BUZZER);
+				LOGGER_LOG("Temperatura: %d.%02d C dentro del IF\r\n", p_dta->temperature / 100, abs(p_dta->temperature % 100));
+
+			} else {
+				put_event_task_actuator(EV_BUZZER_OFF, ID_BUZZER);
+			}
 
 			// Dividimos por 100 porque la librería NimaLTD devuelve enteros escalados (Ej: 2550 = 25.50°C)
 			//LOGGER_LOG("Temperatura: %d.%02d C\r\n", p_dta->temperature / 100, abs(p_dta->temperature % 100));

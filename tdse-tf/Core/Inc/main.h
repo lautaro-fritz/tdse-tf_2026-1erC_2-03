@@ -68,6 +68,8 @@ void Error_Handler(void);
 #define LD2_GPIO_Port GPIOA
 #define THERMO_1_Pin GPIO_PIN_8
 #define THERMO_1_GPIO_Port GPIOA
+#define BUZZER_1_Pin GPIO_PIN_9
+#define BUZZER_1_GPIO_Port GPIOA
 #define RELAY_FILTER_Pin GPIO_PIN_10
 #define RELAY_FILTER_GPIO_Port GPIOA
 #define TMS_Pin GPIO_PIN_13

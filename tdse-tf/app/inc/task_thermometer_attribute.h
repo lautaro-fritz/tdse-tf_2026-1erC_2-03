@@ -75,6 +75,8 @@ typedef struct {
     task_thermometer_ev_t  event;
     bool                   flag;
     int16_t                temperature; // La librería devuelve la temp en int16_t
+    int16_t                temp_limit_max; // Límite máximo en RAM
+    int16_t                temp_limit_min; // Límite mínimo en RAM
 } task_thermometer_dta_t;
 
 /********************** external data declaration ****************************/
