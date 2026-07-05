@@ -17,7 +17,7 @@ A continuación se detalla el estado de avance de los requisitos del sistema:
 | Grupo | ID | Descripción | Estado |
 |---|---|---|---|
 | Sensores ambientales | 1.1 | El sistema contará con un termómetro sumergible para supervisar la temperatura del agua de la pecera. | 🟢 |
-|  | 1.2 | El sistema realizará lecturas en tiempo real de la temperatura y mostrará los valores en un display LED. | 🟡 |
+|  | 1.2 | El sistema realizará lecturas en tiempo real de la temperatura y mostrará los valores en un display LCD. | 🟡 |
 |  | 1.3 | El sistema enviará alertas visuales o notificaciones si la temperatura supera los umbrales configurados. | 🟢 |
 | Actuadores — Alimentación | 2.1 | El sistema contará con un servomotor encargado de accionar el mecanismo de alimentación automática de los peces. | 🟢 |
 |  | 2.2 | La alimentación automática se realizará en horarios configurables definidos por el usuario. | 🟡 |
