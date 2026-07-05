@@ -1,3 +1,4 @@
-../app/src/task_actuator.c:78:6:task_actuator_init	3
-../app/src/task_actuator.c:121:6:task_actuator_update	2
-../app/src/task_actuator.c:132:6:task_actuator_statechart	27
+../app/src/task_actuator.c:84:6:task_actuator_init	3
+../app/src/task_actuator.c:123:6:task_actuator_update	2
+../app/src/task_actuator.c:136:6:task_actuator_sc_generic	7
+../app/src/task_actuator.c:171:6:task_actuator_sc_buzzer	18

@@ -63,6 +63,9 @@ typedef enum task_actuator_st {ST_ACT_IDLE,
 /* Identifier of Task Actuator */
 typedef enum task_actuator_id {ID_LED_A, ID_RELAY_FILTER, ID_BUZZER} task_actuator_id_t;
 
+// 1. Definimos el tipo de dato para el puntero de la función statechart
+typedef void (*statechart_func_t)(uint32_t index);
+
 typedef struct
 {
 	task_actuator_id_t	identifier;
@@ -71,6 +74,11 @@ typedef struct
 	GPIO_PinState		act_on;
 	GPIO_PinState		act_off;
 	uint32_t			tick_max;
+
+	/* NUEVOS CAMPOS PARA DESACOPLAR */
+	task_actuator_st_t  init_state;  // Estado con el que arranca este componente
+	task_actuator_ev_t  init_event;  // Evento con el que arranca este componente
+	statechart_func_t   statechart;  // La función específica que maneja su lógica
 } task_actuator_cfg_t;
 
 typedef struct

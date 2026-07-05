@@ -1,3 +1,4 @@
-../app/src/task_actuator.c:78:6:task_actuator_init	72	static,ignoring_inline_asm
-../app/src/task_actuator.c:121:6:task_actuator_update	24	static
-../app/src/task_actuator.c:132:6:task_actuator_statechart	24	static
+../app/src/task_actuator.c:84:6:task_actuator_init	72	static,ignoring_inline_asm
+../app/src/task_actuator.c:123:6:task_actuator_update	24	static
+../app/src/task_actuator.c:136:6:task_actuator_sc_generic	24	static
+../app/src/task_actuator.c:171:6:task_actuator_sc_buzzer	24	static
