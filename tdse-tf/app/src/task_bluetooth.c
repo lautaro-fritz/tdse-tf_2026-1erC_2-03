@@ -25,7 +25,7 @@ void task_bluetooth_init(void *parameters)
 {
 	/* Print out: Task Initialized */
 	LOGGER_INFO(" ");
-	LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_bt_init), HAL_GetTick());
+	LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_bluetooth_init), HAL_GetTick());
 	LOGGER_INFO("   %s is a %s", GET_NAME(task_bt), p_task_bt);
 	LOGGER_INFO("   %s is a %s", GET_NAME(task_bt), p_task_bt_);
 	LOGGER_INFO("   %s is a %s", GET_NAME(task_bt), p_task_bt__);

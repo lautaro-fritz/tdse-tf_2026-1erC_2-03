@@ -72,6 +72,13 @@ const char *p_task_lcd__ 	= "(Update by Time Code, period = 500mS)";
 /********************** external functions definition ************************/
 void task_lcd_init(void *parameters)
 {
+	/* Print out: Task Initialized */
+	LOGGER_INFO(" ");
+	LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_lcd_init), HAL_GetTick());
+	LOGGER_INFO("   %s is a %s", GET_NAME(task_bt), p_task_lcd);
+	LOGGER_INFO("   %s is a %s", GET_NAME(task_bt), p_task_lcd_);
+	LOGGER_INFO("   %s is a %s", GET_NAME(task_bt), p_task_lcd__);
+
     // 1. Inicializamos el hardware de la pantalla
     lcd_init();
 
@@ -121,8 +128,8 @@ void task_lcd_statechart(void)
 
 			// %2lu: entero largo de 2 dígitos.
 			// %02lu: entero largo de 2 dígitos rellenado con cero a la izquierda (ej: 05 si es .05)
-			//sprintf(buffer_linea1, "Temp: %2lu.%02lu C   ", parte_entera, parte_decimal);
-			sprintf(buffer_linea1, "Temp: 20.33 C   ");
+			sprintf(buffer_linea1, "Temp: %2lu.%02lu C   ", parte_entera, parte_decimal);
+			//sprintf(buffer_linea1, "Temp: 20.33 C   ");
 			sprintf(buffer_linea2, "Estado: Normal  ");
 
 			// --- ENVÍO A PANTALLA ---
