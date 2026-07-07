@@ -49,6 +49,7 @@
 #include "task_actuator.h"
 #include "task_pwm.h"
 #include "task_thermometer.h"
+#include "task_lcd.h"
 
 /********************** macros and definitions *******************************/
 #define G_APP_CNT_INI		0ul
@@ -83,7 +84,8 @@ const task_cfg_t task_cfg_list[]	= {
 		{task_thermometer_init,	task_thermometer_update, 	NULL},
 		{task_system_init, 		task_system_update, 	NULL},
 		{task_actuator_init,	task_actuator_update, 	NULL},
-		{task_pwm_init,	task_pwm_update, 	NULL}
+		{task_pwm_init,	task_pwm_update, 	NULL},
+		{task_lcd_init,	task_lcd_update, 	NULL}
 };
 
 #define TASK_QTY	(sizeof(task_cfg_list)/sizeof(task_cfg_t))

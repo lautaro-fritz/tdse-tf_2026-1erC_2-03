@@ -35,6 +35,7 @@
 /********************** inclusions *******************************************/
 /* Project includes */
 #include "main.h"
+#include <stdio.h> // Necesario para sprintf()
 
 /* Demo includes */
 #include "logger.h"
@@ -43,42 +44,101 @@
 /* Application & Tasks includes */
 #include "board.h"
 #include "app.h"
-
-
-//ARRANCAR A MODIFICAR!!!
+#include "i2c_lcd.h"               // La librería I2C que creamos
+#include "task_lcd_attribute.h"
+#include "task_lcd_interface.h"
+#include "task_thermometer_attribute.h"
 
 /********************** macros and definitions *******************************/
-#define DEL_LED_MIN		0ul
-#define DEL_LED_MED		250ul
-#define DEL_LED_MAX		500ul
-#define DEL_BUZZER_MAX		500ul
-
-#define ACTUATOR_CFG_QTY	(sizeof(task_actuator_cfg_list)/sizeof(task_actuator_cfg_t))
-#define ACTUATOR_DTA_QTY	ACTUATOR_CFG_QTY
+#define DEL_LCD_UPDATE      500ul  // Refrescar la pantalla cada 500 milisegundos
 
 /********************** internal functions declaration ***********************/
-void task_lcd_init(void *parameters);
+void task_lcd_statechart(void);
 
 /********************** internal data declaration ****************************/
-const task_actuator_cfg_t task_actuator_cfg_list[] = {
-	{ID_LED_A,  LED_A_PORT,  LED_A_PIN, LED_A_ON,  LED_A_OFF, DEL_LED_MAX,
-			 ST_ACT_IDLE, EV_ACT_IDLE, task_actuator_sc_generic},
-	{ID_RELAY_FILTER,  GPIOB,  GPIO_PIN_5, REL_LAMP_ON,  REL_LAMP_OFF, DEL_LED_MAX,
-			 ST_ACT_IDLE, EV_ACT_IDLE, task_actuator_sc_generic},
-	{ID_BUZZER,  BUZZER_1_GPIO_Port,  BUZZER_1_Pin, BUZZER_ON,  BUZZER_OFF, DEL_BUZZER_MAX,
-			 ST_ACT_OFF, EV_BUZZER_OFF, task_actuator_sc_buzzer}
-};
-
-task_actuator_dta_t task_actuator_dta_list[ACTUATOR_DTA_QTY];
+// Objeto único para manejar los estados y tiempos del LCD
+task_lcd_dta_t task_lcd_dta;
 
 /********************** internal data definition *****************************/
-const char *p_task_actuator 		= "Task Actuator (Actuator Statechart)";
-const char *p_task_actuator_ 		= "Non-Blocking Code";
-const char *p_task_actuator__ 		= "(Update by Time Code, period = 1mS)";
+const char *p_task_lcd 		= "Task LCD (LCD Statechart)";
+const char *p_task_lcd_ 	= "Non-Blocking Code";
+const char *p_task_lcd__ 	= "(Update by Time Code, period = 500mS)";
 
 /********************** external data declaration ****************************/
+// Acá importamos variables globales que queramos mostrar.
+// Ejemplo: asumo que tenés la temperatura en un entero global.
+//extern uint32_t temperatura_actual = task_thermometer_dta_list[ID_THERM_A].temperature;
 
 /********************** external functions definition ************************/
+void task_lcd_init(void *parameters)
+{
+    // 1. Inicializamos el hardware de la pantalla
+    lcd_init();
 
+    // 2. Inicializamos la máquina de estados
+    task_lcd_dta.state = ST_LCD_IDLE;
+    task_lcd_dta.event = EV_LCD_IDLE;
+    task_lcd_dta.flag  = false;
+    task_lcd_dta.tick  = HAL_GetTick();
+
+    // 3. Imprimimos el mensaje de arranque (Estático)
+    lcd_put_cur(0, 0);
+    lcd_send_string("Sistema Iniciado");
+    lcd_put_cur(1, 0);
+    lcd_send_string("Cargando...     ");
+}
+
+void task_lcd_update(void *parameters)
+{
+    // Ejecutamos la máquina de estados en cada ciclo
+    task_lcd_statechart();
+}
+
+/********************** internal functions definition ************************/
+void task_lcd_statechart(void)
+{
+    // Buffers para guardar los textos de cada línea (16 caracteres + terminador nulo)
+    char buffer_linea1[17];
+    char buffer_linea2[17];
+
+    switch (task_lcd_dta.state)
+    {
+        case ST_LCD_IDLE:
+            // Evaluamos si pasaron los 500ms usando código no bloqueante
+            if ((HAL_GetTick() - task_lcd_dta.tick) >= DEL_LCD_UPDATE)
+            {
+                task_lcd_dta.tick = HAL_GetTick(); // Reseteamos el contador
+                task_lcd_dta.state = ST_LCD_UPDATE;
+            }
+            break;
+
+        case ST_LCD_UPDATE:
+        	int16_t temperatura_actual = task_thermometer_dta_list[ID_THERM_A].temperature;
+
+        	// Separamos la parte entera y la decimal usando matemática de enteros
+        	int16_t parte_entera  = temperatura_actual / 100;
+        	int16_t parte_decimal = temperatura_actual % 100;
+
+			// %2lu: entero largo de 2 dígitos.
+			// %02lu: entero largo de 2 dígitos rellenado con cero a la izquierda (ej: 05 si es .05)
+			//sprintf(buffer_linea1, "Temp: %2lu.%02lu C   ", parte_entera, parte_decimal);
+			sprintf(buffer_linea1, "Temp: 20.33 C   ");
+			sprintf(buffer_linea2, "Estado: Normal  ");
+
+			// --- ENVÍO A PANTALLA ---
+			lcd_put_cur(0, 0);
+			lcd_send_string(buffer_linea1);
+
+			lcd_put_cur(1, 0);
+			lcd_send_string(buffer_linea2);
+
+			task_lcd_dta.state = ST_LCD_IDLE;
+			break;
+
+        default:
+            task_lcd_dta.state = ST_LCD_IDLE;
+            break;
+    }
+}
 
 /********************** end of file ******************************************/
