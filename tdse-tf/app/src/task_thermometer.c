@@ -204,14 +204,11 @@ void task_thermometer_statechart(uint32_t index)
 			// Evaluamos usando las variables mutables de la RAM
 			if (p_dta->temperature >= p_dta->temp_limit_max || p_dta->temperature <= p_dta->temp_limit_min) {
 				put_event_task_actuator(EV_BUZZER_BLINK, ID_BUZZER);
-				LOGGER_LOG("Temperatura: %d.%02d C dentro del IF\r\n", p_dta->temperature / 100, abs(p_dta->temperature % 100));
+				//LOGGER_LOG("Temperatura: %d.%02d C dentro del IF\r\n", p_dta->temperature / 100, abs(p_dta->temperature % 100));
 
 			} else {
 				put_event_task_actuator(EV_BUZZER_OFF, ID_BUZZER);
 			}
-
-			// Dividimos por 100 porque la librería NimaLTD devuelve enteros escalados (Ej: 2550 = 25.50°C)
-			//LOGGER_LOG("Temperatura: %d.%02d C\r\n", p_dta->temperature / 100, abs(p_dta->temperature % 100));
 
 			p_dta->state = ST_THERM_IDLE;
 		}

@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "i2c_lcd.h"
 /* Application includes */
 #include "logger.h"
 #include "app.h"

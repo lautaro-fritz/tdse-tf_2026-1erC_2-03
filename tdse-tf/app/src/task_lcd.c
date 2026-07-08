@@ -129,7 +129,6 @@ void task_lcd_statechart(void)
 			// %2lu: entero largo de 2 dígitos.
 			// %02lu: entero largo de 2 dígitos rellenado con cero a la izquierda (ej: 05 si es .05)
 			sprintf(buffer_linea1, "Temp: %2lu.%02lu C   ", parte_entera, parte_decimal);
-			//sprintf(buffer_linea1, "Temp: 20.33 C   ");
 			sprintf(buffer_linea2, "Estado: Normal  ");
 
 			// --- ENVÍO A PANTALLA ---
