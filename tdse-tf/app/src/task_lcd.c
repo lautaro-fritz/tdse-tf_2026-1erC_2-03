@@ -63,12 +63,13 @@ task_lcd_dta_t task_lcd_dta;
 const char *p_task_lcd 		= "Task LCD (LCD Statechart)";
 const char *p_task_lcd_ 	= "Non-Blocking Code";
 const char *p_task_lcd__ 	= "(Update by Time Code, period = 500mS)";
+uint8_t row = 0;
 
 /********************** external data declaration ****************************/
 // Acá importamos variables globales que queramos mostrar.
 // Ejemplo: asumo que tenés la temperatura en un entero global.
 //extern uint32_t temperatura_actual = task_thermometer_dta_list[ID_THERM_A].temperature;
-
+extern I2C_HandleTypeDef hi2c1;
 /********************** external functions definition ************************/
 void task_lcd_init(void *parameters)
 {
@@ -89,10 +90,10 @@ void task_lcd_init(void *parameters)
     task_lcd_dta.tick  = HAL_GetTick();
 
     // 3. Imprimimos el mensaje de arranque (Estático)
-    lcd_put_cur(0, 0);
-    lcd_send_string("Sistema Iniciado");
-    lcd_put_cur(1, 0);
-    lcd_send_string("Cargando...     ");
+//    lcd_put_cur(0, 0);
+//    lcd_send_string("Sistema Iniciado");
+//    lcd_put_cur(1, 0);
+//    lcd_send_string("Cargando...     ");
 }
 
 void task_lcd_update(void *parameters)
@@ -131,12 +132,12 @@ void task_lcd_statechart(void)
 			sprintf(buffer_linea1, "Temp: %2lu.%02lu C   ", parte_entera, parte_decimal);
 			sprintf(buffer_linea2, "Estado: Normal  ");
 
-			// --- ENVÍO A PANTALLA ---
-			lcd_put_cur(0, 0);
-			lcd_send_string(buffer_linea1);
-
-			lcd_put_cur(1, 0);
-			lcd_send_string(buffer_linea2);
+			lcd_put_cur(row, 0);
+			if (row == 0) {
+				lcd_send_string(buffer_linea1);
+			} else {
+				lcd_send_string(buffer_linea2);
+			}
 
 			task_lcd_dta.state = ST_LCD_IDLE;
 			break;
@@ -145,6 +146,12 @@ void task_lcd_statechart(void)
             task_lcd_dta.state = ST_LCD_IDLE;
             break;
     }
+}
+
+void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c) {
+	if (hi2c->Instance == I2C1) {
+		row = row == 0 ? 1 : 0;
+	}
 }
 
 /********************** end of file ******************************************/

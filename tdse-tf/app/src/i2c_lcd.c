@@ -74,20 +74,6 @@ void lcd_send_cmd(char cmd)
     HAL_I2C_Master_Transmit(&hi2c1, SLAVE_ADDRESS_LCD, (uint8_t *) data_t, 4, 100);
 }
 
-void lcd_send_data(char data)
-{
-    char data_u, data_l;
-    uint8_t data_t[4];
-    data_u = (data & 0xf0);
-    data_l = ((data << 4) & 0xf0);
-    data_t[0] = data_u | 0x0D;  // en=1, rs=1
-    data_t[1] = data_u | 0x09;  // en=0, rs=1
-    data_t[2] = data_l | 0x0D;  // en=1, rs=1
-    data_t[3] = data_l | 0x09;  // en=0, rs=1
-
-    HAL_I2C_Master_Transmit(&hi2c1, SLAVE_ADDRESS_LCD, (uint8_t *) data_t, 4, 100);
-}
-
 void lcd_put_cur(int row, int col)
 {
     switch (row)
@@ -104,9 +90,22 @@ void lcd_put_cur(int row, int col)
 
 void lcd_send_string(char *str)
 {
-    while (*str) {
-        lcd_send_data(*str++);
+    static uint8_t dma_buffer[64];
+    uint16_t idx = 0;
+
+    for (uint8_t i = 0; i < 16; i++) {
+        char c = (str[i] != '\0' && i < strlen(str)) ? str[i] : ' ';
+
+        char data_u = (c & 0xf0);
+        char data_l = ((c << 4) & 0xf0);
+
+        dma_buffer[idx++] = data_u | 0x0D;
+        dma_buffer[idx++] = data_u | 0x09;
+        dma_buffer[idx++] = data_l | 0x0D;
+        dma_buffer[idx++] = data_l | 0x09;
     }
+
+    HAL_I2C_Master_Transmit_DMA(&hi2c1, SLAVE_ADDRESS_LCD, dma_buffer, idx);
 }
 
 void lcd_init(void)
