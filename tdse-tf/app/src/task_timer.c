@@ -16,6 +16,7 @@ const char *p_task_timer_ 		= "Non-Blocking Code";
 const char *p_task_timer__ 	= "(Update by Time Code, period = 1mS)";
 
 static uint32_t last_relay_cycle_time = 0, last_feeder_cycle_time = 0, last_light_cycle_time = 0;
+static bool relay_on = false, feeder_on = false, light_on = false;
 uint32_t current_time;
 
 void task_timer_init(void *parameters)
@@ -33,7 +34,6 @@ void task_timer_init(void *parameters)
 void task_timer_update(void *parameters)
 {
 	current_time = HAL_GetTick();
-	static bool relay_on, feeder_on, light_on = false;
 	task_system_ev_t system_event = {EV_SYS_IDLE, AUTO};
 
 	if (current_time - last_relay_cycle_time >= 2000)
@@ -79,4 +79,5 @@ void task_timer_update(void *parameters)
 void reset_timers() {
 	current_time = HAL_GetTick();
 	last_relay_cycle_time = last_feeder_cycle_time = last_light_cycle_time = current_time;
+	relay_on = feeder_on = light_on = false;
 }
