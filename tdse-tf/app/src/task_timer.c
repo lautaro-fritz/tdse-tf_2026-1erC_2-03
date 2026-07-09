@@ -77,5 +77,6 @@ void task_timer_update(void *parameters)
 }
 
 void reset_timers() {
-	last_relay_cycle_time = HAL_GetTick(), last_feeder_cycle_time = HAL_GetTick(), last_light_cycle_time = HAL_GetTick(), current_time = HAL_GetTick();
+	current_time = HAL_GetTick();
+	last_relay_cycle_time = last_feeder_cycle_time = last_light_cycle_time = current_time;
 }

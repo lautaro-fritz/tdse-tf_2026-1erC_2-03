@@ -214,6 +214,10 @@ void statechart(task_system_dta_t *p_task_system_dta) {
 			put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
 			p_task_system_dta->state = ST_SYS_IDLE;
 			sendMessage("Feeder: OFF\r\n");
+		} else if ((true == p_task_system_dta->flag)
+				&& (EV_SYS_FILTER_ON == p_task_system_dta->event.event)) {
+				p_task_system_dta->flag = false;
+				sendMessage("Cannot turn filter ON while feeding.\n");
 		}
 		break;
 	default:
@@ -291,6 +295,7 @@ void task_system_manual_statechart(void)
 		put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
 		put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
 		sendMessage("MANUAL mode: OFF\r\n");
+		p_task_system_dta->state = ST_SYS_IDLE;
 		return;
 	}
 
