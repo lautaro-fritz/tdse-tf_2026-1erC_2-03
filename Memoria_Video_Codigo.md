@@ -547,18 +547,67 @@ De esta manera, el módulo centraliza el control de los actuadores y las alarmas
 # CAPÍTULO 4
 
 # Ensayos y resultados
+En este capítulo se presentan las pruebas realizadas al prototipo para verificar el correcto funcionamiento del hardware y del firmware desarrollados. Asimismo, se muestran los resultados obtenidos durante la integración de los diferentes módulos que conforman el sistema.
+
+Figura 4.1: Vista general del prototipo desarrollado.
 
 ## 4.1 Pruebas funcionales del hardware
 
-**Lo de servo,luces, filtro,**
+**4.1.1 Prueba del sistema de alimentación automática y manual.**
 
-### 4.1.1 Pruebas de sensor con interfaz del usuario
+Figura 4.2: Servomotor SG90 en posición de alimentación.
+
+Figura 4.3: Servomotor SG90 en posición de reposo.
+
+**4.1.2 Prueba del sistema de filtrado**
+
+Como se mencionó anteriormente, el sistema de filtrado fue representado mediante un foco de corriente alterna (CA), el cual simula el funcionamiento del filtro de agua durante las pruebas del prototipo.
+
+Figura 4.4: Sistema de filtrado activado.
+
+Figura 4.5: Sistema de filtrado desactivado.
+
+**4.1.3 Prueba del sistema de iluminación (día y noche)**
+
+En esta prueba se verificó el funcionamiento del sistema de iluminación implementado mediante un aro LED, el cual simula los ciclos de día y noche de la pecera de acuerdo con la lógica de control desarrollada.
+
+Figura 4.6: Sistema de iluminación activado.
+
+Figura 4.7: Sistema de iluminación desactivado.
+
+**4.1.4 Prueba del sistema de alarma**
+
+En esta prueba se verificó el funcionamiento del sistema de alarma, compuesto por un buzzer y un LED rojo, los cuales se activan cuando el sistema detecta una condición de alarma.
+
+Figura 4.8: Sistema de alarma activado.
+
+Figura 4.9: Sistema de alarma desactivado.
+
+### 4.2.Pruebas de sensor con interfaz del usuario
+
+En esta prueba se verificó el correcto funcionamiento del módulo de medición de temperatura. Se comprobó la adquisición de datos desde el sensor DS18B20, la visualización de la temperatura en la pantalla LCD y la respuesta del sistema cuando la temperatura se encuentra dentro y fuera de los límites configurados.
+
+(Compuesta por dos imágenes: captura de la PC mostrando la temperatura y fotografía del LCD con el mismo valor).
+Figura 4.X: Medición de temperatura dentro del rango de funcionamiento.
+
+Figura 4.X: Medición de temperatura por encima del rango de funcionamiento.
+
+Figura 4.X: Medición de temperatura por debajo del rango de funcionamiento.
+
+
 
 ### Capturas de control temperatura
 
-## 4.2 Pruebas funcionales del firmware
+## 4.3 Pruebas funcionales del firmware
 
-## 4.3 Pruebas de integración
+En esta sección se presentan las pruebas realizadas para verificar el correcto funcionamiento del firmware implementado en el sistema. Se comprobó la ejecución de las tareas, la comunicación mediante Bluetooth Low Energy (BLE) y la respuesta del sistema ante las órdenes enviadas desde la aplicación móvil.
+
+Figura 4.X: Verificación de la selección entre el modo automático y el modo manual desde la aplicación móvil.
+
+Figura 4.X: Prueba de comunicación BLE, mostrando el envío de comandos desde la aplicación móvil y la activación de los actuadores correspondientes.
+
+
+## 4.4 Pruebas de integración
 
 Las pruebas de integración permitieron verificar el funcionamiento conjunto de los diferentes módulos del sistema, comprobando la correcta interacción entre sensores, actuadores, comunicación Bluetooth y aplicación móvil.
 
@@ -579,7 +628,7 @@ En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la 
 
 **Tabla 4.1** Cumplimiento de los casos de uso planteados.
 
-## 4.4 Cumplimiento de requisitos
+## 4.5 Cumplimiento de requisitos
 
 | Grupo | ID | Descripción | ¿Se cumplió? |
 | :---- | :---- | :---- | :---- |
