@@ -123,6 +123,8 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 # Introducción general
 
+(FALTA)
+
 ## Presentación del proyecto
 
 **Figura 1.1:** Diagrama bloques general del sistema.
@@ -130,6 +132,8 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 # CAPÍTULO 2
 
 # Introducción Específica
+
+(FALTA)
 
 ## 2.1 Requisitos
 
@@ -353,6 +357,11 @@ El HM-10 incorpora un microcontrolador interno con un firmware encargado de impl
 # CAPÍTULO 3
 
 # Diseño e implementación
+
+<img width="1292" height="745" alt="image" src="https://github.com/user-attachments/assets/5abbab4d-75ba-488a-8917-4aa40a99b3ef" />
+
+Figura 3.1:Diagrama de conexiones de todos los componentes de hardware.
+
 
 ## 3.1 Hardware del sistema
 
