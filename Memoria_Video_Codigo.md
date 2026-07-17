@@ -123,7 +123,19 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 # Introducción general
 
-(FALTA)
+El proyecto busca desarrollar un sistema embebido para la automatización y monitoreo de una pecera doméstica, integrando el control de actuadores, adquisición de datos y comunicación inalámbrica mediante una única plataforma de procesamiento.
+
+El sistema permite gestionar funciones como la alimentación automática, la iluminación y la simulación del sistema de filtrado, además de realizar el monitoreo continuo de la temperatura del agua mediante un sensor digital. La interacción con el usuario se realiza mediante una aplicación móvil utilizando comunicación Bluetooth Low Energy (BLE), permitiendo configurar parámetros y controlar el sistema en modo manual o automático.
+
+Objetivos principales:
+
+-Implementar un prototipo funcional de automatización y monitoreo para una pecera doméstica.
+
+-Integrar sensores, actuadores y módulos de comunicación utilizando la plataforma STM32.
+
+-Desarrollar una arquitectura modular de firmware basada en tareas y máquinas de estados.
+
+-Permitir la configuración y supervisión del sistema mediante una interfaz inalámbrica.
 
 ## Presentación del proyecto
 
@@ -133,7 +145,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 # Introducción Específica
 
-(FALTA)
+Esta sección contiene los requisitos originales y los modificados en el informe de avances, además de los casos de uso.
 
 ## 2.1 Requisitos
 
@@ -659,16 +671,53 @@ En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la 
 
 # Conclusiones
 
-## 5.1 Resultados obtenidos
+El desarrollo del proyecto permitió obtener un prototipo funcional capaz de integrar el monitoreo de la temperatura del agua, el control de los actuadores y la comunicación mediante Bluetooth Low Energy (BLE). La integración del hardware y el firmware posibilitó el funcionamiento conjunto de todos los módulos implementados, verificando el cumplimiento de los objetivos planteados para el sistema.
 
-**\-La integración pudo ser realizada si el** 
+## 5.1 Resultados obtenidos
 
 **\-comunicación BLE**
 
-**\-manejo de sensor** 
+Comunicación Bluetooth Low Energy (BLE): Se implementó una comunicación inalámbrica estable entre la placa NUCLEO-F103RB y la aplicación móvil mediante el módulo HM-10. Esta interfaz permitió seleccionar el modo de funcionamiento automático o manual, controlar los diferentes actuadores del sistema y recibir información sobre su estado, verificando el correcto intercambio de datos entre ambos dispositivos.
+
+**\-manejo de sensor**
+El sistema realizó la adquisición continua de la temperatura mediante el sensor DS18B20, mostrando las mediciones de forma correcta tanto en la terminal de la computadora como en la pantalla LCD, lo que permitió verificar la precisión y el correcto funcionamiento del módulo.
 
 **\-interfaz de usuario** 
+La implementación del display LCD permitió disponer de una interfaz local de monitoreo, mostrando en tiempo real la temperatura medida por el sensor. Esto proporcionó una alternativa de visualización independiente de la aplicación móvil y permitió verificar el correcto funcionamiento del sistema durante las pruebas
 
+**\-Control de actuadores y alarmaso** 
+Se logró implementar el control coordinado de los diferentes actuadores del sistema, incluyendo el servomotor de alimentación, la iluminación LED y el relé encargado del sistema de filtrado. La integración mediante el firmware desarrollado permitió que cada dispositivo responda correctamente a los eventos generados por el sistema y a las órdenes enviadas mediante BLE.
+
+Además, se verificó el correcto funcionamiento del sistema de alarmas mediante el buzzer y el LED rojo, permitiendo generar avisos ante condiciones críticas. En conjunto, los actuadores y elementos de alerta pudieron operar de manera sincronizada, logrando un funcionamiento armónico entre las distintas partes que conforman el sistema embebido.
+.
 ## 5.2 Próximos pasos
 
+Como futuras mejoras del sistema se plantean las siguientes implementaciones:
+
+Desarrollo de un menú para la aplicación móvil: Incorporar una interfaz más completa e intuitiva que permita al usuario acceder fácilmente a las diferentes opciones de configuración, monitoreo y control del sistema.
+
+Ampliación de la información mostrada en el display LCD: Implementar la visualización de nuevos parámetros, como la hora actual, el estado de los actuadores y otra información relevante del funcionamiento de la pecera.
+
+Implementación de comunicación mediante WiFi: Reemplazar o complementar la comunicación Bluetooth mediante una conexión WiFi, permitiendo ampliar el alcance del sistema y habilitar el monitoreo y control remoto.
+
+Mejora de las capacidades de supervisión: Incorporar nuevas funciones de monitoreo y registro de datos que permitan obtener mayor información sobre el comportamiento del sistema y facilitar el diagnóstico de posibles fallas.
+
 # Bibliografía
+
+[1] STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.
+
+[2] STMicroelectronics, MB1136 - STM32 Nucleo-64 boards Electrical Schematic. STMicroelectronics.
+
+[3] STMicroelectronics, STM32F103RB Datasheet - STM32F103x8 and STM32F103xB medium-density performance line microcontrollers. STMicroelectronics.
+
+[4] Tower Pro, SG90 Micro Servo Motor Datasheet. Technical specifications and operating characteristics of the SG90 servo motor.
+
+[5] Jinan Huamao Technology Co., Ltd., HM-10 Bluetooth 4.0 BLE Module Datasheet. Bluetooth Low Energy communication module.
+
+[6] Dallas Semiconductor / Maxim Integrated, DS18B20 Programmable Resolution 1-Wire Digital Thermometer Datasheet.
+
+[7] Hitachi, HD44780U LCD Controller/Driver Datasheet. Character LCD controller used in 16×2 display modules.
+
+[8] Quick-Teck Electronics, TMB12A05 Buzzer Datasheet. Technical specifications of the audible alarm device.
+
+[9] STMicroelectronics, STM32CubeIDE User Guide. Development environment for STM32 microcontrollers.
