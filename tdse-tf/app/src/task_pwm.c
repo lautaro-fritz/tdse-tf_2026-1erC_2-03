@@ -82,11 +82,11 @@ void task_pwm_init(void *parameters)
 	bool b_event;
 
 	/* Print out: Task Initialized */
-	LOGGER_INFO(" ");
-	LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_pwm_init), HAL_GetTick());
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_pwm), p_task_pwm);
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_pwm), p_task_pwm_);
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_pwm), p_task_pwm__);
+	//LOGGER_INFO(" ");
+	//LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_pwm_init), HAL_GetTick());
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_pwm), p_task_pwm);
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_pwm), p_task_pwm_);
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_pwm), p_task_pwm__);
 
 	for (index = 0; PWM_DTA_QTY > index; index++)
 	{
@@ -104,13 +104,13 @@ void task_pwm_init(void *parameters)
 		b_event = false;
 		p_task_pwm_dta->flag = b_event;
 
-		LOGGER_INFO(" ");
-		LOGGER_INFO("   %s = %lu   %s = %lu   %s = %lu   %s = %s",
+		//LOGGER_INFO(" ");
+		/*LOGGER_INFO("   %s = %lu   %s = %lu   %s = %lu   %s = %s",
 					 GET_NAME(index), index,
 					 GET_NAME(state), (uint32_t)state,
 					 GET_NAME(event), (uint32_t)event,
 					 GET_NAME(b_event), (b_event ? "true" : "false"));
-
+		*/
 		if(p_task_pwm_cfg->identifier == ID_PWM_MOTOR)
 			__HAL_TIM_SET_COMPARE(p_task_pwm_cfg->htim, p_task_pwm_cfg->channel, 1000);
 		else

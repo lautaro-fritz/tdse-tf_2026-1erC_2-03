@@ -74,12 +74,12 @@ extern I2C_HandleTypeDef hi2c1;
 void task_lcd_init(void *parameters)
 {
 	/* Print out: Task Initialized */
-	LOGGER_INFO(" ");
+	/*LOGGER_INFO(" ");
 	LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_lcd_init), HAL_GetTick());
 	LOGGER_INFO("   %s is a %s", GET_NAME(task_bt), p_task_lcd);
 	LOGGER_INFO("   %s is a %s", GET_NAME(task_bt), p_task_lcd_);
 	LOGGER_INFO("   %s is a %s", GET_NAME(task_bt), p_task_lcd__);
-
+*/
     // 1. Inicializamos el hardware de la pantalla
     lcd_init();
 
@@ -90,10 +90,10 @@ void task_lcd_init(void *parameters)
     task_lcd_dta.tick  = HAL_GetTick();
 
     // 3. Imprimimos el mensaje de arranque (Estático)
-//    lcd_put_cur(0, 0);
-//    lcd_send_string("Sistema Iniciado");
-//    lcd_put_cur(1, 0);
-//    lcd_send_string("Cargando...     ");
+    lcd_put_cur(0, 0);
+    lcd_send_string("Sistema Iniciado");
+    lcd_put_cur(1, 0);
+    lcd_send_string("Cargando...     ");
 }
 
 void task_lcd_update(void *parameters)

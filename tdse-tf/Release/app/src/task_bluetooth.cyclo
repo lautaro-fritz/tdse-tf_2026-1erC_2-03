@@ -1,0 +1,4 @@
+../app/src/task_bluetooth.c:24:6:task_bluetooth_init	1
+../app/src/task_bluetooth.c:36:6:task_bluetooth_update	1
+../app/src/task_bluetooth.c:41:6:sendMessage	1
+../app/src/task_bluetooth.c:45:6:HAL_UART_RxCpltCallback	10

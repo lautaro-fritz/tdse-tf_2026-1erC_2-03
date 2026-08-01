@@ -57,7 +57,7 @@
 
 #define THERMOMETER_CFG_QTY		(sizeof(task_thermometer_cfg_list)/sizeof(task_thermometer_cfg_t))
 #define THERMOMETER_DTA_QTY		THERMOMETER_CFG_QTY
-#define TEMP_LIMIT_MAX 2200 // Representa 30.00 °C
+#define TEMP_LIMIT_MAX 2400 // Representa 30.00 °C
 #define TEMP_LIMIT_MIN 1500 // Representa 15.00 °C
 
 
@@ -116,11 +116,11 @@ void task_thermometer_init(void *parameters)
 
 
 	/* Print out: Task Initialized */
-	LOGGER_INFO(" ");
-	LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_thermometer_init), HAL_GetTick());
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_thermometer), p_task_thermometer);
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_thermometer), p_task_thermometer_);
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_thermometer), p_task_thermometer__);
+	//LOGGER_INFO(" ");
+	//LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_thermometer_init), HAL_GetTick());
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_thermometer), p_task_thermometer);
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_thermometer), p_task_thermometer_);
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_thermometer), p_task_thermometer__);
 
 	for (index = 0; THERMOMETER_DTA_QTY > index; index++)
 	{
@@ -137,11 +137,12 @@ void task_thermometer_init(void *parameters)
 		p_task_thermometer_dta->temp_limit_max = TEMP_LIMIT_MAX;
 		p_task_thermometer_dta->temp_limit_min = TEMP_LIMIT_MIN;
 
-		LOGGER_INFO(" ");
-		LOGGER_INFO("   %s = %lu   %s = %lu   %s = %lu",
+		//LOGGER_INFO(" ");
+		/*LOGGER_INFO("   %s = %lu   %s = %lu   %s = %lu",
 				    GET_NAME(index), index,
 					GET_NAME(state), (uint32_t)state,
 					GET_NAME(event), (uint32_t)event);
+		*/
 	}
 
 	// NOTA: Para no complicar la inicialización asíncrona ahora,

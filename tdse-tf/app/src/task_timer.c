@@ -22,11 +22,11 @@ uint32_t current_time;
 void task_timer_init(void *parameters)
 {
 	/* Print out: Task Initialized */
-	LOGGER_INFO(" ");
-	LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_timer_init), HAL_GetTick());
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_timer), p_task_timer);
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_timer), p_task_timer_);
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_timer), p_task_timer__);
+	//LOGGER_INFO(" ");
+	//LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_timer_init), HAL_GetTick());
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_timer), p_task_timer);
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_timer), p_task_timer_);
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_timer), p_task_timer__);
 
 	//leer valores para intervalos desde la memoria interna
 }

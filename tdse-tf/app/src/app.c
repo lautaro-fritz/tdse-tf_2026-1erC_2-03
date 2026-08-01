@@ -111,16 +111,16 @@ void app_init(void)
 	uint32_t index;
 
 	/* Print out: Application Initialized */
-	LOGGER_INFO(" ");
+	/*LOGGER_INFO(" ");
 	LOGGER_INFO("%s is running - Tick [mS] = %lu", GET_NAME(app_init), HAL_GetTick());
 
 	LOGGER_INFO(" %s is a %s", GET_NAME(app), p_app);
 	LOGGER_INFO(" %s is a %s", GET_NAME(app), p_app_);
 	LOGGER_INFO(" %s is a %s", GET_NAME(app), p_app__);
-
+*/
 	/* Init & Print out: Application execution counter */
 	g_app_cnt = G_APP_CNT_INI;
-	LOGGER_INFO(" %s = %lu", GET_NAME(g_app_cnt), g_app_cnt);
+	//LOGGER_INFO(" %s = %lu", GET_NAME(g_app_cnt), g_app_cnt);
 
 	/* Init Cycle Counter */
 	cycle_counter_init();

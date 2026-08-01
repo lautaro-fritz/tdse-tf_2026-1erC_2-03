@@ -86,11 +86,11 @@ void task_system_init(void *parameters)
 	bool b_event;
 
 	/* Print out: Task Initialized */
-	LOGGER_INFO(" ");
-	LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_system_init), HAL_GetTick());
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_system), p_task_system);
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_system), p_task_system_);
-	LOGGER_INFO("   %s is a %s", GET_NAME(task_system), p_task_system__);
+	//LOGGER_INFO(" ");
+	//LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_system_init), HAL_GetTick());
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_system), p_task_system);
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_system), p_task_system_);
+	//LOGGER_INFO("   %s is a %s", GET_NAME(task_system), p_task_system__);
 
 	init_event_task_system();
 
@@ -110,11 +110,12 @@ void task_system_init(void *parameters)
 		b_event = false;
 		p_task_system_dta->flag = b_event;
 
-		LOGGER_INFO(" ");
-		LOGGER_INFO("   %s = %lu   %s = %lu   %s = %s",
+		//LOGGER_INFO(" ");
+		/*LOGGER_INFO("   %s = %lu   %s = %lu   %s = %s",
 					GET_NAME(state), (uint32_t)state,
 					GET_NAME(event.event), (uint32_t)event.event,
 					GET_NAME(b_event), (b_event ? "true" : "false"));
+		*/
 	}
 
 	task_system_set_mode(AUTO);
