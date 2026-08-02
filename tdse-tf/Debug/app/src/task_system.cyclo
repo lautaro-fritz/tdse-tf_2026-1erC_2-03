@@ -1,6 +1,6 @@
 ../app/src/task_system.c:80:6:task_system_init	2
-../app/src/task_system.c:124:6:task_system_update	4
-../app/src/task_system.c:160:6:statechart	21
-../app/src/task_system.c:233:6:task_system_auto_statechart	8
-../app/src/task_system.c:271:6:task_system_manual_statechart	8
-../app/src/task_system.c:312:6:task_system_set_mode	1
+../app/src/task_system.c:125:6:task_system_update	4
+../app/src/task_system.c:161:6:statechart	21
+../app/src/task_system.c:234:6:task_system_auto_statechart	8
+../app/src/task_system.c:272:6:task_system_manual_statechart	8
+../app/src/task_system.c:313:6:task_system_set_mode	1

@@ -45,7 +45,7 @@ extern "C" {
 /********************** macros ***********************************************/
 
 /********************** typedef **********************************************/
-/* State of Task System */
+/* State of Task System Actuators */
 typedef enum task_system_st {ST_SYS_IDLE,
 							 ST_SYS_FILTERING,
 							 ST_SYS_FEEDING} task_system_st_t;
@@ -69,6 +69,19 @@ typedef struct task_system_ev {
 	task_system_ev_type_t event;
 	task_system_mode_t mode;
 } task_system_ev_t;
+
+/* State of Task System Thermometer */
+typedef enum {
+    ST_SYS_THERM_IDLE = 0,
+    ST_SYS_THERM_WAITING_CYCLE, // Normal State
+    ST_SYS_THERM_ALERT
+} task_system_therm_st_t;
+
+/* State of Task System Bluetooth */
+typedef enum {
+    ST_SYS_BT_DISCONNECTED = 0,
+    ST_SYS_BT_CONNECTED
+} task_system_bt_st_t;
 
 typedef struct
 {

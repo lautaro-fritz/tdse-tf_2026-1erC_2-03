@@ -68,6 +68,9 @@ task_system_dta_t task_system_dta_list[SYSTEM_DTA_QTY];
 /********************** internal functions declaration ***********************/
 void task_system_auto_statechart(void);
 void task_system_manual_statechart(void);
+void task_system_actuators_statechart(void);
+void task_system_thermometer_statechart(void);
+void task_system_bluetooth_statechart(void);
 
 /********************** internal data definition *****************************/
 const char *p_task_system 		= "Task System (System Statechart)";
@@ -118,6 +121,7 @@ void task_system_init(void *parameters)
 		*/
 	}
 
+	// El sistema inicia por default en estado automatico AUTO
 	task_system_set_mode(AUTO);
 }
 
@@ -302,7 +306,7 @@ void task_system_manual_statechart(void)
 
 	if ((true == p_task_system_dta->flag) && (p_task_system_dta->event.mode != MANUAL)) {
 		p_task_system_dta->flag = false;
-		printf("AUTO event detected while in MANUAL mode, discarding...\n");
+		//printf("AUTO event detected while in MANUAL mode, discarding...\n");
 		return;
 	}
 

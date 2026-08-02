@@ -57,11 +57,11 @@
 
 #define THERMOMETER_CFG_QTY		(sizeof(task_thermometer_cfg_list)/sizeof(task_thermometer_cfg_t))
 #define THERMOMETER_DTA_QTY		THERMOMETER_CFG_QTY
-#define TEMP_LIMIT_MAX 2400 // Representa 30.00 °C
+#define TEMP_LIMIT_MAX 2400 // Representa 24.00 °C
 #define TEMP_LIMIT_MIN 1500 // Representa 15.00 °C
 
 
-extern TIM_HandleTypeDef htim1; // El timer que configuraste en CubeMX
+extern TIM_HandleTypeDef htim1; // El timer del termometro
 ds18b20_t ds18;                 // La instancia de nuestro sensor
 
 /********************** internal data declaration ****************************/
@@ -127,7 +127,6 @@ void task_thermometer_init(void *parameters)
 		/* Update Task Thermometer Data Pointer */
 		p_task_thermometer_dta = &task_thermometer_dta_list[index];
 
-		/* Init & Print out: Index & Task execution FSM */
 		state = ST_THERM_IDLE;
 		p_task_thermometer_dta->state = state;
 
@@ -175,20 +174,18 @@ void task_thermometer_statechart(uint32_t index)
 		if ((true == p_dta->flag) && (EV_THERM_START_READ == p_dta->event)) {
 			p_dta->flag = false;
 
-			// 1. Damos la orden de iniciar conversión
+			// Iiniciar conversión
 			ds18b20_cnv(&ds18);
 
-			// Pasamos a esperar que termine
 			p_dta->state = ST_THERM_WAITING_CONVERSION;
 		}
 		break;
 
 	case ST_THERM_WAITING_CONVERSION:
-		// Reemplazamos el while() del ejemplo por este IF asíncrono
-		// Preguntamos si NO está ocupado y si la conversión terminó
+		// Pregunta si NO está ocupado y si la conversión terminó
 		if (!ds18b20_is_busy(&ds18) && ds18b20_is_cnv_done(&ds18)) {
 
-			// 2. Le pedimos que nos prepare el dato del sensor índice 0
+			// Solicitud de la medicion
 			ds18b20_req_read(&ds18);
 
 			p_dta->state = ST_THERM_WAITING_READ;
@@ -196,20 +193,11 @@ void task_thermometer_statechart(uint32_t index)
 		break;
 
 	case ST_THERM_WAITING_READ:
-		// Esperamos que termine de mandarnos los datos por el cable
+		// Espera hasta terminar la lectura del sensor
 		if (!ds18b20_is_busy(&ds18)) {
 
-			// 3. ¡Leemos la temperatura!
+			// Se lee la temperatura
 			p_dta->temperature = ds18b20_read_c(&ds18);
-
-			// Evaluamos usando las variables mutables de la RAM
-			if (p_dta->temperature >= p_dta->temp_limit_max || p_dta->temperature <= p_dta->temp_limit_min) {
-				put_event_task_actuator(EV_BUZZER_BLINK, ID_BUZZER);
-				//LOGGER_LOG("Temperatura: %d.%02d C dentro del IF\r\n", p_dta->temperature / 100, abs(p_dta->temperature % 100));
-
-			} else {
-				put_event_task_actuator(EV_BUZZER_OFF, ID_BUZZER);
-			}
 
 			p_dta->state = ST_THERM_IDLE;
 		}

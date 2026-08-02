@@ -43,27 +43,27 @@ void sendMessage(char* message){
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-	uint8_t command_string[DMA_BUFFER_SIZE + 1];
-	strcpy(command_string, command);
+	char command_string[DMA_BUFFER_SIZE + 1];
+	memcpy(command_string, command, DMA_BUFFER_SIZE);
 	command_string[DMA_BUFFER_SIZE] = '\0';
 	task_system_ev_t event = {EV_SYS_IDLE, MANUAL};
 
     if (huart->Instance == USART3) {
-    	if(strcmp(command_string, (uint8_t*) "/manual:1\r\n") == 0) {
+    	if(strcmp(command_string, "/manual:1\r\n") == 0) {
     		event.event = EV_SYS_APP_CONNECTED;
-		} else if(strcmp(command_string, (uint8_t*) "/manual:0\r\n") == 0) {
+		} else if(strcmp(command_string, "/manual:0\r\n") == 0) {
 			event.event = EV_SYS_APP_DISCONNECTED;
-		} else if(strcmp(command_string, (uint8_t*) "/filter:1\r\n") == 0) {
+		} else if(strcmp(command_string, "/filter:1\r\n") == 0) {
     		event.event = EV_SYS_FILTER_ON;
-    	} else if(strcmp(command_string, (uint8_t*) "/filter:0\r\n") == 0) {
+    	} else if(strcmp(command_string, "/filter:0\r\n") == 0) {
 			event.event = EV_SYS_FILTER_OFF;
-		} else if(strcmp(command_string, (uint8_t*) "/feeder:1\r\n") == 0) {
+		} else if(strcmp(command_string, "/feeder:1\r\n") == 0) {
 			event.event = EV_SYS_FEEDER_ON;
-		} else if(strcmp(command_string, (uint8_t*) "/feeder:0\r\n") == 0) {
+		} else if(strcmp(command_string, "/feeder:0\r\n") == 0) {
 			event.event = EV_SYS_FEEDER_OFF;
-		} else if(strcmp(command_string, (uint8_t*) "/lights:1\r\n") == 0) {
+		} else if(strcmp(command_string, "/lights:1\r\n") == 0) {
 			event.event = EV_SYS_LIGHT_ON;
-		} else if(strcmp(command_string, (uint8_t*) "/lights:0\r\n") == 0) {
+		} else if(strcmp(command_string, "/lights:0\r\n") == 0) {
 			event.event = EV_SYS_LIGHT_OFF;
 		} else {
 			sendMessage("Comando no reconocido.\r\n");
