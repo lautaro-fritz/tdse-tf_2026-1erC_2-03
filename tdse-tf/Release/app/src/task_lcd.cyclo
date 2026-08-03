@@ -1,4 +1,6 @@
 ../app/src/task_lcd.c:74:6:task_lcd_init	1
-../app/src/task_lcd.c:106:6:task_lcd_statechart	5
+../app/src/task_lcd.c:106:6:task_lcd_set_line1	2
+../app/src/task_lcd.c:114:6:task_lcd_set_line2	2
+../app/src/task_lcd.c:121:6:task_lcd_statechart	5
 ../app/src/task_lcd.c:99:6:task_lcd_update	1
-../app/src/task_lcd.c:151:6:HAL_I2C_MasterTxCpltCallback	2
+../app/src/task_lcd.c:152:6:HAL_I2C_MasterTxCpltCallback	2

@@ -53,6 +53,8 @@ extern "C" {
 /* Prototipos de las funciones principales de la tarea (requeridas por app.c / main.c) */
 extern void task_lcd_init(void *parameters);
 extern void task_lcd_update(void *parameters);
+extern void task_lcd_set_line1(const char *p_text);
+extern void task_lcd_set_line1(const char *p_text);
 
 /* Función de interfaz para enviarle eventos a la pantalla desde otras tareas */
 extern void put_event_task_lcd(task_lcd_ev_t event);

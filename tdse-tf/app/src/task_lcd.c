@@ -47,7 +47,6 @@
 #include "i2c_lcd.h"               // La librería I2C que creamos
 #include "task_lcd_attribute.h"
 #include "task_lcd_interface.h"
-#include "task_thermometer_attribute.h"
 
 /********************** macros and definitions *******************************/
 #define DEL_LCD_UPDATE      500ul  // Refrescar la pantalla cada 500 milisegundos
@@ -59,6 +58,9 @@ void task_lcd_statechart(void);
 // Objeto único para manejar los estados y tiempos del LCD
 task_lcd_dta_t task_lcd_dta;
 
+static char g_lcd_line1[17] = "Temp: --.-- C   ";
+static char g_lcd_line2[17] = "Estado: Normal  ";
+
 /********************** internal data definition *****************************/
 const char *p_task_lcd 		= "Task LCD (LCD Statechart)";
 const char *p_task_lcd_ 	= "Non-Blocking Code";
@@ -66,10 +68,8 @@ const char *p_task_lcd__ 	= "(Update by Time Code, period = 500mS)";
 uint8_t row = 0;
 
 /********************** external data declaration ****************************/
-// Acá importamos variables globales que queramos mostrar.
-// Ejemplo: asumo que tenés la temperatura en un entero global.
-//extern uint32_t temperatura_actual = task_thermometer_dta_list[ID_THERM_A].temperature;
 extern I2C_HandleTypeDef hi2c1;
+
 /********************** external functions definition ************************/
 void task_lcd_init(void *parameters)
 {
@@ -102,6 +102,21 @@ void task_lcd_update(void *parameters)
     task_lcd_statechart();
 }
 
+//	Actualiza el texto a imprimir en la Línea 1 del LCD
+void task_lcd_set_line1(const char *p_text)
+{
+    if (p_text != NULL) {
+        snprintf(g_lcd_line1, sizeof(g_lcd_line1), "%-16s", p_text); // Rellena con espacios hasta 16 caracteres
+    }
+}
+
+//	Actualiza el texto a imprimir en la Línea 2 del LCD
+void task_lcd_set_line2(const char *p_text)
+{
+    if (p_text != NULL) {
+        snprintf(g_lcd_line2, sizeof(g_lcd_line2), "%-16s", p_text);
+    }
+}
 /********************** internal functions definition ************************/
 void task_lcd_statechart(void)
 {
@@ -121,30 +136,16 @@ void task_lcd_statechart(void)
             break;
 
         case ST_LCD_UPDATE:
-        	int16_t temperatura_actual = task_thermometer_dta_list[ID_THERM_A].temperature;
-
-        	// Separamos la parte entera y la decimal usando matemática de enteros
-        	int16_t parte_entera  = temperatura_actual / 100;
-        	int16_t parte_decimal = temperatura_actual % 100;
-
-			// %2lu: entero largo de 2 dígitos.
-			// %02lu: entero largo de 2 dígitos rellenado con cero a la izquierda (ej: 05 si es .05)
-			sprintf(buffer_linea1, "Temp: %2lu.%02lu C   ", parte_entera, parte_decimal);
-			sprintf(buffer_linea2, "Estado: Normal  ");
-
+			// Simplemente transmitimos lo que esté guardado en los buffers estáticos
 			lcd_put_cur(row, 0);
 			if (row == 0) {
-				lcd_send_string(buffer_linea1);
+				lcd_send_string(g_lcd_line1);
 			} else {
-				lcd_send_string(buffer_linea2);
+				lcd_send_string(g_lcd_line2);
 			}
 
 			task_lcd_dta.state = ST_LCD_IDLE;
 			break;
-
-        default:
-            task_lcd_dta.state = ST_LCD_IDLE;
-            break;
     }
 }
 

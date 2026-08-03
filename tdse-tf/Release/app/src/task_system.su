@@ -1,6 +1,8 @@
-../app/src/task_system.c:80:6:task_system_init	8	static
-../app/src/task_system.c:161:6:statechart	16	static
-../app/src/task_system.c:234:6:task_system_auto_statechart	16	static
-../app/src/task_system.c:272:6:task_system_manual_statechart	16	static
-../app/src/task_system.c:125:6:task_system_update	16	static
-../app/src/task_system.c:313:6:task_system_set_mode	0	static
+../app/src/task_system.c:91:6:task_system_init	8	static
+../app/src/task_system.c:167:6:task_system_thermometer_statechart	56	static
+../app/src/task_system.c:238:6:statechart	16	static
+../app/src/task_system.c:311:6:task_system_auto_statechart	16	static
+../app/src/task_system.c:349:6:task_system_manual_statechart	16	static
+../app/src/task_system.c:148:6:task_system_actuators_statechart	0	static
+../app/src/task_system.c:136:6:task_system_update	8	static
+../app/src/task_system.c:390:6:task_system_set_mode	0	static

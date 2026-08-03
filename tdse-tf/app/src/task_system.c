@@ -57,6 +57,9 @@
 #define DEL_SYS_MED			250ul
 #define DEL_SYS_MAX			500ul
 
+#define TEMP_LIMIT_MAX 2400 // Representa 24.00 °C
+#define TEMP_LIMIT_MIN 1500 // Representa 15.00 °C
+
 #define SYSTEM_DTA_QTY	MODE_QTY
 
 extern sendMessage(char* message);
@@ -64,6 +67,11 @@ extern reset_timers();
 
 /********************** internal data declaration ****************************/
 task_system_dta_t task_system_dta_list[SYSTEM_DTA_QTY];
+
+static task_system_therm_st_t g_therm_state = ST_SYS_THERM_IDLE;
+static uint32_t               g_therm_timer = 0;
+
+//static task_system_bt_st_t    g_bt_state = ST_SYS_BT_DISCONNECTED;
 
 /********************** internal functions declaration ***********************/
 void task_system_auto_statechart(void);
@@ -127,38 +135,104 @@ void task_system_init(void *parameters)
 
 void task_system_update(void *parameters)
 {
-	static uint32_t last_therm_time = 0;
-	uint32_t current_time = HAL_GetTick();
+	/* 1. Máquina de Estado Paralela: Comunicación Bluetooth */
+	//task_system_bluetooth_statechart();
 
-	// Termometro, se piden lecturas cada 3000 ms (3 segundos)
-	if (current_time - last_therm_time >= 3000)
-	{
-		// Enviamos el evento para que la tarea del termómetro se despierte y mida
-		put_event_task_thermometer(EV_THERM_START_READ, ID_THERM_A);
-		last_therm_time = current_time;
-	}
+	/* 2. Máquina de Estado Paralela: Sensor de Temperatura */
+	task_system_thermometer_statechart();
 
-	/* Run Task Statechart */
+	/* 3. Máquina de Estado Paralela: Actuadores (según modo AUTO/MANUAL) */
+	task_system_actuators_statechart();
+}
+
+void task_system_actuators_statechart(void)
+{
 	switch (g_task_system_mode)
 	{
 		case AUTO:
-
 			task_system_auto_statechart();
-
 			break;
 
 		case MANUAL:
-
 			task_system_manual_statechart();
-
 			break;
 
 		default:
-
 			//task_system_set_mode(AUTO);
-
 			break;
 		}
+}
+
+// Termometro, se piden lecturas cada 3000 ms (3 segundos)
+void task_system_thermometer_statechart(void)
+{
+    uint32_t current_time = HAL_GetTick();
+    int16_t current_temp = task_thermometer_dta_list[ID_THERM_A].temperature;
+    char temp_str[17];
+
+    switch (g_therm_state)
+    {
+        case ST_SYS_THERM_IDLE:
+            /* 1. Al arrancar, pedimos la PRIMERA lectura al hardware inmediatamente */
+            put_event_task_thermometer(EV_THERM_START_READ, ID_THERM_A);
+
+            /* 2. Seteamos textos iniciales indicando que el sistema está midiendo */
+            task_lcd_set_line1("Temp: Midiendo..");
+            task_lcd_set_line2("Estado: Normal  ");
+
+            /* 3. Guardamos el tiempo y pasamos al ciclo normal */
+            g_therm_timer = current_time;
+            g_therm_state = ST_SYS_THERM_WAITING_CYCLE;
+            break;
+
+        case ST_SYS_THERM_WAITING_CYCLE:  /* ESTADO NORMAL */
+            if ((current_time - g_therm_timer) >= 3000ul) {
+                g_therm_timer = current_time;
+
+                /* 1. Actualizamos pantalla con el valor que ya tuvo 3 segundos para leerse */
+                snprintf(temp_str, sizeof(temp_str), "Temp: %2d.%02d C  ",
+                         current_temp / 100, abs(current_temp % 100));
+                task_lcd_set_line1(temp_str);
+
+                /* 2. PEDIMOS LA SIGUIENTE LECTURA para el próximo ciclo */
+                put_event_task_thermometer(EV_THERM_START_READ, ID_THERM_A);
+
+                /* 3. Ahora sí es seguro evaluar los límites de alarma */
+                if (current_temp >= TEMP_LIMIT_MAX || current_temp <= TEMP_LIMIT_MIN) {
+                    g_therm_state = ST_SYS_THERM_ALERT;
+
+                    task_lcd_set_line2("Estado: ALERTA!");
+                    put_event_task_actuator(EV_BUZZER_BLINK, ID_BUZZER);
+                }
+            }
+            break;
+
+        case ST_SYS_THERM_ALERT:  /* ESTADO ALERTA */
+            if ((current_time - g_therm_timer) >= 3000ul) {
+                g_therm_timer = current_time;
+
+                /* 1. Actualizamos pantalla */
+                snprintf(temp_str, sizeof(temp_str), "Temp: %2d.%02d C  ",
+                         current_temp / 100, abs(current_temp % 100));
+                task_lcd_set_line1(temp_str);
+
+                /* 2. Pedimos lectura para el próximo ciclo */
+                put_event_task_thermometer(EV_THERM_START_READ, ID_THERM_A);
+
+                /* 3. Verificamos si volvió a la normalidad */
+                if (current_temp < TEMP_LIMIT_MAX && current_temp > TEMP_LIMIT_MIN) {
+                    g_therm_state = ST_SYS_THERM_WAITING_CYCLE;
+
+                    task_lcd_set_line2("Estado: Normal  ");
+                    put_event_task_actuator(EV_BUZZER_OFF, ID_BUZZER);
+                }
+            }
+            break;
+
+        default:
+            g_therm_state = ST_SYS_THERM_IDLE;
+            break;
+    }
 }
 
 void statechart(task_system_dta_t *p_task_system_dta) {
