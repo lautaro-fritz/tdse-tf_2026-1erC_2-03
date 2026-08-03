@@ -627,7 +627,7 @@ Las pruebas de integración permitieron verificar el funcionamiento conjunto de 
 
 Durante los ensayos se verificó la adquisición de datos de temperatura, el control de los actuadores (alimentación, iluminación y filtrado), la generación de alarmas y la comunicación bidireccional mediante BLE. Además, se comprobó que la arquitectura implementada permite la ejecución simultánea de las tareas sin generar bloqueos en el funcionamiento del sistema.
 
-La evidencia del funcionamiento general del prototipo se encuentra documentada en el siguiente [video de presentación](youtu.be/drFNM-vi6Ts).
+La evidencia del funcionamiento general del prototipo se encuentra documentada en el siguiente [video de presentación](https://youtu.be/drFNM-vi6Ts).
 
 En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la Sección 2.2.
 
