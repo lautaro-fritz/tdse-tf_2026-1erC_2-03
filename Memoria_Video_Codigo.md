@@ -6,7 +6,7 @@
 
 Memoria del Trabajo Final:
 
-***Nombre del proyecto se propondrá una vez este esté más avanzado.***
+***Pecera Inteligente***
 
 **Autores:**
 
@@ -109,6 +109,8 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 [Próximos pasos](#5.2-próximos-pasos)
 
+[Uso de herramientas de IA](#uso-de-herramientas-de-ia)
+
 [Bibliografía](#bibliografía)
 
 # Registro de versiones
@@ -136,10 +138,6 @@ Objetivos principales:
 -Desarrollar una arquitectura modular de firmware basada en tareas y máquinas de estados.
 
 -Permitir la configuración y supervisión del sistema mediante una interfaz inalámbrica.
-
-## Presentación del proyecto
-
-**Figura 1.1:** Diagrama bloques general del sistema.
 
 # CAPÍTULO 2
 
@@ -372,7 +370,7 @@ El HM-10 incorpora un microcontrolador interno con un firmware encargado de impl
 
 <img width="1292" height="745" alt="image" src="https://github.com/user-attachments/assets/5abbab4d-75ba-488a-8917-4aa40a99b3ef" />
 
-Figura 3.1:Diagrama de conexiones de todos los componentes de hardware.
+**Figura 3.1:** Diagrama de conexiones de todos los componentes de hardware.
 
 
 ## 3.1 Hardware del sistema
@@ -382,8 +380,6 @@ En esta sección se describen las principales características del hardware empl
 <img width="747" height="472" alt="image" src="https://github.com/user-attachments/assets/73a96c61-2fb7-44b4-a691-9fe6f7796cd3" />
 
 **Figura 3.1:** Diagrama en bloques de los componentes de hardware del sistema.
-
-**Figura 3.2:** Diagrama de conexiones de los componentes hardware
 
 | Módulo Bluetooth HM-10 | Conexión |
 | :---- | :---- |
@@ -459,10 +455,6 @@ El display LCD utiliza la interfaz de comunicación I2C mediante las líneas SDA
 
 **Tabla 3.7:** Resumen de conexiones del display LCD mediante interfaz I2C. 
 
-**Figura 3.3:** del prototipo
-
-**Tabla 3.8:** Resumen de los costos de cada componente y el total
-
 ### 3.1.1 Dispensador de alimento
 
 En esta subsección se describe el dispensador de alimento implementado en el sistema. La **Figura 3.X** presenta una vista del mecanismo desarrollado para el prototipo. El dispensador está constituido por una tolva destinada al almacenamiento del alimento y una compuerta ubicada en su parte inferior, la cual regula la salida del alimento hacia la pecera.
@@ -472,8 +464,6 @@ El funcionamiento del mecanismo se basa en el accionamiento de un servomotor SG9
 El servomotor recibe la señal de control PWM generada por la placa NUCLEO-F103RB, mientras que su alimentación se realiza mediante una fuente externa de corriente continua (CC), evitando sobrecargar la alimentación de la placa de desarrollo y garantizando un funcionamiento estable del actuador.
 
 Asimismo, el sistema supervisa el estado de operación del mecanismo de alimentación. En caso de detectarse una condición de falla del actuador o una situación de error definida por la lógica de control, el proceso de alimentación es suspendido y el sistema pasa al estado de alarma correspondiente, notificando la condición al usuario.
-
-Figura 3.X: Se muestra el apartado de dispensador de alimento. 
 
 ### 3.1.2 Luces LED para el ciclo día y noche
 
@@ -609,23 +599,17 @@ Figura 4.9: Sistema de alarma desactivado.
 En esta prueba se verificó el correcto funcionamiento del módulo de medición de temperatura. Se comprobó la adquisición de datos desde el sensor DS18B20, la visualización de la temperatura en la pantalla LCD y la respuesta del sistema cuando la temperatura se encuentra dentro y fuera de los límites configurados.
 
 (Compuesta por dos imágenes: captura de la PC mostrando la temperatura y fotografía del LCD con el mismo valor).
-Figura 4.X: Medición de temperatura dentro del rango de funcionamiento.
+Figura 4.10: Medición de temperatura dentro del rango de funcionamiento.
 
-Figura 4.X: Medición de temperatura por encima del rango de funcionamiento.
-
-Figura 4.X: Medición de temperatura por debajo del rango de funcionamiento.
-
-
-
-### Capturas de control temperatura
+Figura 4.11: Medición de temperatura por fuera del rango de funcionamiento.
 
 ## 4.3 Pruebas funcionales del firmware
 
 En esta sección se presentan las pruebas realizadas para verificar el correcto funcionamiento del firmware implementado en el sistema. Se comprobó la ejecución de las tareas, la comunicación mediante Bluetooth Low Energy (BLE) y la respuesta del sistema ante las órdenes enviadas desde la aplicación móvil.
 
-Figura 4.X: Verificación de la selección entre el modo automático y el modo manual desde la aplicación móvil.
+Figura 4.12: Verificación de la selección entre el modo automático y el modo manual desde la aplicación móvil.
 
-Figura 4.X: Prueba de comunicación BLE, mostrando el envío de comandos desde la aplicación móvil y la activación de los actuadores correspondientes.
+Figura 4.13: Prueba de comunicación BLE, mostrando el envío de comandos desde la aplicación móvil y la activación de los actuadores correspondientes.
 
 
 ## 4.4 Pruebas de integración
@@ -675,21 +659,20 @@ El desarrollo del proyecto permitió obtener un prototipo funcional capaz de int
 
 ## 5.1 Resultados obtenidos
 
-**\-comunicación BLE**
+**Comunicación BLE**  
+Se implementó una comunicación inalámbrica estable entre la placa NUCLEO-F103RB y la aplicación móvil mediante el módulo HM-10. Esta interfaz permitió seleccionar el modo de funcionamiento automático o manual, controlar los diferentes actuadores del sistema y recibir información sobre su estado, verificando el correcto intercambio de datos entre ambos dispositivos.
 
-Comunicación Bluetooth Low Energy (BLE): Se implementó una comunicación inalámbrica estable entre la placa NUCLEO-F103RB y la aplicación móvil mediante el módulo HM-10. Esta interfaz permitió seleccionar el modo de funcionamiento automático o manual, controlar los diferentes actuadores del sistema y recibir información sobre su estado, verificando el correcto intercambio de datos entre ambos dispositivos.
-
-**\-manejo de sensor**
+**Manejo de sensor**  
 El sistema realizó la adquisición continua de la temperatura mediante el sensor DS18B20, mostrando las mediciones de forma correcta tanto en la terminal de la computadora como en la pantalla LCD, lo que permitió verificar la precisión y el correcto funcionamiento del módulo.
 
-**\-interfaz de usuario** 
-La implementación del display LCD permitió disponer de una interfaz local de monitoreo, mostrando en tiempo real la temperatura medida por el sensor. Esto proporcionó una alternativa de visualización independiente de la aplicación móvil y permitió verificar el correcto funcionamiento del sistema durante las pruebas
+**Interfaz de usuario**   
+La implementación del display LCD permitió disponer de una interfaz local de monitoreo, mostrando en tiempo real la temperatura medida por el sensor. Esto proporcionó una alternativa de visualización independiente de la aplicación móvil y permitió verificar el correcto funcionamiento del sistema durante las pruebas.
 
-**\-Control de actuadores y alarmaso** 
+**Control de actuadores y alarmas**  
 Se logró implementar el control coordinado de los diferentes actuadores del sistema, incluyendo el servomotor de alimentación, la iluminación LED y el relé encargado del sistema de filtrado. La integración mediante el firmware desarrollado permitió que cada dispositivo responda correctamente a los eventos generados por el sistema y a las órdenes enviadas mediante BLE.
 
 Además, se verificó el correcto funcionamiento del sistema de alarmas mediante el buzzer y el LED rojo, permitiendo generar avisos ante condiciones críticas. En conjunto, los actuadores y elementos de alerta pudieron operar de manera sincronizada, logrando un funcionamiento armónico entre las distintas partes que conforman el sistema embebido.
-.
+
 ## 5.2 Próximos pasos
 
 Como futuras mejoras del sistema se plantean las siguientes implementaciones:
@@ -702,7 +685,13 @@ Implementación de comunicación mediante WiFi: Reemplazar o complementar la com
 
 Mejora de las capacidades de supervisión: Incorporar nuevas funciones de monitoreo y registro de datos que permitan obtener mayor información sobre el comportamiento del sistema y facilitar el diagnóstico de posibles fallas.
 
-# Bibliografía
+# CAPÍTULO 6
+# Uso de herramientas de IA
+Se hizo uso de herramientas de IA como apoyo tanto en la generación y revisión del código del _firmware_ del proyecto como en la redacción del presente informe y para los nombres de los _commits_, siempre con criterio y cautela.  
+
+# CAPÍTULO 7
+
+# Bibliografía y referencias
 
 [1] STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.
 
