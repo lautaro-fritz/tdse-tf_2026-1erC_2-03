@@ -58,6 +58,8 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
   - [Buzzer TMB12A05](#2.3.7-buzzer-tmb12a05)
 
   - [LED Rojo](#2.3.8-led-rojo)
+ 
+  - [PCB](#2.3.9-pcb)
 
 - [Software Utilizado](#2.4-software-utilizado)
 
@@ -119,7 +121,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 | :---- | :---- | :---- |
 | **1.0** | Creación del documento | 10/7/2026 |
 | **1.1** | Cambio a formato markdown | 11/7/2026 |
-| **1.2** |  |  |
+| **1.2** | Versión final | 3/8/2026 |
 
 # CAPÍTULO 1 
 
@@ -349,6 +351,14 @@ El LED rojo fue incorporado al sistema como un dispositivo de alerta visual, cuy
 <img width="167" height="212" alt="image" src="https://github.com/user-attachments/assets/3cc99bba-c770-4307-bfd0-c964b754023a" />
 
 **Figura 2.8:** Led rojo 
+
+### 2.3.9 PCB
+
+Se diseñó y confeccionó una placa de circuito impreso específica para el proyecto para integrar los distintos componentes electrónicos del sistema en un único soporte.
+
+
+
+**Figura 2.9:** PCB
 
 ## 2.4 Software Utilizado
 
@@ -611,14 +621,13 @@ Figura 4.12: Verificación de la selección entre el modo automático y el modo 
 
 Figura 4.13: Prueba de comunicación BLE, mostrando el envío de comandos desde la aplicación móvil y la activación de los actuadores correspondientes.
 
-
 ## 4.4 Pruebas de integración
 
 Las pruebas de integración permitieron verificar el funcionamiento conjunto de los diferentes módulos del sistema, comprobando la correcta interacción entre sensores, actuadores, comunicación Bluetooth y aplicación móvil.
 
 Durante los ensayos se verificó la adquisición de datos de temperatura, el control de los actuadores (alimentación, iluminación y filtrado), la generación de alarmas y la comunicación bidireccional mediante BLE. Además, se comprobó que la arquitectura implementada permite la ejecución simultánea de las tareas sin generar bloqueos en el funcionamiento del sistema.
 
-La evidencia del funcionamiento general del prototipo se encuentra documentada en el video de presentación incluido en el Anexo B.
+La evidencia del funcionamiento general del prototipo se encuentra documentada en el siguiente [video de presentación](youtu.be/drFNM-vi6Ts).
 
 En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la Sección 2.2.
 
@@ -687,7 +696,7 @@ Mejora de las capacidades de supervisión: Incorporar nuevas funciones de monito
 
 # CAPÍTULO 6
 # Uso de herramientas de IA
-Se hizo uso de herramientas de IA como apoyo tanto en la generación y revisión del código del _firmware_ del proyecto como en la redacción del presente informe y para los nombres de los _commits_, siempre con criterio y cautela.  
+Se hizo un uso responsable de herramientas de IA como apoyo tanto en la generación y revisión del código del _firmware_ del proyecto como en la redacción del presente informe y para los nombres de los _commits_, siempre manteniendo el criterio y cautela.  
 
 # CAPÍTULO 7
 
