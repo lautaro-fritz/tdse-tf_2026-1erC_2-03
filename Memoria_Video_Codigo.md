@@ -248,8 +248,6 @@ Además, la NUCLEO-F103RB dispone de diversos periféricos, entre ellos entradas
 
 **Figura 2.1:** Placa de desarrollo NUCLEO-F103RB.
 
-https://www.st.com/resource/en/datasheet/stm32f103cb.pdf
-
 ### 2.3.2 Servomotor SG90
 
 El servomotor SG90 fue seleccionado como el actuador encargado de accionar el mecanismo de alimentación automática del prototipo. Su función consiste en generar el movimiento necesario para abrir el dispensador de alimento, permitiendo la caída de una cantidad controlada de comida hacia la pecera. Una vez finalizada la alimentación, el servomotor retorna a su posición inicial, cerrando nuevamente el mecanismo y evitando la liberación involuntaria de alimento.
@@ -262,8 +260,6 @@ El servomotor recibe la señal de control generada por la placa NUCLEO-F103RB me
 
 **Figura 2.2:** Servomotor SG90
 
-https://www.todomicro.com.ar/servomotores/279-servomotor-tower-pro-sg90-9g.html
-
 ### 2.3.3 Relé
 
 El relé fue incorporado al sistema para controlar la alimentación de una carga de 220V en corriente alterna (CA), representada en el prototipo mediante un foco que simula el funcionamiento del filtro de agua de la pecera. Debido a que este tipo de carga no puede ser accionada directamente por la placa NUCLEO-F103RB, el relé actúa como una interfaz de potencia que permite conmutar su alimentación a partir de una señal de control proveniente del microcontrolador.
@@ -275,8 +271,6 @@ La utilización de este componente permite validar el funcionamiento de la etapa
 <img width="366" height="276" alt="image" src="https://github.com/user-attachments/assets/e50c0258-41f9-4b3f-92dc-924bd32f7c3e" />
 
 **Figura 2.3:** Relé
-
-https://www.todomicro.com.ar/reles/342-modulo-relay-rele-de-1-canal-con-entrada-ttl.html
 
 ### 2.3.4 Pantalla LCD 16×2
 
@@ -301,8 +295,6 @@ En este proyecto, el sensor DS18B20 mide continuamente la temperatura del agua y
 <img width="521" height="335" alt="image" src="https://github.com/user-attachments/assets/6e0bbcd8-8ffd-4c85-9db8-04fb605f3474" />
 
 **Figura 2.5:** Sensor Digital Temperatura Ds18b20
-
-https://www.alldatasheet.com/datasheet-pdf/view/58557/DALLAS/DS18B20.html
 
 ### 2.3.6 Aro De Luz Led
 
@@ -330,8 +322,6 @@ Mediante esta comunicación es posible visualizar si la temperatura medida sali�
 
 **Figura 2.8:** Módulo Bluetooth HM-10
 
-https://www.alldatasheet.com/html-pdf/1179058/ETC1/HM-10/341/3/HM-10.html 
-
 ### 2.3.7 Buzzer TMB12A05
 
 El buzzer fue incorporado al sistema como un dispositivo de alerta audible, cuya función es emitir una señal sonora cuando el sistema detecta una condición de alarma. De esta manera, proporciona una indicación inmediata al usuario sobre la presencia de un evento que requiere atención.
@@ -341,8 +331,6 @@ En este proyecto, el buzzer es accionado por la placa NUCLEO-F103RB y se activa 
 <img width="270" height="221" alt="image" src="https://github.com/user-attachments/assets/bbe50405-10ba-49e1-8acd-7a5f0181c984" />
 
 **Figura 2.8:** Buzzer TMB12A05 
-
-https://www.quick-teck.co.uk/Management/EEUploadFile/1420788438.pdf
 
 ### 2.3.8 LED Rojo
 
@@ -354,9 +342,10 @@ El LED rojo fue incorporado al sistema como un dispositivo de alerta visual, cuy
 
 ### 2.3.9 PCB
 
-Se diseñó y confeccionó una placa de circuito impreso específica para el proyecto para integrar los distintos componentes electrónicos del sistema en un único soporte.
+Se diseñó y confeccionó una placa de circuito impreso específica para el proyecto para integrar los distintos componentes electrónicos del sistema en un único soporte para mejorar la presentación del mismo.
 
-
+<img width="310" height="207" alt="image" src="https://github.com/user-attachments/assets/1d149fc8-75da-4446-8de3-64e4b1faafc1" />
+<img width="310" height="207" alt="image" src="https://github.com/user-attachments/assets/fc5d955a-f773-4913-9a07-64780b331805" />
 
 **Figura 2.9:** PCB
 
@@ -570,56 +559,81 @@ De esta manera, el módulo centraliza el control de los actuadores y las alarmas
 # Ensayos y resultados
 En este capítulo se presentan las pruebas realizadas al prototipo para verificar el correcto funcionamiento del hardware y del firmware desarrollados. Asimismo, se muestran los resultados obtenidos durante la integración de los diferentes módulos que conforman el sistema.
 
+<img width="827" height="566" alt="image" src="https://github.com/user-attachments/assets/2565fc4a-3c98-4b5e-83a9-5b9e2faa2de6" />
+
 Figura 4.1: Vista general del prototipo desarrollado.
 
-## 4.1 Pruebas funcionales del hardware
-
-**4.1.1 Prueba del sistema de alimentación automática y manual.**
-
-Figura 4.2: Servomotor SG90 en posición de alimentación.
-
-Figura 4.3: Servomotor SG90 en posición de reposo.
-
-**4.1.2 Prueba del sistema de filtrado**
-
-Como se mencionó anteriormente, el sistema de filtrado fue representado mediante un foco de corriente alterna (CA), el cual simula el funcionamiento del filtro de agua durante las pruebas del prototipo.
-
-Figura 4.4: Sistema de filtrado activado.
-
-Figura 4.5: Sistema de filtrado desactivado.
-
-**4.1.3 Prueba del sistema de iluminación (día y noche)**
-
-En esta prueba se verificó el funcionamiento del sistema de iluminación implementado mediante un aro LED, el cual simula los ciclos de día y noche de la pecera de acuerdo con la lógica de control desarrollada.
-
-Figura 4.6: Sistema de iluminación activado.
-
-Figura 4.7: Sistema de iluminación desactivado.
-
-**4.1.4 Prueba del sistema de alarma**
-
-En esta prueba se verificó el funcionamiento del sistema de alarma, compuesto por un buzzer y un LED rojo, los cuales se activan cuando el sistema detecta una condición de alarma.
-
-Figura 4.8: Sistema de alarma activado.
-
-Figura 4.9: Sistema de alarma desactivado.
-
-### 4.2.Pruebas de sensor con interfaz del usuario
-
-En esta prueba se verificó el correcto funcionamiento del módulo de medición de temperatura. Se comprobó la adquisición de datos desde el sensor DS18B20, la visualización de la temperatura en la pantalla LCD y la respuesta del sistema cuando la temperatura se encuentra dentro y fuera de los límites configurados.
-
-(Compuesta por dos imágenes: captura de la PC mostrando la temperatura y fotografía del LCD con el mismo valor).
-Figura 4.10: Medición de temperatura dentro del rango de funcionamiento.
-
-Figura 4.11: Medición de temperatura por fuera del rango de funcionamiento.
-
-## 4.3 Pruebas funcionales del firmware
+## 4.1 Pruebas funcionales del firmware
 
 En esta sección se presentan las pruebas realizadas para verificar el correcto funcionamiento del firmware implementado en el sistema. Se comprobó la ejecución de las tareas, la comunicación mediante Bluetooth Low Energy (BLE) y la respuesta del sistema ante las órdenes enviadas desde la aplicación móvil.
 
-Figura 4.12: Verificación de la selección entre el modo automático y el modo manual desde la aplicación móvil.
+<img width="302" height="572" alt="image" src="https://github.com/user-attachments/assets/0a94a548-a9c7-450a-8989-bc4a8ece67e5" />
 
-Figura 4.13: Prueba de comunicación BLE, mostrando el envío de comandos desde la aplicación móvil y la activación de los actuadores correspondientes.
+Figura 4.2: Prueba de comunicación BLE.
+
+## 4.2 Pruebas funcionales del hardware
+
+**4.2.1 Prueba del sistema de alimentación automática y manual.**
+
+<img width="857" height="561" alt="image" src="https://github.com/user-attachments/assets/653d123e-560b-49cd-ae9a-0c7aee15a3f9" />
+
+Figura 4.3: Servomotor SG90 en posición de alimentación.
+
+<img width="860" height="561" alt="image" src="https://github.com/user-attachments/assets/a7f99ece-d79d-46b9-9a3b-3dc4ee4c542a" />
+
+Figura 4.4: Servomotor SG90 en posición de reposo.
+
+**4.2.2 Prueba del sistema de filtrado**
+
+Como se mencionó anteriormente, el sistema de filtrado fue representado mediante un foco de corriente alterna (CA), el cual simula el funcionamiento del filtro de agua durante las pruebas del prototipo.
+
+<img width="857" height="646" alt="image" src="https://github.com/user-attachments/assets/efe68572-dfa6-4069-b334-82ec9878b64b" />
+
+Figura 4.5: Sistema de filtrado activado.
+
+<img width="862" height="642" alt="image" src="https://github.com/user-attachments/assets/fb2e6cae-8cf5-454d-8924-c441b8e8e165" />
+
+Figura 4.6: Sistema de filtrado desactivado.
+
+**4.2.3 Prueba del sistema de iluminación (día y noche)**
+
+En esta prueba se verificó el funcionamiento del sistema de iluminación implementado mediante un aro LED, el cual simula los ciclos de día y noche de la pecera de acuerdo con la lógica de control desarrollada.
+
+<img width="485" height="600" alt="image" src="https://github.com/user-attachments/assets/b84e0268-9156-42d2-ace9-bea6343d3e82" />
+
+Figura 4.7: Sistema de iluminación activado.
+
+<img width="485" height="620" alt="image" src="https://github.com/user-attachments/assets/23c44002-39e1-4519-ac97-12874deb0440" />
+
+Figura 4.8: Sistema de iluminación desactivado.
+
+**4.2.4 Prueba del sistema de alarma**
+
+En esta prueba se verificó el funcionamiento del sistema de alarma, compuesto por un buzzer y un LED rojo, los cuales se activan cuando el sistema detecta una condición de alarma.
+
+<img width="857" height="505" alt="image" src="https://github.com/user-attachments/assets/de7fdeb3-4eeb-4683-8398-8b63e96e0ebf" />
+
+Figura 4.9: Sistema de alarma activado.
+
+<img width="690" height="482" alt="image" src="https://github.com/user-attachments/assets/7e2e6ccf-ea0e-4178-9fbe-a106dbe29a28" />
+
+Figura 4.10: Sistema de alarma desactivado.
+
+### 4.3.Pruebas de sensor con interfaz del usuario
+
+En esta prueba se verificó el correcto funcionamiento del módulo de medición de temperatura. Se comprobó la adquisición de datos desde el sensor DS18B20, la visualización de la temperatura en la pantalla LCD y la respuesta del sistema cuando la temperatura se encuentra dentro y fuera de los límites configurados.
+
+<img width="1327" height="47" alt="image" src="https://github.com/user-attachments/assets/17b52bdf-9a92-4354-a309-8ae854561e31" />
+
+<img width="690" height="482" alt="image" src="https://github.com/user-attachments/assets/7e2e6ccf-ea0e-4178-9fbe-a106dbe29a28" />
+
+Figura 4.11: Medición de temperatura dentro del rango de funcionamiento.
+
+<img width="1506" height="52" alt="image" src="https://github.com/user-attachments/assets/0101dd18-e53c-460d-b616-7e9246f9ada1" />
+
+<img width="857" height="505" alt="image" src="https://github.com/user-attachments/assets/de7fdeb3-4eeb-4683-8398-8b63e96e0ebf" />
+
+Figura 4.12: Medición de temperatura por fuera del rango de funcionamiento.
 
 ## 4.4 Pruebas de integración
 
@@ -630,6 +644,18 @@ Durante los ensayos se verificó la adquisición de datos de temperatura, el con
 La evidencia del funcionamiento general del prototipo se encuentra documentada en el siguiente [video de presentación](https://youtu.be/drFNM-vi6Ts).
 
 En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la Sección 2.2.
+
+## 4.5 Console and Build Analyzer
+
+La Figura 4.13 muestra el reporte de uso de memoria del build. Se observa un uso bajo de RAM y FLASH (≈17,58% y ≈18,99%), dejando margen para futuras extensiones.
+
+<img width="720" height="151" alt="image" src="https://github.com/user-attachments/assets/32d8ac47-fc97-429e-a179-95f9d7dbf51a" />
+
+Figura 4.13: Memory Regions.
+
+<img width="741" height="195" alt="image" src="https://github.com/user-attachments/assets/1e313bff-4b44-417f-b37c-ce393bd9b2fb" />
+
+Figura 4.14: Build Console.
 
 | Caso de Uso | Título | ¿Se cumplió? |
 | :---- | :---- | :---- |
@@ -642,7 +668,24 @@ En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la 
 
 **Tabla 4.1** Cumplimiento de los casos de uso planteados.
 
-## 4.5 Cumplimiento de requisitos
+## 4.6 Medición y análisis de tiempos de ejecución
+
+Para medir peor tiempo de ejecución (WCET) de cada tarea, se utilizó el DWT (Data Watchpoint and Trace), el cual permite medir el tiempo con alta precisión. El código programa comienza a contar el tiempo con precisión desde que cada tarea se ejecuta hasta que finaliza. Si el valor obtenido es mayor que el anteriormente guardado, se actualiza el registro, de lo contrario, se continúa sin guardar el valor.
+
+La sumatoria de todos los WCET da un total de 739μs, por debajo de los 1000μs que exige el ejecutor cíclico. Se aprecia que la última tarea (correspondiente al display LCD) es la que más demora.
+
+<img width="1670" height="287" alt="image" src="https://github.com/user-attachments/assets/c737217a-a93f-42bf-bfd2-8ee385955336" />
+<img width="1710" height="302" alt="image" src="https://github.com/user-attachments/assets/36dd9744-4fae-4f15-8428-5b90499cb5c8" />
+<img width="1697" height="287" alt="image" src="https://github.com/user-attachments/assets/6fbd61d6-0405-4309-a255-f43542e45b76" />
+<img width="1686" height="292" alt="image" src="https://github.com/user-attachments/assets/2224d39e-9f6f-4513-a090-504610771ce5" />
+<img width="1692" height="287" alt="image" src="https://github.com/user-attachments/assets/17117b87-80b5-4a20-b5e5-8b6620228e0f" />
+<img width="1692" height="287" alt="image" src="https://github.com/user-attachments/assets/f3d9eb82-3ef2-4e31-83ee-e2c48c242bb9" />
+<img width="1701" height="287" alt="image" src="https://github.com/user-attachments/assets/cd66deb5-7b54-4843-85c5-00b7071ddbc3" />
+<img width="1700" height="292" alt="image" src="https://github.com/user-attachments/assets/e538ee12-ddae-4400-b53c-bbace78e52e9" />
+
+Figura 4.15: Mediciones de tiempos de ejecución por cada tarea.
+
+## 4.7 Cumplimiento de requisitos
 
 | Grupo | ID | Descripción | ¿Se cumplió? |
 | :---- | :---- | :---- | :---- |
@@ -702,7 +745,7 @@ Se hizo un uso responsable de herramientas de IA como apoyo tanto en la generaci
 
 # Bibliografía y referencias
 
-[1] STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.
+[https://www.st.com/resource/en/datasheet/stm32f103cb.pdf](STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.)
 
 [2] STMicroelectronics, MB1136 - STM32 Nucleo-64 boards Electrical Schematic. STMicroelectronics.
 
