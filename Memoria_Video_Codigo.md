@@ -133,13 +133,13 @@ El sistema permite gestionar funciones como la alimentación automática, la ilu
 
 Objetivos principales:
 
--Implementar un prototipo funcional de automatización y monitoreo para una pecera doméstica.
+- Implementar un prototipo funcional de automatización y monitoreo para una pecera doméstica.
 
--Integrar sensores, actuadores y módulos de comunicación utilizando la plataforma STM32.
+- Integrar sensores, actuadores y módulos de comunicación utilizando la plataforma STM32.
 
--Desarrollar una arquitectura modular de firmware basada en tareas y máquinas de estados.
+- Desarrollar una arquitectura modular de firmware basada en tareas y máquinas de estados.
 
--Permitir la configuración y supervisión del sistema mediante una interfaz inalámbrica.
+- Permitir la configuración y supervisión del sistema mediante una interfaz inalámbrica.
 
 # CAPÍTULO 2
 
@@ -645,6 +645,17 @@ La evidencia del funcionamiento general del prototipo se encuentra documentada e
 
 En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la Sección 2.2.
 
+| Caso de Uso | Título | ¿Se cumplió? |
+| :---- | :---- | :---- |
+| **\#1** | Alimentación automática y manual | **✔ Cumplido** |
+| **\#2** | Control de iluminación día/noche | **✔ Cumplido** |
+| **\#3** | Control del sistema de filtrado | **✔ Cumplido** |
+| **\#4** | Monitoreo de temperatura y alarmas | **✔ Cumplido** |
+| **\#5** | Configuración mediante aplicación móvil | **✔ Cumplido** |
+| **\#6** | Control manual de actuadores mediante BLE | **✔ Cumplido** |
+
+**Tabla 4.1** Cumplimiento de los casos de uso planteados.
+
 ## 4.5 Console and Build Analyzer
 
 La Figura 4.13 muestra el reporte de uso de memoria del build. Se observa un uso bajo de RAM y FLASH (≈17,58% y ≈18,99%), dejando margen para futuras extensiones.
@@ -656,17 +667,6 @@ Figura 4.13: Memory Regions.
 <img width="741" height="195" alt="image" src="https://github.com/user-attachments/assets/1e313bff-4b44-417f-b37c-ce393bd9b2fb" />
 
 Figura 4.14: Build Console.
-
-| Caso de Uso | Título | ¿Se cumplió? |
-| :---- | :---- | :---- |
-| **\#1** | Alimentación automática y manual | **✔ Cumplido** |
-| **\#2** | Control de iluminación día/noche | **✔ Cumplido** |
-| **\#3** | Control del sistema de filtrado | **✔ Cumplido** |
-| **\#4** | Monitoreo de temperatura y alarmas | **✔ Cumplido** |
-| **\#5** | Configuración mediante aplicación móvil | **✔ Cumplido** |
-| **\#6** | Control manual de actuadores mediante BLE | **✔ Cumplido** |
-
-**Tabla 4.1** Cumplimiento de los casos de uso planteados.
 
 ## 4.6 Medición y análisis de tiempos de ejecución
 
@@ -745,20 +745,20 @@ Se hizo un uso responsable de herramientas de IA como apoyo tanto en la generaci
 
 # Bibliografía y referencias
 
-[https://www.st.com/resource/en/datasheet/stm32f103cb.pdf](STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.)
+[STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.](https://www.st.com/resource/en/datasheet/stm32f103cb.pdf)
 
 [2] STMicroelectronics, MB1136 - STM32 Nucleo-64 boards Electrical Schematic. STMicroelectronics.
 
 [3] STMicroelectronics, STM32F103RB Datasheet - STM32F103x8 and STM32F103xB medium-density performance line microcontrollers. STMicroelectronics.
 
-[4] Tower Pro, SG90 Micro Servo Motor Datasheet. Technical specifications and operating characteristics of the SG90 servo motor.
+[Tower Pro, SG90 Micro Servo Motor Datasheet. Technical specifications and operating characteristics of the SG90 servo motor.](https://www.todomicro.com.ar/servomotores/279-servomotor-tower-pro-sg90-9g.html)
 
-[5] Jinan Huamao Technology Co., Ltd., HM-10 Bluetooth 4.0 BLE Module Datasheet. Bluetooth Low Energy communication module.
+[Jinan Huamao Technology Co., Ltd., HM-10 Bluetooth 4.0 BLE Module Datasheet. Bluetooth Low Energy communication module.](https://www.alldatasheet.com/html-pdf/1179058/ETC1/HM-10/341/3/HM-10.html)
 
-[6] Dallas Semiconductor / Maxim Integrated, DS18B20 Programmable Resolution 1-Wire Digital Thermometer Datasheet.
+[Dallas Semiconductor / Maxim Integrated, DS18B20 Programmable Resolution 1-Wire Digital Thermometer Datasheet.](https://www.alldatasheet.com/datasheet-pdf/view/58557/DALLAS/DS18B20.html)
 
 [7] Hitachi, HD44780U LCD Controller/Driver Datasheet. Character LCD controller used in 16×2 display modules.
 
-[8] Quick-Teck Electronics, TMB12A05 Buzzer Datasheet. Technical specifications of the audible alarm device.
+[Quick-Teck Electronics, TMB12A05 Buzzer Datasheet. Technical specifications of the audible alarm device.](https://www.quick-teck.co.uk/Management/EEUploadFile/1420788438.pdf)
 
 [9] STMicroelectronics, STM32CubeIDE User Guide. Development environment for STM32 microcontrollers.
