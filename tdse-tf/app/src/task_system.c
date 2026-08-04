@@ -71,7 +71,7 @@ task_system_dta_t task_system_dta_list[SYSTEM_DTA_QTY];
 static task_system_therm_st_t g_therm_state = ST_SYS_THERM_IDLE;
 static uint32_t               g_therm_timer = 0;
 
-//static task_system_bt_st_t    g_bt_state = ST_SYS_BT_DISCONNECTED;
+static task_system_bt_st_t    g_bt_state = ST_SYS_BT_DISCONNECTED;
 
 /********************** internal functions declaration ***********************/
 void task_system_auto_statechart(void);
@@ -136,13 +136,125 @@ void task_system_init(void *parameters)
 void task_system_update(void *parameters)
 {
 	/* 1. Máquina de Estado Paralela: Comunicación Bluetooth */
-	//task_system_bluetooth_statechart();
+	task_system_bluetooth_statechart();
 
 	/* 2. Máquina de Estado Paralela: Sensor de Temperatura */
 	task_system_thermometer_statechart();
 
 	/* 3. Máquina de Estado Paralela: Actuadores (según modo AUTO/MANUAL) */
 	task_system_actuators_statechart();
+}
+
+void task_system_bluetooth_statechart(void)
+{
+    task_system_ev_t ev = {EV_SYS_IDLE, AUTO};
+
+    /* 1. Verificamos si hay un evento pendiente en la cola del sistema */
+    if (true == any_event_task_system()) {
+        ev = get_event_task_system();
+    }
+
+    switch (g_bt_state)
+    {
+        case ST_SYS_BT_DISCONNECTED:
+            /* Si llega el comando /manual:1 pasamos a conectados */
+            if (EV_SYS_APP_CONNECTED == ev.event) {
+                g_bt_state = ST_SYS_BT_CONNECTED;
+                task_system_set_mode(MANUAL);
+
+                /* Apagamos actuadores al pasar a control manual por seguridad */
+                put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
+                put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+                put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
+
+                task_lcd_set_line2("MANUAL mode: ON");
+                sendMessage("MANUAL mode: ON\r\n");
+            }
+            else if (EV_SYS_APP_DISCONNECTED == ev.event) {
+                sendMessage("Already in AUTO mode.\r\n");
+            }
+            break;
+
+        case ST_SYS_BT_CONNECTED:
+            /* Si llega el comando /manual:0 nos desconectamos */
+            if (EV_SYS_APP_DISCONNECTED == ev.event) {
+                g_bt_state = ST_SYS_BT_DISCONNECTED;
+                task_system_set_mode(AUTO);
+
+                /* Reiniciamos temporizadores y apagamos actuadores */
+                reset_timers();
+                put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
+                put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
+                put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
+
+                task_lcd_set_line2("MANUAL mode: OFF");
+                sendMessage("MANUAL mode: OFF\r\n");
+            }
+            else if (EV_SYS_APP_CONNECTED == ev.event) {
+                sendMessage("Already in MANUAL mode.\r\n");
+            }
+            break;
+
+        default:
+            g_bt_state = ST_SYS_BT_DISCONNECTED;
+            break;
+    }
+
+    /* 2. IMPORTANTE: Si el evento NO era de conexión (/filter:1, /lights:1, etc.),
+     * lo volvemos a colocar en la cola para que lo procese task_system_actuators_statechart() */
+    if ((ev.event != EV_SYS_IDLE) &&
+        (ev.event != EV_SYS_APP_CONNECTED) &&
+        (ev.event != EV_SYS_APP_DISCONNECTED))
+    {
+        put_event_task_system(ev);
+    }
+}
+
+void task_system_auto_statechart(void)
+{
+    task_system_dta_t *p_task_system_dta;
+
+    /* Update Task System Data Pointer */
+    p_task_system_dta = &task_system_dta_list[AUTO];
+
+    if (true == any_event_task_system())
+    {
+        p_task_system_dta->flag = true;
+        p_task_system_dta->event = get_event_task_system();
+    }
+
+    /* 1. Filtro de seguridad: en modo AUTO bloqueamos eventos que vengan de la App/Manual */
+    if ((true == p_task_system_dta->flag) && (p_task_system_dta->event.mode != AUTO)) {
+        p_task_system_dta->flag = false;
+        sendMessage("Manual commands not allowed in AUTO mode.\r\n");
+        return;
+    }
+
+    /* 2. Ejecutamos el statechart de actuadores (luces, filtro, alimentador) */
+    statechart(p_task_system_dta);
+}
+
+void task_system_manual_statechart(void)
+{
+    task_system_dta_t *p_task_system_dta;
+
+    /* Update Task System Data Pointer */
+    p_task_system_dta = &task_system_dta_list[MANUAL];
+
+    if (true == any_event_task_system())
+    {
+        p_task_system_dta->flag = true;
+        p_task_system_dta->event = get_event_task_system();
+    }
+
+    /* 1. Filtro de seguridad: en modo MANUAL ignoramos comandos internos del modo AUTO */
+    if ((true == p_task_system_dta->flag) && (p_task_system_dta->event.mode != MANUAL)) {
+        p_task_system_dta->flag = false;
+        return;
+    }
+
+    /* 2. Ejecutamos el statechart de actuadores */
+    statechart(p_task_system_dta);
 }
 
 void task_system_actuators_statechart(void)
@@ -203,7 +315,9 @@ void task_system_thermometer_statechart(void)
 
                     task_lcd_set_line2("Estado: ALERTA!");
                     put_event_task_actuator(EV_BUZZER_BLINK, ID_BUZZER);
+                    break;
                 }
+                task_lcd_set_line2("Estado: Normal  ");
             }
             break;
 
@@ -226,6 +340,7 @@ void task_system_thermometer_statechart(void)
                     task_lcd_set_line2("Estado: Normal  ");
                     put_event_task_actuator(EV_BUZZER_OFF, ID_BUZZER);
                 }
+                task_lcd_set_line2("Estado: ALERTA!");
             }
             break;
 
@@ -308,84 +423,7 @@ void statechart(task_system_dta_t *p_task_system_dta) {
 	}
 }
 
-void task_system_auto_statechart(void)
-{
-	task_system_dta_t *p_task_system_dta;
 
-	/* Update Task System Data Pointer */
-	p_task_system_dta = &task_system_dta_list[AUTO];
-
-	if (true == any_event_task_system())
-	{
-		p_task_system_dta->flag = true;
-		p_task_system_dta->event = get_event_task_system();
-	}
-
-	if ((true == p_task_system_dta->flag) && (EV_SYS_APP_CONNECTED == p_task_system_dta->event.event)) {
-		p_task_system_dta->flag = false;
-		task_system_set_mode(MANUAL);
-		put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
-		put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
-		put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
-		p_task_system_dta->state = ST_SYS_IDLE;
-		sendMessage("MANUAL mode: ON\r\n");
-		return;
-	} else if ((true == p_task_system_dta->flag) && (EV_SYS_APP_DISCONNECTED == p_task_system_dta->event.event)) {
-		p_task_system_dta->flag = false;
-		//aviso de que ya esta en auto
-  		sendMessage("Already in AUTO mode.\r\n");
-		return;
-	}
-
-	if ((true == p_task_system_dta->flag) && (p_task_system_dta->event.mode != AUTO)) {
-		p_task_system_dta->flag = false;
-		sendMessage("Manual commands not allowed in AUTO mode.\r\n");
-		return;
-	}
-
-	statechart(p_task_system_dta);
-}
-
-void task_system_manual_statechart(void)
-{
-	task_system_dta_t *p_task_system_dta;
-
-	/* Update Task System Data Pointer */
-	p_task_system_dta = &task_system_dta_list[MANUAL];
-
-	if (true == any_event_task_system())
-	{
-		p_task_system_dta->flag = true;
-		p_task_system_dta->event = get_event_task_system();
-	}
-
-	if ((true == p_task_system_dta->flag) && (EV_SYS_APP_CONNECTED == p_task_system_dta->event.event)) {
-		p_task_system_dta->flag = false;
-		sendMessage("Already in MANUAL mode.\r\n");
-		return;
-	} else if ((true == p_task_system_dta->flag) && (EV_SYS_APP_DISCONNECTED == p_task_system_dta->event.event)) {
-		p_task_system_dta->flag = false;
-		task_system_set_mode(AUTO);
-
-		//tengo que reiniciar los timers de alguna forma
-		reset_timers();
-
-		put_event_task_pwm(EV_PWM_OFF, ID_PWM_MOTOR);
-		put_event_task_actuator(EV_ACT_IDLE, ID_RELAY_FILTER);
-		put_event_task_pwm(EV_PWM_OFF, ID_PWM_LIGHT);
-		sendMessage("MANUAL mode: OFF\r\n");
-		p_task_system_dta->state = ST_SYS_IDLE;
-		return;
-	}
-
-	if ((true == p_task_system_dta->flag) && (p_task_system_dta->event.mode != MANUAL)) {
-		p_task_system_dta->flag = false;
-		//printf("AUTO event detected while in MANUAL mode, discarding...\n");
-		return;
-	}
-
-	statechart(p_task_system_dta);
-}
 
 void task_system_set_mode(task_system_mode_t task_system_mode)
 {
