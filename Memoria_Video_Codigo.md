@@ -29,31 +29,29 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 [Introducción general](#introducción-general)
 
-- [Presentación del proyecto](#presentación-del-proyecto)
-
 [Introducción Específica](#introducción-específica)
 
-- [Requisitos](#requisitos)
+- [Requisitos](#21-requisitos)
 
-- [Casos de uso](#casos-de-uso)
+- [Casos de uso](#22-casos-de-uso)
 
-- [Hardware utilizado](#hardware-utilizado)
+- [Hardware utilizado](#23-hardware-utilizado)
 
-  - [Placa NUCLEO-F103RB](#2.3.1-placa-nucleo-f103rb)
+  - [Placa NUCLEO-F103RB](#231-placa-nucleo-f103rb)
 
-  - [Servomotor SG90](#2.3.2-servomotor-sg90)
+  - [Servomotor SG90](#232-servomotor-sg90)
 
-  - [Relé](#2.3.3-relé)
+  - [Relé](#233-relé)
 
-  - [Pantalla LCD 16×2](#2.3.4-pantalla-lcd-16×2)
+  - [Pantalla LCD 16×2](#234-pantalla-lcd-162)
 
-  - [Sensor Digital Temperatura Ds18b20](#2.3.5-sensor-digital-temperatura-ds18b20)
+  - [Sensor Digital Temperatura Ds18b20](#235-sensor-digital-temperatura-ds18b20)
 
-  - [Aro De Luz Led](#2.3.6-aro-de-luz-led)
+  - [Aro De Luz Led](#236-aro-de-luz-led)
 
-  - [Foco de Corriente Alterna](#2.3.7-foco-de-corriente-alterna)
+  - [Foco de Corriente Alterna](#237-foco-de-corriente-alterna)
 
-  - [Módulo Bluetooth HM-10](#2.3.8-módulo-bluetooth-hm-10)
+  - [Módulo Bluetooth HM-10](#238-módulo-bluetooth-hm-10)
 
   - [Buzzer TMB12A05](#2.3.7-buzzer-tmb12a05)
 
@@ -93,27 +91,29 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 [Ensayos y resultados](#ensayos-y-resultados)
 
-- [Pruebas funcionales del hardware](#4.1-pruebas-funcionales-del-hardware)
+- [Pruebas funcionales del firmware](#41-pruebas-funcionales-del-firmware)
 
-- [Pruebas de sensor con interfaz del usuario](#4.1.1-pruebas-de-sensor-con-interfaz-del-usuario)
+- [Pruebas funcionales del hardware](#42-pruebas-funcionales-del-hardware)
 
-- [Capturas de control temperatura](#capturas-de-control-temperatura)
+- [Pruebas de sensor con interfaz del usuario](#43pruebas-de-sensor-con-interfaz-del-usuario)
 
-- [Pruebas funcionales del firmware](#4.2-pruebas-funcionales-del-firmware)
+- [Pruebas de integración](#44-pruebas-de-integración)
 
-- [Pruebas de integración](#4.3-pruebas-de-integración)
+- [Console and Build Analyzer](#45-console-and-build-analyzer)
 
-- [Cumplimiento de requisitos](#4.4-cumplimiento-de-requisitos)
+- [Medición y análisis de tiempos de ejecución](#46-medición-y-análisis-de-tiempos-de-ejecución)
+
+- [Cumplimiento de requisitos](#47-cumplimiento-de-requisitos)
 
 [Conclusiones](#conclusiones)
 
-- [Resultados obtenidos](#5.1-resultados-obtenidos)
+- [Resultados obtenidos](#51-resultados-obtenidos)
 
-[Próximos pasos](#5.2-próximos-pasos)
+- [Próximos pasos](#52-próximos-pasos)
 
 [Uso de herramientas de IA](#uso-de-herramientas-de-ia)
 
-[Bibliografía](#bibliografía)
+[Bibliografía y referencias](#bibliografía-y-referencias)
 
 # Registro de versiones
 
@@ -121,7 +121,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 | :---- | :---- | :---- |
 | **1.0** | Creación del documento | 10/7/2026 |
 | **1.1** | Cambio a formato markdown | 11/7/2026 |
-| **1.2** | Versión final | 3/8/2026 |
+| **1.2** | Versión final | 4/8/2026 |
 
 # CAPÍTULO 1 
 
@@ -322,7 +322,7 @@ Mediante esta comunicación es posible visualizar si la temperatura medida sali�
 
 **Figura 2.8:** Módulo Bluetooth HM-10
 
-### 2.3.7 Buzzer TMB12A05
+### 2.3.9 Buzzer TMB12A05
 
 El buzzer fue incorporado al sistema como un dispositivo de alerta audible, cuya función es emitir una señal sonora cuando el sistema detecta una condición de alarma. De esta manera, proporciona una indicación inmediata al usuario sobre la presencia de un evento que requiere atención.
 
@@ -330,24 +330,24 @@ En este proyecto, el buzzer es accionado por la placa NUCLEO-F103RB y se activa 
 
 <img width="270" height="221" alt="image" src="https://github.com/user-attachments/assets/bbe50405-10ba-49e1-8acd-7a5f0181c984" />
 
-**Figura 2.8:** Buzzer TMB12A05 
+**Figura 2.9:** Buzzer TMB12A05 
 
-### 2.3.8 LED Rojo
+### 2.3.10 LED Rojo
 
 El LED rojo fue incorporado al sistema como un dispositivo de alerta visual, cuya función es indicar de manera inmediata cuando el sistema detecta una condición de alarma. De esta forma, proporciona al usuario una señal luminosa que permite identificar rápidamente la presencia de una condición anómala.
 
 <img width="167" height="212" alt="image" src="https://github.com/user-attachments/assets/3cc99bba-c770-4307-bfd0-c964b754023a" />
 
-**Figura 2.8:** Led rojo 
+**Figura 2.10:** Led rojo 
 
-### 2.3.9 PCB
+### 2.3.11 PCB
 
 Se diseñó y confeccionó una placa de circuito impreso específica para el proyecto para integrar los distintos componentes electrónicos del sistema en un único soporte para mejorar la presentación del mismo.
 
 <img width="310" height="207" alt="image" src="https://github.com/user-attachments/assets/1d149fc8-75da-4446-8de3-64e4b1faafc1" />
 <img width="310" height="207" alt="image" src="https://github.com/user-attachments/assets/fc5d955a-f773-4913-9a07-64780b331805" />
 
-**Figura 2.9:** PCB
+**Figura 2.11:** PCB
 
 ## 2.4 Software Utilizado
 
@@ -378,7 +378,7 @@ En esta sección se describen las principales características del hardware empl
 
 <img width="747" height="472" alt="image" src="https://github.com/user-attachments/assets/73a96c61-2fb7-44b4-a691-9fe6f7796cd3" />
 
-**Figura 3.1:** Diagrama en bloques de los componentes de hardware del sistema.
+**Figura 3.2:** Diagrama en bloques de los componentes de hardware del sistema.
 
 | Módulo Bluetooth HM-10 | Conexión |
 | :---- | :---- |
