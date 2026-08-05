@@ -685,7 +685,27 @@ La sumatoria de todos los WCET da un total de 739μs, por debajo de los 1000μs 
 
 Figura 4.15: Mediciones de tiempos de ejecución por cada tarea.
 
-## 4.7 Cumplimiento de requisitos
+## 4.7 Medición y análisis del consumo energético
+
+Se realizaron mediciones para analizar el consumo energético de los módulos que componen el sistema. Se conecto en serie un amperímetro en la entrada de la fuente de alimentación externa, de esta forma se obtiene una medición integral de la placa NUCLEO. Se empleo una fuente de alimentación de 5V-2A, capaz de soportar todas las cargas utilizadas. 
+
+En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
+
+| Actuador | Valor | Observación |
+| :---- | :---- | :---- |
+| **Termómetro** | 0,000A | No se registro lectura alguna, se podría lograr con un amperímetro de mayor resolución. |
+| **Aro Led** | 0,203A | Consumo del sistema con el aro LED conectado únicamente. |
+| **Relé** | 0,133A | Consumo del sistema con el relé conectado únicamente. |
+| **Servomotor** | 0,235A | Consumo del sistema con el servomotor conectado únicamente. |
+| **Display** | 0,094A | Consumo del sistema con el display conectado únicamente. |
+| **Modulo Bluetooth** | 0,083A | Consumo del sistema con el modulo bluetooth conectado únicamente. |
+| **Buzzer + LED** | 0,111A | Consumo del sistema con el buzzer y display conectados únicamente. |
+| **Integrado 1** | 0,072A | Consumo del sistema sin actuadores conectados. |
+| **Integrado 2** | 0,105A - 0,323A | Consumo del sistema con todos los actuadores conectados, se registro un consumo mínimo y máximo debido a que no se encienden todos al mismo tiempo. |
+
+**Tabla 4.2** Consumo energético de actuadores.
+
+## 4.8 Cumplimiento de requisitos
 
 | Grupo | ID | Descripción | ¿Se cumplió? |
 | :---- | :---- | :---- | :---- |
@@ -701,7 +721,7 @@ Figura 4.15: Mediciones de tiempos de ejecución por cada tarea.
 |  | **2.7** | **La carga de corriente alterna permanecerá activada durante el funcionamiento normal y se desactivará temporalmente durante el ciclo de alimentación.** | **✔ Cumplido** |
 |  | **2.8** | **El sistema verificará el estado del relé y notificará posibles fallos en su accionamiento.** | **❌ No cumplido** |
 
-**Tabla 4.2** Cumplimiento de los requerimientos planteados.
+**Tabla 4.3** Cumplimiento de los requerimientos planteados.
 
 # CAPÍTULO 5
 
