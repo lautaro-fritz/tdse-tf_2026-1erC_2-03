@@ -6,4 +6,4 @@
 | 01 | README.md | 08/05/2026 | Semana 08 |
 | 02 | Propuesta.md | 22/05/2026 | Semana 11 |
 | 03 | Informe_de_Avance.md | 16/06/2026 | Semana 14 |
-| 04 | Memoria_Video_Código.md | 10/07/2026 | Semana 17 |
+| 04 | Memoria_Video_Código.md | 10/7/2026 | Semana 17 |
