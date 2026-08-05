@@ -765,20 +765,20 @@ Se hizo un uso responsable de herramientas de IA como apoyo tanto en la generaci
 
 # Bibliografía y referencias
 
-[STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.](https://www.st.com/resource/en/datasheet/stm32f103cb.pdf)
+[1] [STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.](https://www.st.com/resource/en/datasheet/stm32f103cb.pdf)
 
 [2] STMicroelectronics, MB1136 - STM32 Nucleo-64 boards Electrical Schematic. STMicroelectronics.
 
 [3] STMicroelectronics, STM32F103RB Datasheet - STM32F103x8 and STM32F103xB medium-density performance line microcontrollers. STMicroelectronics.
 
-[Tower Pro, SG90 Micro Servo Motor Datasheet. Technical specifications and operating characteristics of the SG90 servo motor.](https://www.todomicro.com.ar/servomotores/279-servomotor-tower-pro-sg90-9g.html)
+[4] [Tower Pro, SG90 Micro Servo Motor Datasheet. Technical specifications and operating characteristics of the SG90 servo motor.](https://www.todomicro.com.ar/servomotores/279-servomotor-tower-pro-sg90-9g.html)
 
-[Jinan Huamao Technology Co., Ltd., HM-10 Bluetooth 4.0 BLE Module Datasheet. Bluetooth Low Energy communication module.](https://www.alldatasheet.com/html-pdf/1179058/ETC1/HM-10/341/3/HM-10.html)
+[5] [Jinan Huamao Technology Co., Ltd., HM-10 Bluetooth 4.0 BLE Module Datasheet. Bluetooth Low Energy communication module.](https://www.alldatasheet.com/html-pdf/1179058/ETC1/HM-10/341/3/HM-10.html)
 
-[Dallas Semiconductor / Maxim Integrated, DS18B20 Programmable Resolution 1-Wire Digital Thermometer Datasheet.](https://www.alldatasheet.com/datasheet-pdf/view/58557/DALLAS/DS18B20.html)
+[6] [Dallas Semiconductor / Maxim Integrated, DS18B20 Programmable Resolution 1-Wire Digital Thermometer Datasheet.](https://www.alldatasheet.com/datasheet-pdf/view/58557/DALLAS/DS18B20.html)
 
 [7] Hitachi, HD44780U LCD Controller/Driver Datasheet. Character LCD controller used in 16×2 display modules.
 
-[Quick-Teck Electronics, TMB12A05 Buzzer Datasheet. Technical specifications of the audible alarm device.](https://www.quick-teck.co.uk/Management/EEUploadFile/1420788438.pdf)
+[8] [Quick-Teck Electronics, TMB12A05 Buzzer Datasheet. Technical specifications of the audible alarm device.](https://www.quick-teck.co.uk/Management/EEUploadFile/1420788438.pdf)
 
 [9] STMicroelectronics, STM32CubeIDE User Guide. Development environment for STM32 microcontrollers.
