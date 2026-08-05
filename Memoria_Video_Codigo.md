@@ -103,7 +103,9 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 - [Medición y análisis de tiempos de ejecución](#46-medición-y-análisis-de-tiempos-de-ejecución)
 
-- [Cumplimiento de requisitos](#47-cumplimiento-de-requisitos)
+- [Medición y análisis del consumo energético](#47-medición-y-análisis-del-consumo-energético)
+
+- [Cumplimiento de requisitos](#48-cumplimiento-de-requisitos)
 
 [Conclusiones](#conclusiones)
 
