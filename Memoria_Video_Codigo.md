@@ -53,15 +53,15 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
   - [Módulo Bluetooth HM-10](#238-módulo-bluetooth-hm-10)
 
-  - [Buzzer TMB12A05](#2.3.7-buzzer-tmb12a05)
+  - [Buzzer TMB12A05](#239-buzzer-tmb12a05)
 
-  - [LED Rojo](#2.3.8-led-rojo)
+  - [LED Rojo](#2310-led-rojo)
  
-  - [PCB](#2.3.9-pcb)
+  - [PCB](#2311-pcb)
 
-- [Software Utilizado](#2.4-software-utilizado)
+- [Software Utilizado](#24-software-utilizado)
 
-  - [Entorno de desarrollo placa NUCLEO](#2.4.1-entorno-de-desarrollo-placa-nucleo)
+  - [Entorno de desarrollo placa NUCLEO](#241-entorno-de-desarrollo-placa-nucleo)
 
   - [Entorno de desarrollo módulo BLT HM-10](#2.4.2-entorno-de-desarrollo-módulo-blt-hm-10)
 
