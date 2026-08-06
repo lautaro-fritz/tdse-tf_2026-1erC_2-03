@@ -27,57 +27,57 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 [Registro de versiones](#registro-de-versiones)
 
-[Introducción general](#introducción-general)
+[Capitulo 1: Introducción general](#introducción-general)
 
-[Introducción Específica](#introducción-específica)
+[Capitulo 2: Introducción Específica](#introducción-específica)
 
-- [Requisitos](#21-requisitos)
+- [2.1 Requisitos](#21-requisitos)
 
-- [Casos de uso](#22-casos-de-uso)
+- [2.2 Casos de uso](#22-casos-de-uso)
 
-- [Hardware utilizado](#23-hardware-utilizado)
+- [2.3 Hardware utilizado](#23-hardware-utilizado)
 
-  - [Placa NUCLEO-F103RB](#231-placa-nucleo-f103rb)
+  - [2.3.1 Placa NUCLEO-F103RB](#231-placa-nucleo-f103rb)
 
-  - [Servomotor SG90](#232-servomotor-sg90)
+  - [2.3.2 Servomotor SG90](#232-servomotor-sg90)
 
-  - [Relé](#233-relé)
+  - [2.3.3 Relé](#233-relé)
 
-  - [Pantalla LCD 16×2](#234-pantalla-lcd-162)
+  - [2.3.4 Pantalla LCD 16×2](#234-pantalla-lcd-162)
 
-  - [Sensor Digital Temperatura Ds18b20](#235-sensor-digital-temperatura-ds18b20)
+  - [2.3.5 Sensor Digital Temperatura Ds18b20](#235-sensor-digital-temperatura-ds18b20)
 
-  - [Aro De Luz Led](#236-aro-de-luz-led)
+  - [2.3.6 Aro De Luz Led](#236-aro-de-luz-led)
 
-  - [Foco de Corriente Alterna](#237-foco-de-corriente-alterna)
+  - [2.3.7 Foco de Corriente Alterna](#237-foco-de-corriente-alterna)
 
-  - [Módulo Bluetooth HM-10](#238-módulo-bluetooth-hm-10)
+  - [2.3.8 Módulo Bluetooth HM-10](#238-módulo-bluetooth-hm-10)
 
-  - [Buzzer TMB12A05](#239-buzzer-tmb12a05)
+  - [2.3.9 Buzzer TMB12A05](#239-buzzer-tmb12a05)
 
-  - [LED Rojo](#2310-led-rojo)
+  - [2.3.10 LED Rojo](#2310-led-rojo)
  
-  - [PCB](#2311-pcb)
+  - [2.3.11 PCB](#2311-pcb)
 
-- [Software Utilizado](#24-software-utilizado)
+- [2.4 Software Utilizado](#24-software-utilizado)
 
-  - [Entorno de desarrollo placa NUCLEO](#241-entorno-de-desarrollo-placa-nucleo)
+  - [2.4.1 Entorno de desarrollo placa NUCLEO](#241-entorno-de-desarrollo-placa-nucleo)
 
-  - [Entorno de desarrollo módulo BLT HM-10](#2.4.2-entorno-de-desarrollo-módulo-blt-hm-10)
+  - [2.4.2 Entorno de desarrollo módulo BLT HM-10](#2.4.2-entorno-de-desarrollo-módulo-blt-hm-10)
 
-[Diseño e implementación](#diseño-e-implementación)
+[Capitulo 3: Diseño e implementación](#diseño-e-implementación)
 
-- [Hardware del sistema](#3.1-hardware-del-sistema)
+- [3.1 Hardware del sistema](#3.1-hardware-del-sistema)
 
-  - [Dispensador de alimento](#3.1.1-dispensador-de-alimento)
+  - [3.1.1 Dispensador de alimento](#3.1.1-dispensador-de-alimento)
 
-  - [Luces LED para el ciclo día y noche](#3.1.2-luces-led-para-el-ciclo-día-y-noche)
+  - [3.1.2 Luces LED para el ciclo día y noche](#3.1.2-luces-led-para-el-ciclo-día-y-noche)
 
-  - [Filtrado de agua](#3.1.3-filtrado-de-agua)
+  - [3.1.3 Filtrado de agua](#3.1.3-filtrado-de-agua)
 
-- [Firmware del sistema](#3.2-firmware-del-sistema)
+- [3.2 Firmware del sistema](#3.2-firmware-del-sistema)
 
-  - [Lógica y estructura](#3.2.1-lógica-y-estructura)
+  - [3.2.1 Lógica y estructura](#3.2.1-lógica-y-estructura)
 
   - [Módulo de generación de señales PWM](#3.2.x-módulo-de-generación-de-señales-pwm)
 
@@ -89,7 +89,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
   - [Módulo de actuadores y alarmas](#3.2.x-módulo-de-actuadores-y-alarmas)
 
-[Ensayos y resultados](#ensayos-y-resultados)
+[Capitulo 4: Ensayos y resultados](#ensayos-y-resultados)
 
 - [Pruebas funcionales del firmware](#41-pruebas-funcionales-del-firmware)
 
@@ -107,15 +107,15 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 - [Cumplimiento de requisitos](#48-cumplimiento-de-requisitos)
 
-[Conclusiones](#conclusiones)
+[Capitulo 5: Conclusiones](#conclusiones)
 
 - [Resultados obtenidos](#51-resultados-obtenidos)
 
 - [Próximos pasos](#52-próximos-pasos)
 
-[Uso de herramientas de IA](#uso-de-herramientas-de-ia)
+[Capitulo 6: Uso de herramientas de IA](#uso-de-herramientas-de-ia)
 
-[Bibliografía y referencias](#bibliografía-y-referencias)
+[Capitulo 7: Bibliografía y referencias](#bibliografía-y-referencias)
 
 # Registro de versiones
 
@@ -125,9 +125,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 | **1.1** | Cambio a formato markdown | 11/7/2026 |
 | **1.2** | Versión final | 4/8/2026 |
 
-# CAPÍTULO 1 
-
-# Introducción general
+# CAPÍTULO 1: Introducción general
 
 El proyecto busca desarrollar un sistema embebido para la automatización y monitoreo de una pecera doméstica, integrando el control de actuadores, adquisición de datos y comunicación inalámbrica mediante una única plataforma de procesamiento.
 
@@ -143,9 +141,7 @@ Objetivos principales:
 
 - Permitir la configuración y supervisión del sistema mediante una interfaz inalámbrica.
 
-# CAPÍTULO 2
-
-# Introducción Específica
+# CAPÍTULO 2: Introducción Específica
 
 Esta sección contiene los requisitos originales y los modificados en el informe de avances, además de los casos de uso.
 
@@ -365,9 +361,7 @@ El desarrollo del software se realizó utilizando este entorno de desarrollo, el
 
 El HM-10 incorpora un microcontrolador interno con un firmware encargado de implementar el stack Bluetooth Low Energy (BLE). Cuando recibe datos mediante la interfaz UART, el firmware los procesa, los encapsula en paquetes BLE y los transmite de forma inalámbrica. En sentido inverso, al recibir paquetes BLE, el módulo los interpreta, extrae la información útil y la envía a través de la interfaz UART hacia el microcontrolador principal. De esta manera, el HM-10 funciona como un puente entre la comunicación serie UART y Bluetooth Low Energy, permitiendo la comunicación inalámbrica sin que el microcontrolador tenga que gestionar directamente la complejidad del protocolo Bluetooth. 
 
-# CAPÍTULO 3
-
-# Diseño e implementación
+# CAPÍTULO 3: Diseño e implementación
 
 <img width="1292" height="745" alt="image" src="https://github.com/user-attachments/assets/5abbab4d-75ba-488a-8917-4aa40a99b3ef" />
 
@@ -556,9 +550,7 @@ En el caso del relé del filtro (`ID_RELAY_FILTER`), la máquina de estados cont
 
 De esta manera, el módulo centraliza el control de los actuadores y las alarmas del sistema mediante una única máquina de estados, permitiendo responder a los eventos generados por las demás tareas sin bloquear la ejecución del firmware.
 
-# CAPÍTULO 4
-
-# Ensayos y resultados
+# CAPÍTULO 4: Ensayos y resultados
 En este capítulo se presentan las pruebas realizadas al prototipo para verificar el correcto funcionamiento del hardware y del firmware desarrollados. Asimismo, se muestran los resultados obtenidos durante la integración de los diferentes módulos que conforman el sistema.
 
 <img width="827" height="566" alt="image" src="https://github.com/user-attachments/assets/2565fc4a-3c98-4b5e-83a9-5b9e2faa2de6" />
@@ -725,9 +717,7 @@ En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 
 **Tabla 4.3** Cumplimiento de los requerimientos planteados.
 
-# CAPÍTULO 5
-
-# Conclusiones
+# CAPÍTULO 5: Conclusiones
 
 El desarrollo del proyecto permitió obtener un prototipo funcional capaz de integrar el monitoreo de la temperatura del agua, el control de los actuadores y la comunicación mediante Bluetooth Low Energy (BLE). La integración del hardware y el firmware posibilitó el funcionamiento conjunto de todos los módulos implementados, verificando el cumplimiento de los objetivos planteados para el sistema.
 
@@ -759,13 +749,10 @@ Implementación de comunicación mediante WiFi: Reemplazar o complementar la com
 
 Mejora de las capacidades de supervisión: Incorporar nuevas funciones de monitoreo y registro de datos que permitan obtener mayor información sobre el comportamiento del sistema y facilitar el diagnóstico de posibles fallas.
 
-# CAPÍTULO 6
-# Uso de herramientas de IA
+# CAPÍTULO 6: Uso de herramientas de IA
 Se hizo un uso responsable de herramientas de IA como apoyo tanto en la generación y revisión del código del _firmware_ del proyecto como en la redacción del presente informe y para los nombres de los _commits_, siempre manteniendo el criterio y cautela.  
 
-# CAPÍTULO 7
-
-# Bibliografía y referencias
+# CAPÍTULO 7: Bibliografía y referencias
 
 [1] [STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.](https://www.st.com/resource/en/datasheet/stm32f103cb.pdf)
 
