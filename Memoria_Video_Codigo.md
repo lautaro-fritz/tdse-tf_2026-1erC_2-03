@@ -27,15 +27,15 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 [Registro de versiones](#registro-de-versiones)
 
-[Capitulo 1: Introducción general](#capítulo-1introducción-general)
+[Capítulo 1: Introducción general](#capítulo-1introducción-general)
 
-- [1.1 Análisis de necesidad y objetivo](#capítulo-1introducción-general)
+- [1.1 Análisis de necesidad y objetivo](#11-análisis-de-necesidad-y-objetivo)
 
-- [1.2 Motivación](#capítulo-1introducción-general)
+- [1.2 Motivación](#12-motivación)
 
-- [1.3 Alcance y limitaciones](#capítulo-1introducción-general)
+- [1.3 Alcance y limitaciones](#13-alcance-y-limitaciones)
 
-[Capitulo 2: Introducción específica](#capítulo-2-introducción-específica)
+[Capítulo 2: Introducción específica](#capítulo-2-introducción-específica)
 
 - [2.1 Requisitos](#21-requisitos)
 
@@ -71,7 +71,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
   - [2.4.2 Entorno de desarrollo módulo BLT HM-10](#242-entorno-de-desarrollo-módulo-blt-hm-10)
 
-[Capitulo 3: Diseño e implementación](#capítulo-3-diseño-e-implementación)
+[Capítulo 3: Diseño e implementación](#capítulo-3-diseño-e-implementación)
 
 - [3.1 Hardware del sistema](#31-hardware-del-sistema)
 
@@ -95,31 +95,31 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
   - [3.2.5 Módulo de actuadores y alarmas](#325-módulo-de-actuadores-y-alarmas)
 
-[Capitulo 4: Ensayos y resultados](#capítulo-4-ensayos-y-resultados)
+[Capítulo 4: Ensayos y resultados](#capítulo-4-ensayos-y-resultados)
 
 - [4.1 Pruebas funcionales del firmware](#41-pruebas-funcionales-del-firmware)
 
 - [4.2 Pruebas funcionales del hardware](#42-pruebas-funcionales-del-hardware)
 
-- [4.3 Pruebas de integración](#44-pruebas-de-integración)
+- [4.3 Pruebas de integración](#43-pruebas-de-integración)
 
-- [4.4 Console and Build Analyzer](#45-console-and-build-analyzer)
+- [4.4 Console and Build Analyzer](#44-console-and-build-analyzer)
 
-- [4.5 Medición y análisis de tiempos de ejecución](#46-medición-y-análisis-de-tiempos-de-ejecución)
+- [4.5 Medición y análisis de tiempos de ejecución](#45-medición-y-análisis-de-tiempos-de-ejecución)
 
-- [4.6 Medición y análisis del consumo energético](#47-medición-y-análisis-del-consumo-energético)
+- [4.6 Medición y análisis del consumo energético](#46-medición-y-análisis-del-consumo-energético)
 
-- [4.7 Cumplimiento de requisitos](#48-cumplimiento-de-requisitos)
+- [4.7 Cumplimiento de requisitos](#47-cumplimiento-de-requisitos)
 
-[Capitulo 5: Conclusiones](#conclusiones)
+[Capítulo 5: Conclusiones](#capítulo-5-conclusiones)
 
 - [5.1 Resultados obtenidos](#51-resultados-obtenidos)
 
 - [5.2 Próximos pasos](#52-próximos-pasos)
 
-[Capitulo 6: Uso de herramientas de IA](#uso-de-herramientas-de-ia)
+[Capítulo 6: Uso de herramientas de IA](#capítulo-6-uso-de-herramientas-de-ia)
 
-[Capitulo 7: Bibliografía y referencias](#bibliografía-y-referencias)
+[Capítulo 7: Bibliografía y referencias](#capítulo-7-bibliografía-y-referencias)
 
 # Registro de versiones
 
@@ -760,7 +760,7 @@ Desarrollo de un menú para la aplicación móvil: Incorporar una interfaz más 
 
 Ampliación de la información mostrada en el display LCD: Implementar la visualización de nuevos parámetros, como la hora actual, el estado de los actuadores y otra información relevante del funcionamiento de la pecera.
 
-Implementación de comunicación mediante WiFi: Reemplazar o complementar la comunicación Bluetooth mediante una conexión WiFi, permitiendo ampliar el alcance del sistema y habilitar el monitoreo y control remoto.
+Implementación de comunicación mediante Wi-Fi: Reemplazar o complementar la comunicación Bluetooth mediante una conexión Wi-Fi, permitiendo ampliar el alcance del sistema y habilitar el monitoreo y control remoto.
 
 Mejora de las capacidades de supervisión: Incorporar nuevas funciones de monitoreo y registro de datos que permitan obtener mayor información sobre el comportamiento del sistema y facilitar el diagnóstico de posibles fallas.
 
@@ -771,18 +771,14 @@ Se hizo un uso responsable de herramientas de IA como apoyo tanto en la generaci
 
 [1] [STMicroelectronics, UM1724 - User manual: STM32 Nucleo-64 boards (MB1136). STMicroelectronics.](https://www.st.com/resource/en/datasheet/stm32f103cb.pdf)
 
-[2] STMicroelectronics, MB1136 - STM32 Nucleo-64 boards Electrical Schematic. STMicroelectronics.
+[2] [STMicroelectronics, MB1136 - STM32 Nucleo-64 boards Electrical Schematic. STMicroelectronics.](https://www.st.com/resource/en/schematic_pack/mb1136-default-c03_schematic.pdf)
 
-[3] STMicroelectronics, STM32F103RB Datasheet - STM32F103x8 and STM32F103xB medium-density performance line microcontrollers. STMicroelectronics.
+[3] [Tower Pro, SG90 Micro Servo Motor Datasheet. Technical specifications and operating characteristics of the SG90 servo motor.](https://www.todomicro.com.ar/servomotores/279-servomotor-tower-pro-sg90-9g.html)
 
-[4] [Tower Pro, SG90 Micro Servo Motor Datasheet. Technical specifications and operating characteristics of the SG90 servo motor.](https://www.todomicro.com.ar/servomotores/279-servomotor-tower-pro-sg90-9g.html)
+[4] [Jinan Huamao Technology Co., Ltd., HM-10 Bluetooth 4.0 BLE Module Datasheet. Bluetooth Low Energy communication module.](https://www.alldatasheet.com/html-pdf/1179058/ETC1/HM-10/341/3/HM-10.html)
 
-[5] [Jinan Huamao Technology Co., Ltd., HM-10 Bluetooth 4.0 BLE Module Datasheet. Bluetooth Low Energy communication module.](https://www.alldatasheet.com/html-pdf/1179058/ETC1/HM-10/341/3/HM-10.html)
+[5] [Dallas Semiconductor / Maxim Integrated, DS18B20 Programmable Resolution 1-Wire Digital Thermometer Datasheet.](https://www.alldatasheet.com/datasheet-pdf/view/58557/DALLAS/DS18B20.html)
 
-[6] [Dallas Semiconductor / Maxim Integrated, DS18B20 Programmable Resolution 1-Wire Digital Thermometer Datasheet.](https://www.alldatasheet.com/datasheet-pdf/view/58557/DALLAS/DS18B20.html)
+[6] [Hitachi, HD44780U LCD Controller/Driver Datasheet. Character LCD controller used in 16×2 display modules.](https://cdn.sparkfun.com/assets/9/5/f/7/b/HD44780.pdf)
 
-[7] Hitachi, HD44780U LCD Controller/Driver Datasheet. Character LCD controller used in 16×2 display modules.
-
-[8] [Quick-Teck Electronics, TMB12A05 Buzzer Datasheet. Technical specifications of the audible alarm device.](https://www.quick-teck.co.uk/Management/EEUploadFile/1420788438.pdf)
-
-[9] STMicroelectronics, STM32CubeIDE User Guide. Development environment for STM32 microcontrollers.
+[7] [Quick-Teck Electronics, TMB12A05 Buzzer Datasheet. Technical specifications of the audible alarm device.](https://www.quick-teck.co.uk/Management/EEUploadFile/1420788438.pdf)
