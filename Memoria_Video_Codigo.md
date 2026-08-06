@@ -29,6 +29,12 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 [Capitulo 1: Introducción general](#capítulo-1introducción-general)
 
+- [1.1 Análisis de necesidad y objetivo](#capítulo-1introducción-general)
+
+- [1.2 Motivación](#capítulo-1introducción-general)
+
+- [1.3 Alcance y limitaciones](#capítulo-1introducción-general)
+
 [Capitulo 2: Introducción específica](#capítulo-2-introducción-específica)
 
 - [2.1 Requisitos](#21-requisitos)
@@ -63,55 +69,53 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
   - [2.4.1 Entorno de desarrollo placa NUCLEO](#241-entorno-de-desarrollo-placa-nucleo)
 
-  - [2.4.2 Entorno de desarrollo módulo BLT HM-10](#2.4.2-entorno-de-desarrollo-módulo-blt-hm-10)
+  - [2.4.2 Entorno de desarrollo módulo BLT HM-10](#242-entorno-de-desarrollo-módulo-blt-hm-10)
 
-[Capitulo 3: Diseño e implementación](#diseño-e-implementación)
+[Capitulo 3: Diseño e implementación](#capítulo-3-diseño-e-implementación)
 
-- [3.1 Hardware del sistema](#3.1-hardware-del-sistema)
+- [3.1 Hardware del sistema](#31-hardware-del-sistema)
 
-  - [3.1.1 Dispensador de alimento](#3.1.1-dispensador-de-alimento)
+  - [3.1.1 Dispensador de alimento](#311-dispensador-de-alimento)
 
-  - [3.1.2 Luces LED para el ciclo día y noche](#3.1.2-luces-led-para-el-ciclo-día-y-noche)
+  - [3.1.2 Luces LED para el ciclo día y noche](#312-luces-led-para-el-ciclo-día-y-noche)
 
-  - [3.1.3 Filtrado de agua](#3.1.3-filtrado-de-agua)
+  - [3.1.3 Filtrado de agua](#313-filtrado-de-agua)
 
-- [3.2 Firmware del sistema](#3.2-firmware-del-sistema)
+- [3.2 Firmware del sistema](#32-firmware-del-sistema)
 
-  - [3.2.1 Lógica y estructura](#3.2.1-lógica-y-estructura)
+  <!-- - [3.2.1 Lógica y estructura](#3.2.1-lógica-y-estructura) -->
 
-  - [Módulo de generación de señales PWM](#3.2.x-módulo-de-generación-de-señales-pwm)
+  - [3.2.1 Módulo de generación de señales PWM](#321-módulo-de-generación-de-señales-pwm)
 
-  - [Módulo de medición de temperatura](#3.2.x-módulo-de-medición-de-temperatura)
+  - [3.2.2 Módulo de medición de temperatura](#322-módulo-de-medición-de-temperatura)
 
-  - [Módulo de comunicación Bluetooth](#3.2.x-módulo-de-comunicación-bluetooth)
+  - [3.2.3 Módulo de comunicación Bluetooth](#323-módulo-de-comunicación-bluetooth)
 
-  - [Módulo de visualización mediante display LCD](#3.2.x-módulo-de-visualización-mediante-display-lcd)
+  - [3.2.4 Módulo de visualización mediante display LCD](#324-módulo-de-visualización-mediante-display-lcd)
 
-  - [Módulo de actuadores y alarmas](#3.2.x-módulo-de-actuadores-y-alarmas)
+  - [3.2.5 Módulo de actuadores y alarmas](#325-módulo-de-actuadores-y-alarmas)
 
-[Capitulo 4: Ensayos y resultados](#ensayos-y-resultados)
+[Capitulo 4: Ensayos y resultados](#capítulo-4-ensayos-y-resultados)
 
-- [Pruebas funcionales del firmware](#41-pruebas-funcionales-del-firmware)
+- [4.1 Pruebas funcionales del firmware](#41-pruebas-funcionales-del-firmware)
 
-- [Pruebas funcionales del hardware](#42-pruebas-funcionales-del-hardware)
+- [4.2 Pruebas funcionales del hardware](#42-pruebas-funcionales-del-hardware)
 
-- [Pruebas de sensor con interfaz del usuario](#43pruebas-de-sensor-con-interfaz-del-usuario)
+- [4.3 Pruebas de integración](#44-pruebas-de-integración)
 
-- [Pruebas de integración](#44-pruebas-de-integración)
+- [4.4 Console and Build Analyzer](#45-console-and-build-analyzer)
 
-- [Console and Build Analyzer](#45-console-and-build-analyzer)
+- [4.5 Medición y análisis de tiempos de ejecución](#46-medición-y-análisis-de-tiempos-de-ejecución)
 
-- [Medición y análisis de tiempos de ejecución](#46-medición-y-análisis-de-tiempos-de-ejecución)
+- [4.6 Medición y análisis del consumo energético](#47-medición-y-análisis-del-consumo-energético)
 
-- [Medición y análisis del consumo energético](#47-medición-y-análisis-del-consumo-energético)
-
-- [Cumplimiento de requisitos](#48-cumplimiento-de-requisitos)
+- [4.7 Cumplimiento de requisitos](#48-cumplimiento-de-requisitos)
 
 [Capitulo 5: Conclusiones](#conclusiones)
 
-- [Resultados obtenidos](#51-resultados-obtenidos)
+- [5.1 Resultados obtenidos](#51-resultados-obtenidos)
 
-- [Próximos pasos](#52-próximos-pasos)
+- [5.2 Próximos pasos](#52-próximos-pasos)
 
 [Capitulo 6: Uso de herramientas de IA](#uso-de-herramientas-de-ia)
 
@@ -128,6 +132,8 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 # CAPÍTULO 1: Introducción general
 
+## 1.1 Análisis de necesidad y objetivo
+
 El proyecto busca desarrollar un sistema embebido para la automatización y monitoreo de una pecera doméstica, integrando el control de actuadores, adquisición de datos y comunicación inalámbrica mediante una única plataforma de procesamiento.
 
 El sistema permite gestionar funciones como la alimentación automática, la iluminación y la simulación del sistema de filtrado, además de realizar el monitoreo continuo de la temperatura del agua mediante un sensor digital. La interacción con el usuario se realiza mediante una aplicación móvil utilizando comunicación Bluetooth Low Energy (BLE), permitiendo configurar parámetros y controlar el sistema en modo manual o automático.
@@ -141,6 +147,14 @@ Objetivos principales:
 - Desarrollar una arquitectura modular de firmware basada en tareas y máquinas de estados.
 
 - Permitir la configuración y supervisión del sistema mediante una interfaz inalámbrica.
+
+## 1.2 Motivación
+
+En la actualidad existen soluciones comerciales orientadas a la automatización y monitoreo de peceras domésticas, incluyendo sistemas de control de filtrado, iluminación, alimentación y supervisión ambiental. Sin embargo, gran parte de estas soluciones corresponden a productos importados, lo que implica elevados costos de adquisición, limitada disponibilidad en el mercado local y menor flexibilidad para su personalización o mantenimiento.
+
+## 1.3 Alcance y limitaciones
+
+El trabajo abarca exclusivamente la electrónica de control, la interfaz de usuario y la lógica de registro e interrupciones, implementadas sobre una placa NUCLEO-F103RB y montadas en una maqueta experimental. Quedan fuera de alcance el diseño mecánico del alimentador y del filtro. También se dejó fuera del alcance la configuración de horarios de alimentación e iluminación por parte del usuario a través de la aplicación móvil y el chequeo del funcionamiento de los actuadores por parte del sistema al iniciarse.  
 
 # CAPÍTULO 2: Introducción específica
 
@@ -346,7 +360,7 @@ Se diseñó y confeccionó una placa de circuito impreso específica para el pro
 
 **Figura 2.11:** PCB
 
-## 2.4 Software Utilizado
+## 2.4 Software utilizado
 
 En esta sección se describen los diferentes componentes de software empleados para el desarrollo del proyecto.
 
@@ -478,9 +492,9 @@ Durante el funcionamiento normal, el sistema mantiene activo el filtrado del agu
 
 En esta sección se describen las principales características del firmware implementado en el sistema. Asimismo, se presenta la estructura lógica del software, basada en una arquitectura modular que divide el funcionamiento del sistema en diferentes módulos encargados de la gestión de los sensores, actuadores, comunicaciones y demás funciones implementadas en el prototipo. 
 
-### 3.2.1 Lógica y estructura
+<!-- ### 3.2.1 Lógica y estructura -->
 
-### 3.2.2 Módulo de generación de señales PWM
+### 3.2.1 Módulo de generación de señales PWM
 
 El módulo de generación de señales PWM fue implementado mediante una máquina de estados desarrollada en el archivo `task_pwm.c` y definida en `task_pwm_attribute.h`. Este módulo permite controlar la potencia aplicada a los actuadores del sistema, como el servomotor y la iluminación de los LEDs, mediante la variación del ciclo de trabajo de una señal PWM generada por los temporizadores del microcontrolador.
 
@@ -494,7 +508,7 @@ En el estado `ST_PWM_ON`, el actuador mantiene el valor máximo configurado hast
 
 La actualización de la señal hacia el hardware se realiza mediante la configuración del registro de comparación del temporizador del microcontrolador, utilizando la función `pwm_update()` para actualizar el canal PWM correspondiente. Según el identificador del módulo (`id`), la señal generada es enviada al servomotor o al sistema de iluminación LED, permitiendo controlar su funcionamiento mediante la variación del ciclo de trabajo.
 
-### 3.2.3 Módulo de medición de temperatura
+### 3.2.2 Módulo de medición de temperatura
 
 El módulo de medición de temperatura fue implementado mediante una máquina de estados no bloqueante desarrollada en el archivo `task_thermometer.c` y definida en `task_thermometer_attribute.h`. Esta arquitectura permite gestionar el sensor `DS18B20` mediante el protocolo `OneWire` sin detener la ejecución del resto del sistema, debido al tiempo de conversión requerido por el sensor, que puede alcanzar los 750 ms.
 
@@ -510,7 +524,7 @@ La temperatura medida es comparada con los valores límites configurados mediant
 
 Una vez finalizada la adquisición y procesamiento de la temperatura, el módulo retorna al estado inicial, quedando preparado para realizar una nueva medición.
 
-### 3.2.4 Módulo de comunicación Bluetooth
+### 3.2.3 Módulo de comunicación Bluetooth
 
 El módulo de comunicación Bluetooth fue implementado mediante una arquitectura basada en eventos asíncronos utilizando comunicación UART con DMA, desarrollada en el archivo `task_bluetooth.c`. Esta implementación permite recibir comandos enviados desde la aplicación móvil sin requerir una supervisión constante por parte del microcontrolador, ya que la recepción de datos es gestionada directamente por el periférico DMA y las interrupciones del sistema.
 
@@ -522,7 +536,7 @@ Una vez identificado el comando recibido, el módulo genera los eventos correspo
 
 Finalmente, luego del procesamiento del comando recibido, la comunicación UART mediante DMA vuelve a configurarse para quedar disponible para una nueva recepción de datos, permitiendo mantener una comunicación continua con el módulo Bluetooth.
 
-### 3.2.5 Módulo de visualización mediante display LCD
+### 3.2.4 Módulo de visualización mediante display LCD
 
 El módulo de visualización fue implementado mediante una arquitectura dividida en dos capas principales: la capa lógica desarrollada en `task_lcd.c`, encargada de gestionar la actualización de la información mostrada, y la capa de hardware implementada en `i2c_lcd.c`, responsable de la comunicación con el display mediante el protocolo I2C.
 
@@ -534,7 +548,7 @@ La comunicación con el display LCD es gestionada por el archivo `i2c_lcd.c`, do
 
 Una vez finalizada la actualización de la información mostrada, la máquina de estados retorna al estado `ST_LCD_IDLE`, quedando preparada para realizar una nueva actualización. De esta manera, el módulo permite visualizar periódicamente los datos del sistema manteniendo la ejecución simultánea de otras tareas, como la lectura de sensores, comunicación Bluetooth y control de actuadores.
 
-### 3.2.6 Módulo de actuadores y alarmas
+### 3.2.5 Módulo de actuadores y alarmas
 
 El módulo de actuadores y alarmas fue implementado mediante una máquina de estados desarrollada en el archivo `task_actuator.c` y definida en `task_actuator_attribute.h`. Esta implementación permite controlar los diferentes actuadores del sistema, como el relé del filtro, el buzzer y el LED de alarma, utilizando una única máquina de estados genérica para todos los dispositivos.
 
@@ -557,61 +571,14 @@ En este capítulo se presentan las pruebas realizadas al prototipo para verifica
 
 ## 4.1 Pruebas funcionales del firmware
 
+**Pruebas de comunicación BLE**  
 En esta sección se presentan las pruebas realizadas para verificar el correcto funcionamiento del firmware implementado en el sistema. Se comprobó la ejecución de las tareas, la comunicación mediante Bluetooth Low Energy (BLE) y la respuesta del sistema ante las órdenes enviadas desde la aplicación móvil.
 
 <img width="302" height="572" alt="image" src="https://github.com/user-attachments/assets/0a94a548-a9c7-450a-8989-bc4a8ece67e5" />
 
 **Figura 4.2:** Prueba de comunicación BLE.
 
-## 4.2 Pruebas funcionales del hardware
-
-**4.2.1 Prueba del sistema de alimentación automática y manual.**
-
-<img width="857" height="561" alt="image" src="https://github.com/user-attachments/assets/653d123e-560b-49cd-ae9a-0c7aee15a3f9" />
-
-**Figura 4.3:** Servomotor SG90 en posición de alimentación.
-
-<img width="860" height="561" alt="image" src="https://github.com/user-attachments/assets/a7f99ece-d79d-46b9-9a3b-3dc4ee4c542a" />
-
-**Figura 4.4:** Servomotor SG90 en posición de reposo.
-
-**4.2.2 Prueba del sistema de filtrado**
-
-Como se mencionó anteriormente, el sistema de filtrado fue representado mediante un foco de corriente alterna (CA), el cual simula el funcionamiento del filtro de agua durante las pruebas del prototipo.
-
-<img width="857" height="646" alt="image" src="https://github.com/user-attachments/assets/efe68572-dfa6-4069-b334-82ec9878b64b" />
-
-**Figura 4.5:** Sistema de filtrado activado.
-
-<img width="862" height="642" alt="image" src="https://github.com/user-attachments/assets/fb2e6cae-8cf5-454d-8924-c441b8e8e165" />
-
-**Figura 4.6:** Sistema de filtrado desactivado.
-
-**4.2.3 Prueba del sistema de iluminación (día y noche)**
-
-En esta prueba se verificó el funcionamiento del sistema de iluminación implementado mediante un aro LED, el cual simula los ciclos de día y noche de la pecera de acuerdo con la lógica de control desarrollada.
-
-<img width="485" height="600" alt="image" src="https://github.com/user-attachments/assets/b84e0268-9156-42d2-ace9-bea6343d3e82" />
-
-**Figura 4.7:** Sistema de iluminación activado.
-
-<img width="485" height="620" alt="image" src="https://github.com/user-attachments/assets/23c44002-39e1-4519-ac97-12874deb0440" />
-
-**Figura 4.8:** Sistema de iluminación desactivado.
-
-**4.2.4 Prueba del sistema de alarma**
-
-En esta prueba se verificó el funcionamiento del sistema de alarma, compuesto por un buzzer y un LED rojo, los cuales se activan cuando el sistema detecta una condición de alarma.
-
-<img width="857" height="505" alt="image" src="https://github.com/user-attachments/assets/de7fdeb3-4eeb-4683-8398-8b63e96e0ebf" />
-
-**Figura 4.9:** Sistema de alarma activado.
-
-<img width="690" height="482" alt="image" src="https://github.com/user-attachments/assets/7e2e6ccf-ea0e-4178-9fbe-a106dbe29a28" />
-
-**Figura 4.10:** Sistema de alarma desactivado.
-
-### 4.3.Pruebas de sensor con interfaz del usuario
+**Pruebas de sensor con interfaz del usuario**  
 
 En esta prueba se verificó el correcto funcionamiento del módulo de medición de temperatura. Se comprobó la adquisición de datos desde el sensor DS18B20, la visualización de la temperatura en la pantalla LCD y la respuesta del sistema cuando la temperatura se encuentra dentro y fuera de los límites configurados.
 
@@ -619,15 +586,65 @@ En esta prueba se verificó el correcto funcionamiento del módulo de medición 
 
 <img width="690" height="482" alt="image" src="https://github.com/user-attachments/assets/7e2e6ccf-ea0e-4178-9fbe-a106dbe29a28" />
 
-**Figura 4.11:** Medición de temperatura dentro del rango de funcionamiento.
+**Figura 4.3:** Medición de temperatura dentro del rango de funcionamiento.
 
 <img width="1506" height="52" alt="image" src="https://github.com/user-attachments/assets/0101dd18-e53c-460d-b616-7e9246f9ada1" />
 
 <img width="857" height="505" alt="image" src="https://github.com/user-attachments/assets/de7fdeb3-4eeb-4683-8398-8b63e96e0ebf" />
 
-**Figura 4.12:** Medición de temperatura por fuera del rango de funcionamiento.
+**Figura 4.4:** Medición de temperatura por fuera del rango de funcionamiento.
 
-## 4.4 Pruebas de integración
+## 4.2 Pruebas funcionales del hardware
+
+**Prueba del sistema de alimentación automática y manual.**  
+
+En esta prueba se verificó el funcionamiento del sistema de alimentación implementado con un servomotor. En la figura 4.5, el alimentador está en posición de alimentación, lo que permitiría la caída de alimento dentro de la pecera. En la figura 4.6, está en posición de reposo, que es donde se encuentra la mayor parte del tiempo y bloquearía el paso de alimento.
+
+<img width="857" height="561" alt="image" src="https://github.com/user-attachments/assets/653d123e-560b-49cd-ae9a-0c7aee15a3f9" />
+
+**Figura 4.5:** Servomotor SG90 en posición de alimentación.
+
+<img width="860" height="561" alt="image" src="https://github.com/user-attachments/assets/a7f99ece-d79d-46b9-9a3b-3dc4ee4c542a" />
+
+**Figura 4.6:** Servomotor SG90 en posición de reposo.
+
+**Prueba del sistema de filtrado**
+
+Como se mencionó anteriormente, el sistema de filtrado fue representado mediante un foco de corriente alterna (CA), el cual simula el funcionamiento del filtro de agua durante las pruebas del prototipo.
+
+<img width="857" height="646" alt="image" src="https://github.com/user-attachments/assets/efe68572-dfa6-4069-b334-82ec9878b64b" />
+
+**Figura 4.7:** Sistema de filtrado activado.
+
+<img width="862" height="642" alt="image" src="https://github.com/user-attachments/assets/fb2e6cae-8cf5-454d-8924-c441b8e8e165" />
+
+**Figura 4.8:** Sistema de filtrado desactivado.
+
+**Prueba del sistema de iluminación (día y noche)**
+
+En esta prueba se verificó el funcionamiento del sistema de iluminación implementado mediante un aro LED, el cual simula los ciclos de día y noche de la pecera de acuerdo con la lógica de control desarrollada.
+
+<img width="485" height="600" alt="image" src="https://github.com/user-attachments/assets/b84e0268-9156-42d2-ace9-bea6343d3e82" />
+
+**Figura 4.9:** Sistema de iluminación activado.
+
+<img width="485" height="620" alt="image" src="https://github.com/user-attachments/assets/23c44002-39e1-4519-ac97-12874deb0440" />
+
+**Figura 4.10:** Sistema de iluminación desactivado.
+
+**Prueba del sistema de alarma**
+
+En esta prueba se verificó el funcionamiento del sistema de alarma, compuesto por un buzzer y un LED rojo, los cuales se activan cuando el sistema detecta una temperatura superior o inferior a los límites configurados.
+
+<img width="857" height="505" alt="image" src="https://github.com/user-attachments/assets/de7fdeb3-4eeb-4683-8398-8b63e96e0ebf" />
+
+**Figura 4.11:** Sistema de alarma activado.
+
+<img width="690" height="482" alt="image" src="https://github.com/user-attachments/assets/7e2e6ccf-ea0e-4178-9fbe-a106dbe29a28" />
+
+**Figura 4.12:** Sistema de alarma desactivado.
+
+## 4.3 Pruebas de integración
 
 Las pruebas de integración permitieron verificar el funcionamiento conjunto de los diferentes módulos del sistema, comprobando la correcta interacción entre sensores, actuadores, comunicación Bluetooth y aplicación móvil.
 
@@ -648,7 +665,7 @@ En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la 
 | **\#5** | Configuración mediante aplicación móvil | **✔ Cumplido** |
 | **\#6** | Control manual de actuadores mediante BLE | **✔ Cumplido** |
 
-## 4.5 Console and Build Analyzer
+## 4.4 Console and Build Analyzer
 
 La Figura 4.13 muestra el reporte de uso de memoria del build. Se observa un uso bajo de RAM y FLASH (≈17,58% y ≈18,99%), dejando margen para futuras extensiones.
 
@@ -660,7 +677,7 @@ La Figura 4.13 muestra el reporte de uso de memoria del build. Se observa un uso
 
 **Figura 4.14:** Build Console.
 
-## 4.6 Medición y análisis de tiempos de ejecución
+## 4.5 Medición y análisis de tiempos de ejecución
 
 Para medir peor tiempo de ejecución (WCET) de cada tarea, se utilizó el DWT (Data Watchpoint and Trace), el cual permite medir el tiempo con alta precisión. El código programa comienza a contar el tiempo con precisión desde que cada tarea se ejecuta hasta que finaliza. Si el valor obtenido es mayor que el anteriormente guardado, se actualiza el registro, de lo contrario, se continúa sin guardar el valor.
 
@@ -677,9 +694,9 @@ La sumatoria de todos los WCET da un total de 739 μs, por debajo de los 1000 μ
 
 **Figura 4.15:** Mediciones de tiempos de ejecución por cada tarea.
 
-## 4.7 Medición y análisis del consumo energético
+## 4.6 Medición y análisis del consumo energético
 
-Se realizaron mediciones para analizar el consumo energético de los módulos que componen el sistema. Se conecto en serie un amperímetro en la entrada de la fuente de alimentación externa, de esta forma se obtiene una medición integral de la placa NUCLEO. Se empleo una fuente de alimentación de 5V-2A, capaz de soportar todas las cargas utilizadas. 
+Se realizaron mediciones para analizar el consumo energético de los módulos que componen el sistema. Se conecto en serie un amperímetro en la entrada de la fuente de alimentación externa, de esta forma se obtiene una medición integral de la placa NUCLEO. Se empleo una fuente de alimentación de 5 V - 2 A, capaz de soportar todas las cargas utilizadas. 
 
 En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 
@@ -687,17 +704,17 @@ En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 
 | Actuador | Valor | Observación |
 | :---- | :---- | :---- |
-| **Termómetro** | 0,000A | No se registró lectura alguna. Se podría lograr con un amperímetro de mayor resolución. |
-| **Aro Led** | 0,203A | Consumo del sistema con el aro LED conectado únicamente. |
-| **Relé** | 0,133A | Consumo del sistema con el relé conectado únicamente. |
-| **Servomotor** | 0,235A | Consumo del sistema con el servomotor conectado únicamente. |
-| **Display** | 0,094A | Consumo del sistema con el display conectado únicamente. |
-| **Modulo Bluetooth** | 0,083A | Consumo del sistema con el módulo bluetooth conectado únicamente. |
-| **Buzzer + LED** | 0,111A | Consumo del sistema con el buzzer y display conectados únicamente. |
-| **Integrado 1** | 0,072A | Consumo del sistema sin actuadores conectados. |
-| **Integrado 2** | 0,105A - 0,323A | Consumo del sistema con todos los actuadores conectados. Se registró un consumo mínimo y máximo debido a que no se encienden todos al mismo tiempo. |
+| **Termómetro** | 0,000 A | No se registró lectura alguna. Se podría lograr con un amperímetro de mayor resolución. |
+| **Aro Led** | 0,203 A | Consumo del sistema con el aro LED conectado únicamente. |
+| **Relé** | 0,133 A | Consumo del sistema con el relé conectado únicamente. |
+| **Servomotor** | 0,235 A | Consumo del sistema con el servomotor conectado únicamente. |
+| **Display** | 0,094 A | Consumo del sistema con el display conectado únicamente. |
+| **Modulo Bluetooth** | 0,083 A | Consumo del sistema con el módulo bluetooth conectado únicamente. |
+| **Buzzer + LED** | 0,111 A | Consumo del sistema con el buzzer y display conectados únicamente. |
+| **Integrado 1** | 0,072 A | Consumo del sistema sin actuadores conectados. |
+| **Integrado 2** | 0,105 A - 0,323 A | Consumo del sistema con todos los actuadores conectados. Se registró un consumo mínimo y máximo debido a que no se encienden todos al mismo tiempo. |
 
-## 4.8 Cumplimiento de requisitos
+## 4.7 Cumplimiento de requisitos
 
 **Tabla 4.3** Cumplimiento de los requerimientos planteados.
 
