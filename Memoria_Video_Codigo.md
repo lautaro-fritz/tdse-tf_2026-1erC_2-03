@@ -12,7 +12,7 @@ Memoria del Trabajo Final:
 
 **Lautaro Gaston Fritz** **\- 102320**
 
-**Mauro Alex Tedesco** **\- 102958**
+**Mauro Axel Tedesco** **\- 102958**
 
 **José Francisco López García** **\- n20240046**
 
