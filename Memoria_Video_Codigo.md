@@ -6,7 +6,7 @@
 
 Memoria del Trabajo Final:
 
-***Pecera Inteligente***
+**Pecera Inteligente**
 
 **Autores:**
 
@@ -27,9 +27,9 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 [Registro de versiones](#registro-de-versiones)
 
-[Capitulo 1: Introducción general](#introducción-general)
+[Capitulo 1: Introducción general](#capítulo-1introducción-general)
 
-[Capitulo 2: Introducción Específica](#introducción-específica)
+[Capitulo 2: Introducción específica](#capítulo-2-introducción-específica)
 
 - [2.1 Requisitos](#21-requisitos)
 
@@ -124,6 +124,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 | **1.0** | Creación del documento | 10/7/2026 |
 | **1.1** | Cambio a formato markdown | 11/7/2026 |
 | **1.2** | Versión final | 4/8/2026 |
+| **1.3** | Correcciones de formato | 6/8/2026 |
 
 # CAPÍTULO 1: Introducción general
 
@@ -141,11 +142,13 @@ Objetivos principales:
 
 - Permitir la configuración y supervisión del sistema mediante una interfaz inalámbrica.
 
-# CAPÍTULO 2: Introducción Específica
+# CAPÍTULO 2: Introducción específica
 
 Esta sección contiene los requisitos originales y los modificados en el informe de avances, además de los casos de uso.
 
 ## 2.1 Requisitos
+
+**Tabla 2.1:** requerimientos iniciales del proyecto
 
 | Grupo | ID | Descripción |
 | :---- | :---- | :---- |
@@ -172,9 +175,9 @@ Esta sección contiene los requisitos originales y los modificados en el informe
 | **Alimentación eléctrica** | **7.1** | El sistema utilizará una fuente de alimentación de corriente continua independiente para suministrar energía a los actuadores, reduciendo la demanda de corriente sobre el microcontrolador. |
 |  | **7.2** | El microcontrolador y los actuadores compartirán una referencia común de tierra (GND) para garantizar el correcto funcionamiento del sistema. |
 
-**Tabla 2.1:** requerimientos iniciales del proyecto
-
 ## 2.2 Casos de uso
+
+**Tabla 2.2:** Caso de uso 1: alimentación automática
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -183,7 +186,7 @@ Esta sección contiene los requisitos originales y los modificados en el informe
 | **Flujo principal** | El sistema inicia el ciclo de alimentación. Desactiva temporalmente el filtro de agua para evitar la dispersión del alimento, espera el tiempo establecido y acciona el servomotor para dispensar la cantidad programada. Finalizado el ciclo, reactiva el filtro de agua y notifica la ejecución de la alimentación a la aplicación móvil. |
 | **Flujos alternativos** | a. Si el sistema presenta un estado de error, el ciclo de alimentación no se ejecuta y se notifica la condición a la aplicación. |
 
-**Tabla 2.2:** Caso de uso 1: alimentación automática
+**Tabla 2.3:** Caso de uso 2: control de iluminación día/noche
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -192,7 +195,7 @@ Esta sección contiene los requisitos originales y los modificados en el informe
 | **Flujo principal** | El sistema enciende o apaga la iluminación según el horario establecido y mantiene dicho estado hasta el siguiente cambio programado. El nuevo estado se informa a la aplicación móvil. |
 | **Flujos alternativos** | a. Si ocurre un fallo en la iluminación, el sistema desactiva la salida correspondiente y notifica la condición a la aplicación. |
 
-**Tabla 2.3:** Caso de uso 2: control de iluminación día/noche
+**Tabla 2.4:** Caso de uso 3: control del sistema de filtrado
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -201,7 +204,7 @@ Esta sección contiene los requisitos originales y los modificados en el informe
 | **Flujo principal** | El sistema mantiene el filtro de agua en funcionamiento durante la operación normal. Cuando se inicia un ciclo de alimentación, el sistema desactiva temporalmente el filtro para evitar la dispersión del alimento y lo reactiva automáticamente al finalizar la alimentación. El estado del filtro se informa a la aplicación móvil. |
 | **Flujos alternativos** | a. Si se detecta un fallo en el accionamiento del relé, el sistema deshabilita el control automático del filtro y notifica la falla a la aplicación. |
 
-**Tabla 2.4:** Caso de uso 3: control del sistema de filtrado
+**Tabla 2.5:** Caso de uso 4: Monitoreo de temperatura y alarma
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -209,16 +212,6 @@ Esta sección contiene los requisitos originales y los modificados en el informe
 | **Precondiciones** | El sistema está encendido. El sensor de temperatura funciona correctamente y los límites de temperatura se encuentran configurados. |
 | **Flujo principal** | El sistema monitorea continuamente la temperatura del agua. Cuando la temperatura supera el límite máximo o desciende por debajo del mínimo permitido, activa una alarma sonora mediante un buzzer y una alarma visual mediante un LED rojo, además de enviar una notificación a la aplicación móvil. Cuando la temperatura vuelve al rango permitido, las alarmas se desactivan automáticamente. |
 | **Flujos alternativos** | a. Si ocurre un fallo en el sensor de temperatura, el sistema informa la condición a la aplicación móvil y suspende el monitoreo automático hasta que el sensor vuelva a estar disponible. |
-
-**Tabla 2.5:** Caso de uso 4: Monitoreo de temperatura y alarma
-
-| Elemento | Definición |
-| :---- | :---- |
-| **Disparador** | El usuario selecciona un actuador desde la aplicación móvil. |
-| **Precondiciones** | El sistema está encendido, conectado mediante BLE y los actuadores funcionan correctamente. |
-| **Flujo principal** | El usuario controla manualmente el alimentador automático, la iluminación o el filtro de agua desde la aplicación móvil. El sistema ejecuta la acción solicitada y actualiza el estado correspondiente en la aplicación. |
-| **Flujos alternativos** | a. Si ocurre un fallo en la comunicación BLE, la orden no se ejecuta y el sistema informa el error al usuario. |
-|  | b. Si el actuador seleccionado ya se encuentra en el estado solicitado, el sistema no realiza ninguna acción. |
 
 **Tabla 2.6:** Caso de uso 5: configuración de parámetros
 
@@ -231,6 +224,14 @@ Esta sección contiene los requisitos originales y los modificados en el informe
 |  | b. Si el actuador seleccionado ya se encuentra en el estado solicitado, el sistema no realiza ninguna acción. |
 
 **Tabla 2.7:** Caso de uso 6: control manual de actuadores
+
+| Elemento | Definición |
+| :---- | :---- |
+| **Disparador** | El usuario selecciona un actuador desde la aplicación móvil. |
+| **Precondiciones** | El sistema está encendido, conectado mediante BLE y los actuadores funcionan correctamente. |
+| **Flujo principal** | El usuario controla manualmente el alimentador automático, la iluminación o el filtro de agua desde la aplicación móvil. El sistema ejecuta la acción solicitada y actualiza el estado correspondiente en la aplicación. |
+| **Flujos alternativos** | a. Si ocurre un fallo en la comunicación BLE, la orden no se ejecuta y el sistema informa el error al usuario. |
+|  | b. Si el actuador seleccionado ya se encuentra en el estado solicitado, el sistema no realiza ninguna acción. |
 
 ## 2.3 Hardware utilizado
 
@@ -281,8 +282,6 @@ El mismo se presenta en la **Figura 2.4**.
 <img width="320" height="352" alt="image" src="https://github.com/user-attachments/assets/58f369ea-98c3-47ec-995b-4876bc4256ad" />
 
 **Figura 2.4:** Pantalla LCD 16×2
-
-(link)
 
 ### **2.3.5 Sensor Digital Temperatura Ds18b20**
 
@@ -367,7 +366,6 @@ El HM-10 incorpora un microcontrolador interno con un firmware encargado de impl
 
 **Figura 3.1:** Diagrama de conexiones de todos los componentes de hardware.
 
-
 ## 3.1 Hardware del sistema
 
 En esta sección se describen las principales características del hardware empleado en el desarrollo del sistema. Asimismo, en la **Figura 3.1** se presenta un diagrama en bloques que muestra la arquitectura general y la interconexión de los diferentes componentes que conforman el prototipo.
@@ -376,6 +374,8 @@ En esta sección se describen las principales características del hardware empl
 
 **Figura 3.2:** Diagrama en bloques de los componentes de hardware del sistema.
 
+**Tabla 3.1:** Resumen de conexiones del módulo Bluetooth HM-10.
+
 | Módulo Bluetooth HM-10 | Conexión |
 | :---- | :---- |
 | TXD | RX NUCLEO Board pin (D0) |
@@ -383,9 +383,9 @@ En esta sección se describen las principales características del hardware empl
 | VCC | Fuente externa de 5V |
 | GND | GND común |
 
-Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento de la comunicación del módulo Bluetooth HM-10. 
+Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento de la comunicación del módulo Bluetooth HM-10.  
 
-**Tabla 3.1:** Resumen de conexiones del módulo Bluetooth HM-10. 
+**Tabla 3.2:** Resumen de conexiones del buzzer y LED de alarma. 
 
 | Buzzer y LED de alarma | Conexión |
 | :---- | :---- |
@@ -395,7 +395,7 @@ Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento 
 
 La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base para el correcto accionamiento del dispositivo. 
 
-**Tabla 3.2:** Resumen de conexiones del buzzer y LED de alarma. 
+**Tabla 3.3:** Resumen de conexiones del servomotor SG90. 
 
 | Servomotor SG90 | Conexión |
 | :---- | :---- |
@@ -405,7 +405,7 @@ La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base
 
 La línea de control incorpora una resistencia *pull-up* para garantizar el correcto funcionamiento de la señal PWM del servomotor, mientras que la alimentación se realiza mediante una fuente externa de 5V para evitar incrementar la demanda de corriente sobre la placa NUCLEO-F103RB. 
 
-**Tabla 3.3:** Resumen de conexiones del servomotor SG90. 
+**Tabla 3.4:** Resumen de conexiones del módulo relé. 
 
 | Módulo relé | Conexión |
 | :---- | :---- |
@@ -417,7 +417,7 @@ La línea de control incorpora una resistencia *pull-up* para garantizar el corr
 
 La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base para el correcto accionamiento del dispositivo. 
 
-**Tabla 3.4:** Resumen de conexiones del módulo relé. 
+**Tabla 3.5:** Resumen de conexiones de luces LEDs.  
 
 | Aro LED | Conexión |
 | :---- | :---- |
@@ -427,7 +427,7 @@ La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base
 
 La etapa de control incorpora un transistor 2N2222 y una resistencia de base para el correcto accionamiento del aro LED. Además, su alimentación se realiza mediante una fuente externa de 5V para evitar incrementar la demanda de corriente sobre la placa NUCLEO-F103RB.
 
-**Tabla 3.5:** Resumen de conexiones de luces LEDs.  
+**Tabla 3.6:** Resumen de conexiones del termómetro DS1820.
 
 | Termómetro DS1820 | Conexión |
 | :---- | :---- |
@@ -437,7 +437,7 @@ La etapa de control incorpora un transistor 2N2222 y una resistencia de base par
 
 Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento de la comunicación del termómetro DS1820.
 
-**Tabla 3.6:** Resumen de conexiones del termómetro DS1820.
+**Tabla 3.7:** Resumen de conexiones del display LCD mediante interfaz I2C. 
 
 | Display LCD I2C | Conexión |
 | :---- | :---- |
@@ -447,8 +447,6 @@ Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento 
 | GND | GND común |
 
 El display LCD utiliza la interfaz de comunicación I2C mediante las líneas SDA y SCL, permitiendo la transmisión de datos y sincronización con la NUCLEO-F103RB utilizando únicamente dos señales de comunicación. La alimentación del módulo se realiza mediante una fuente de 5V con referencia común de GND.
-
-**Tabla 3.7:** Resumen de conexiones del display LCD mediante interfaz I2C. 
 
 ### 3.1.1 Dispensador de alimento
 
@@ -555,7 +553,7 @@ En este capítulo se presentan las pruebas realizadas al prototipo para verifica
 
 <img width="827" height="566" alt="image" src="https://github.com/user-attachments/assets/2565fc4a-3c98-4b5e-83a9-5b9e2faa2de6" />
 
-Figura 4.1: Vista general del prototipo desarrollado.
+**Figura 4.1:** Vista general del prototipo desarrollado.
 
 ## 4.1 Pruebas funcionales del firmware
 
@@ -563,7 +561,7 @@ En esta sección se presentan las pruebas realizadas para verificar el correcto 
 
 <img width="302" height="572" alt="image" src="https://github.com/user-attachments/assets/0a94a548-a9c7-450a-8989-bc4a8ece67e5" />
 
-Figura 4.2: Prueba de comunicación BLE.
+**Figura 4.2:** Prueba de comunicación BLE.
 
 ## 4.2 Pruebas funcionales del hardware
 
@@ -571,11 +569,11 @@ Figura 4.2: Prueba de comunicación BLE.
 
 <img width="857" height="561" alt="image" src="https://github.com/user-attachments/assets/653d123e-560b-49cd-ae9a-0c7aee15a3f9" />
 
-Figura 4.3: Servomotor SG90 en posición de alimentación.
+**Figura 4.3:** Servomotor SG90 en posición de alimentación.
 
 <img width="860" height="561" alt="image" src="https://github.com/user-attachments/assets/a7f99ece-d79d-46b9-9a3b-3dc4ee4c542a" />
 
-Figura 4.4: Servomotor SG90 en posición de reposo.
+**Figura 4.4:** Servomotor SG90 en posición de reposo.
 
 **4.2.2 Prueba del sistema de filtrado**
 
@@ -583,11 +581,11 @@ Como se mencionó anteriormente, el sistema de filtrado fue representado mediant
 
 <img width="857" height="646" alt="image" src="https://github.com/user-attachments/assets/efe68572-dfa6-4069-b334-82ec9878b64b" />
 
-Figura 4.5: Sistema de filtrado activado.
+**Figura 4.5:** Sistema de filtrado activado.
 
 <img width="862" height="642" alt="image" src="https://github.com/user-attachments/assets/fb2e6cae-8cf5-454d-8924-c441b8e8e165" />
 
-Figura 4.6: Sistema de filtrado desactivado.
+**Figura 4.6:** Sistema de filtrado desactivado.
 
 **4.2.3 Prueba del sistema de iluminación (día y noche)**
 
@@ -595,11 +593,11 @@ En esta prueba se verificó el funcionamiento del sistema de iluminación implem
 
 <img width="485" height="600" alt="image" src="https://github.com/user-attachments/assets/b84e0268-9156-42d2-ace9-bea6343d3e82" />
 
-Figura 4.7: Sistema de iluminación activado.
+**Figura 4.7:** Sistema de iluminación activado.
 
 <img width="485" height="620" alt="image" src="https://github.com/user-attachments/assets/23c44002-39e1-4519-ac97-12874deb0440" />
 
-Figura 4.8: Sistema de iluminación desactivado.
+**Figura 4.8:** Sistema de iluminación desactivado.
 
 **4.2.4 Prueba del sistema de alarma**
 
@@ -607,11 +605,11 @@ En esta prueba se verificó el funcionamiento del sistema de alarma, compuesto p
 
 <img width="857" height="505" alt="image" src="https://github.com/user-attachments/assets/de7fdeb3-4eeb-4683-8398-8b63e96e0ebf" />
 
-Figura 4.9: Sistema de alarma activado.
+**Figura 4.9:** Sistema de alarma activado.
 
 <img width="690" height="482" alt="image" src="https://github.com/user-attachments/assets/7e2e6ccf-ea0e-4178-9fbe-a106dbe29a28" />
 
-Figura 4.10: Sistema de alarma desactivado.
+**Figura 4.10:** Sistema de alarma desactivado.
 
 ### 4.3.Pruebas de sensor con interfaz del usuario
 
@@ -621,13 +619,13 @@ En esta prueba se verificó el correcto funcionamiento del módulo de medición 
 
 <img width="690" height="482" alt="image" src="https://github.com/user-attachments/assets/7e2e6ccf-ea0e-4178-9fbe-a106dbe29a28" />
 
-Figura 4.11: Medición de temperatura dentro del rango de funcionamiento.
+**Figura 4.11:** Medición de temperatura dentro del rango de funcionamiento.
 
 <img width="1506" height="52" alt="image" src="https://github.com/user-attachments/assets/0101dd18-e53c-460d-b616-7e9246f9ada1" />
 
 <img width="857" height="505" alt="image" src="https://github.com/user-attachments/assets/de7fdeb3-4eeb-4683-8398-8b63e96e0ebf" />
 
-Figura 4.12: Medición de temperatura por fuera del rango de funcionamiento.
+**Figura 4.12:** Medición de temperatura por fuera del rango de funcionamiento.
 
 ## 4.4 Pruebas de integración
 
@@ -639,6 +637,8 @@ La evidencia del funcionamiento general del prototipo se encuentra documentada e
 
 En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la Sección 2.2.
 
+**Tabla 4.1** Cumplimiento de los casos de uso planteados.
+
 | Caso de Uso | Título | ¿Se cumplió? |
 | :---- | :---- | :---- |
 | **\#1** | Alimentación automática y manual | **✔ Cumplido** |
@@ -648,25 +648,23 @@ En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la 
 | **\#5** | Configuración mediante aplicación móvil | **✔ Cumplido** |
 | **\#6** | Control manual de actuadores mediante BLE | **✔ Cumplido** |
 
-**Tabla 4.1** Cumplimiento de los casos de uso planteados.
-
 ## 4.5 Console and Build Analyzer
 
 La Figura 4.13 muestra el reporte de uso de memoria del build. Se observa un uso bajo de RAM y FLASH (≈17,58% y ≈18,99%), dejando margen para futuras extensiones.
 
 <img width="720" height="151" alt="image" src="https://github.com/user-attachments/assets/32d8ac47-fc97-429e-a179-95f9d7dbf51a" />
 
-Figura 4.13: Memory Regions.
+**Figura 4.13:** Memory Regions.
 
 <img width="741" height="195" alt="image" src="https://github.com/user-attachments/assets/1e313bff-4b44-417f-b37c-ce393bd9b2fb" />
 
-Figura 4.14: Build Console.
+**Figura 4.14:** Build Console.
 
 ## 4.6 Medición y análisis de tiempos de ejecución
 
 Para medir peor tiempo de ejecución (WCET) de cada tarea, se utilizó el DWT (Data Watchpoint and Trace), el cual permite medir el tiempo con alta precisión. El código programa comienza a contar el tiempo con precisión desde que cada tarea se ejecuta hasta que finaliza. Si el valor obtenido es mayor que el anteriormente guardado, se actualiza el registro, de lo contrario, se continúa sin guardar el valor.
 
-La sumatoria de todos los WCET da un total de 739μs, por debajo de los 1000μs que exige el ejecutor cíclico. Se aprecia que la última tarea (correspondiente al display LCD) es la que más demora.
+La sumatoria de todos los WCET da un total de 739 μs, por debajo de los 1000 μs que exige el ejecutor cíclico. Se aprecia que la última tarea (correspondiente al display LCD) es la que más demora.
 
 <img width="1670" height="287" alt="image" src="https://github.com/user-attachments/assets/c737217a-a93f-42bf-bfd2-8ee385955336" />
 <img width="1710" height="302" alt="image" src="https://github.com/user-attachments/assets/36dd9744-4fae-4f15-8428-5b90499cb5c8" />
@@ -677,7 +675,7 @@ La sumatoria de todos los WCET da un total de 739μs, por debajo de los 1000μs 
 <img width="1701" height="287" alt="image" src="https://github.com/user-attachments/assets/cd66deb5-7b54-4843-85c5-00b7071ddbc3" />
 <img width="1700" height="292" alt="image" src="https://github.com/user-attachments/assets/e538ee12-ddae-4400-b53c-bbace78e52e9" />
 
-Figura 4.15: Mediciones de tiempos de ejecución por cada tarea.
+**Figura 4.15:** Mediciones de tiempos de ejecución por cada tarea.
 
 ## 4.7 Medición y análisis del consumo energético
 
@@ -685,21 +683,23 @@ Se realizaron mediciones para analizar el consumo energético de los módulos qu
 
 En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 
+**Tabla 4.2** Consumo energético de actuadores.
+
 | Actuador | Valor | Observación |
 | :---- | :---- | :---- |
-| **Termómetro** | 0,000A | No se registro lectura alguna, se podría lograr con un amperímetro de mayor resolución. |
+| **Termómetro** | 0,000A | No se registró lectura alguna. Se podría lograr con un amperímetro de mayor resolución. |
 | **Aro Led** | 0,203A | Consumo del sistema con el aro LED conectado únicamente. |
 | **Relé** | 0,133A | Consumo del sistema con el relé conectado únicamente. |
 | **Servomotor** | 0,235A | Consumo del sistema con el servomotor conectado únicamente. |
 | **Display** | 0,094A | Consumo del sistema con el display conectado únicamente. |
-| **Modulo Bluetooth** | 0,083A | Consumo del sistema con el modulo bluetooth conectado únicamente. |
+| **Modulo Bluetooth** | 0,083A | Consumo del sistema con el módulo bluetooth conectado únicamente. |
 | **Buzzer + LED** | 0,111A | Consumo del sistema con el buzzer y display conectados únicamente. |
 | **Integrado 1** | 0,072A | Consumo del sistema sin actuadores conectados. |
-| **Integrado 2** | 0,105A - 0,323A | Consumo del sistema con todos los actuadores conectados, se registro un consumo mínimo y máximo debido a que no se encienden todos al mismo tiempo. |
-
-**Tabla 4.2** Consumo energético de actuadores.
+| **Integrado 2** | 0,105A - 0,323A | Consumo del sistema con todos los actuadores conectados. Se registró un consumo mínimo y máximo debido a que no se encienden todos al mismo tiempo. |
 
 ## 4.8 Cumplimiento de requisitos
+
+**Tabla 4.3** Cumplimiento de los requerimientos planteados.
 
 | Grupo | ID | Descripción | ¿Se cumplió? |
 | :---- | :---- | :---- | :---- |
@@ -714,8 +714,6 @@ En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 | **Actuadores – Carga de CA** | **2.6** | **El sistema controlará una carga de corriente alterna que simulará el funcionamiento del filtro de agua; en el prototipo se utilizará un foco de CA como carga.** | **✔ Cumplido** |
 |  | **2.7** | **La carga de corriente alterna permanecerá activada durante el funcionamiento normal y se desactivará temporalmente durante el ciclo de alimentación.** | **✔ Cumplido** |
 |  | **2.8** | **El sistema verificará el estado del relé y notificará posibles fallos en su accionamiento.** | **❌ No cumplido** |
-
-**Tabla 4.3** Cumplimiento de los requerimientos planteados.
 
 # CAPÍTULO 5: Conclusiones
 
