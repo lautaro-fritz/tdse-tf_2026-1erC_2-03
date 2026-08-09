@@ -114,6 +114,8 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 - [4.7 Cumplimiento de requisitos](#47-cumplimiento-de-requisitos)
 
+- [4.8 Comparación con sistemas similares](#48-comparación-con-sistemas-similares)
+
 [Capítulo 5: Conclusiones](#capítulo-5-conclusiones)
 
 - [5.1 Resultados obtenidos](#51-resultados-obtenidos)
@@ -186,23 +188,8 @@ Se realizo una búsqueda de productos que cuenten con todas las características
 
 **Figura 1.3:** Acuario inteligente con medición de temperatura, sistema de filtrado, iluminación y alimentación.
 
-* Características: Pequeña pantalla para control de temperatura. Sistema de circulación, oxigenación y filtrado de agua. Iluminación mediante leds RGB, lo que permite al usuario elegir un color. Gabinete para almacenar y dosificar los alimentos. Sistema de configuración para filtrado, iluminación y alimentación automática. Producto importado.
+* Características: Pequeña pantalla para control de temperatura. Sistema de circulación, oxigenación y filtrado de agua. Iluminación mediante leds RGB, lo que permite al usuario elegir un color. Gabinete para almacenar y dosificar los alimentos. Sistema de configuración para filtrado, iluminación y alimentación automática. **Producto importado**.
 * Costo aproximado: ~$708.000 ARS ($464 USD).
-## 1.4 Comparación con el prototipo desarrollado
-
-**Tabla 1.1:** Comparación de prestaciones entre productos comerciales y el prototipo desarrollado.
-
-| Característica | Solución importada | Prototipo desarrollado |
-| :---- | :---- | :---- |
-| **Sistema de alimentación integrado** | Sí | Sí |
-| **Monitoreo de temperatura del agua** | Sí | Sí |
-| **Filtrado de agua** | Sí | Sí |
-| **Ciclo de iluminación día/noche** | No especificado | Sí |
-| **Control manual de actuadores mediante aplicación móvil** | No especificado | Sí |
-| **Configuración de horarios de alimentación mediante aplicación móvil** | Sí | Planificado, dejado fuera de alcance |
-| **Costo y disponibilidad** | Precio base + envío + impuestos, ~$300.000 | Prototipo de laboratorio |
-
-A partir de la comparación realizada, se destaca que el prototipo desarrollado incorpora funcionalidades que no se encuentran especificadas en la solución comercial relevada, particularmente el control manual de los actuadores mediante una aplicación móvil. Esto permite al usuario intervenir directamente sobre el funcionamiento de la pecera. De esta manera, el prototipo busca ofrecer un mayor grado de interacción y control sobre el sistema, manteniendo al mismo tiempo las funcionalidades básicas de monitoreo y automatización.
 
 ## 1.5 Alcance y limitaciones
 
@@ -783,6 +770,23 @@ En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 | **Actuadores – Carga de CA** | **2.6** | **El sistema controlará una carga de corriente alterna que simulará el funcionamiento del filtro de agua; en el prototipo se utilizará un foco de CA como carga.** | **✔ Cumplido** |
 |  | **2.7** | **La carga de corriente alterna permanecerá activada durante el funcionamiento normal y se desactivará temporalmente durante el ciclo de alimentación.** | **✔ Cumplido** |
 |  | **2.8** | **El sistema verificará el estado del relé y notificará posibles fallos en su accionamiento.** | **❌ No cumplido** |
+
+## 4.8 Comparación con el prototipo desarrollado
+
+**Tabla 4.4:** Comparación de prestaciones entre productos comerciales y el prototipo desarrollado.
+
+| Característica | Solución importada | Prototipo desarrollado |
+| :---- | :---- | :---- |
+| **Sistema de alimentación integrado** | Sí | Sí |
+| **Monitoreo de temperatura del agua** | Sí | Sí |
+| **Filtrado de agua** | Sí | Sí |
+| **Ciclo de iluminación día/noche** | No especificado | Sí |
+| **Control manual de actuadores mediante aplicación móvil** | No especificado | Sí |
+| **Configuración de horarios de alimentación mediante aplicación móvil** | Sí | Planificado, dejado fuera de alcance |
+| **Costo y disponibilidad** | Precio base + envío + impuestos, ~$300.000 | Prototipo de laboratorio |
+
+A partir de la comparación realizada, se destaca que el prototipo desarrollado incorpora funcionalidades que no se encuentran especificadas en la solución comercial relevada, particularmente el control manual de los actuadores mediante una aplicación móvil. Esto permite al usuario intervenir directamente sobre el funcionamiento de la pecera. De esta manera, el prototipo busca ofrecer un mayor grado de interacción y control sobre el sistema, manteniendo al mismo tiempo las funcionalidades básicas de monitoreo y automatización.
+
 
 # CAPÍTULO 5: Conclusiones
 
