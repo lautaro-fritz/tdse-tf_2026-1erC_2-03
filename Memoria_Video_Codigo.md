@@ -771,7 +771,7 @@ En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 |  | **2.7** | **La carga de corriente alterna permanecerá activada durante el funcionamiento normal y se desactivará temporalmente durante el ciclo de alimentación.** | **✔ Cumplido** |
 |  | **2.8** | **El sistema verificará el estado del relé y notificará posibles fallos en su accionamiento.** | **❌ No cumplido** |
 
-## 4.8 Comparación con el prototipo desarrollado
+## 4.8 Comparación con sistemas similares
 
 **Tabla 4.4:** Comparación de prestaciones entre productos comerciales y el prototipo desarrollado.
 
@@ -779,11 +779,13 @@ En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 | :---- | :---- | :---- |
 | **Sistema de alimentación integrado** | Sí | Sí |
 | **Monitoreo de temperatura del agua** | Sí | Sí |
+| **Sistema de alarma** | No | Sí |
 | **Filtrado de agua** | Sí | Sí |
-| **Ciclo de iluminación día/noche** | No especificado | Sí |
+| **Ciclo de iluminación día/noche** | Sí | Sí |
 | **Control manual de actuadores mediante aplicación móvil** | No especificado | Sí |
+| **Comunicación** | Wi-Fi | Bluetooth |
 | **Configuración de horarios de alimentación mediante aplicación móvil** | Sí | Planificado, dejado fuera de alcance |
-| **Costo y disponibilidad** | Precio base + envío + impuestos, ~$300.000 | Prototipo de laboratorio |
+| **Costo y disponibilidad** | ~$708.000 ARS ($464 USD), 21 días de envío | Prototipo de laboratorio |
 
 A partir de la comparación realizada, se destaca que el prototipo desarrollado incorpora funcionalidades que no se encuentran especificadas en la solución comercial relevada, particularmente el control manual de los actuadores mediante una aplicación móvil. Esto permite al usuario intervenir directamente sobre el funcionamiento de la pecera. De esta manera, el prototipo busca ofrecer un mayor grado de interacción y control sobre el sistema, manteniendo al mismo tiempo las funcionalidades básicas de monitoreo y automatización.
 
