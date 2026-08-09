@@ -30,7 +30,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 - [1.1 Análisis de necesidad](#11-análisis-de-necesidad)
 
-- [1.2 Objetivos] (#12-objetivos)
+- [1.2 Objetivos](#12-objetivos)
 
 - [1.3 Productos comerciales disponibles](#13-productos-comerciales-disponibles)
 
@@ -159,14 +159,35 @@ Objetivos principales:
 
 ## 1.3 Productos comerciales disponibles
 
-Se relevó la oferta disponible en el mercado argentino e internacional para ofrecer una comparación de los puntos clave:
+Se realizo una búsqueda de productos que cuenten con todas las características mencionadas. Actualmente se pueden encontrar muchas soluciones individuales o parciales, fueron muy pocos los casos donde se consigue alcanzar todos los requisitos. 
 
-1. [Pecera inteligente (importada desde China)](https://articulo.mercadolibre.com.ar/MLA-3130228464-pecera-inteligente-7l-alimentacion-automatica-control-app-mi-_JM)
+**1. Solución parcial 1:** [Link acuario inteligente temperatura, filtro y luces Rechale (Mercado Libre)](https://www.mercadolibre.com.ar/smart-aquarium-rechale-9l-with-humidifier-rgb-lights/p/MLA2079413312#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=2&type=product&tracking_id=f36d4f48-a425-4ff4-8433-f42b1d815f43&wid=MLA1743040327&sid=search)
 
-Como se mencionó anteriormente, si bien existen soluciones que proporcionan la mayoría de las funcionalidades que ofrece nuestro prototipo, estas son de fabricación internacional, lo que resulta en una mayor dependencia de productos importados, con posibles limitaciones en cuanto a costos, disponibilidad, mantenimiento y soporte técnico. Además, al tratarse de productos diseñados para otros mercados, las posibilidades de adaptación y modificación de sus funcionalidades son limitadas.
+<img width="60%" height="60%" alt="image" src="https://github.com/user-attachments/assets/104589cc-bfd6-4b4d-aa94-b9e514c7de25" />
 
-En este contexto, el desarrollo de una alternativa nacional permite ofrecer una solución adaptable a las necesidades del mercado local, facilitando el acceso a soporte técnico y la incorporación de nuevas funcionalidades, al mismo tiempo que reduce la dependencia de soluciones desarrolladas en el exterior.
+**Figura 1.1:** Acuario inteligente con medición de temperatura, sistema de filtrado e iluminación.
 
+* Características: Pequeña pantalla para control de temperatura. Sistema de circulación, oxigenación y filtrado de agua. Iluminación mediante leds RGB, lo que permite al usuario elegir un color. Sistema de configuración para filtrado y iluminación. 
+* Costo aproximado: ~$225.000 ARS ($148 USD).
+
+**2. Solución parcial 2:** [Link alimentador inteligente ILONDA (Mercado Libre)](https://www.mercadolibre.com.ar/alimentador-automatico-ilonda-smart-wifi-usb-acuario-peces/up/MLAU3026319269#polycard_client=search-desktop&float_highlight=last_units&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=25&type=product&tracking_id=f36d4f48-a425-4ff4-8433-f42b1d815f43&wid=MLA2019236970&sid=search)
+
+<img width="50%" height="50%" alt="image" src="https://github.com/user-attachments/assets/54b7baa4-427f-4924-8b14-2b1c3e1b7644" />
+
+
+**Figura 1.2:** Alimentador inteligente con control wifi mediante aplicación.
+
+* Características: Gabinete plástico para almacenar alimentos de distintos tipos. Control wifi mediante aplicación Android o IOS, permite configurar horarios de alimentación. 
+* Costo aproximado: ~$144.000 ARS ($95 USD).
+
+**3. Solución integral:** [Link acuario inteligente alimentación, temperatura, filtro y luces Fishkeeper (Mercado Libre)](https://www.mercadolibre.com.ar/acuario-inteligente-vidrio-hd-con-luz-rgb-y-alimentador/up/MLAU4015457264#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=11&type=product&tracking_id=d1a6d641-0390-4337-ae05-06e1dbb08be3&wid=MLA3602952092&sid=search)
+
+<img width="60%" height="60%" alt="image" src="https://github.com/user-attachments/assets/cedbb73c-1dc7-458d-a345-68d0f2e151d6" />
+
+**Figura 1.3:** Acuario inteligente con medición de temperatura, sistema de filtrado, iluminación y alimentación.
+
+* Características: Pequeña pantalla para control de temperatura. Sistema de circulación, oxigenación y filtrado de agua. Iluminación mediante leds RGB, lo que permite al usuario elegir un color. Gabinete para almacenar y dosificar los alimentos. Sistema de configuración para filtrado, iluminación y alimentación automática. Producto importado.
+* Costo aproximado: ~$708.000 ARS ($464 USD).
 ## 1.4 Comparación con el prototipo desarrollado
 
 **Tabla 1.1:** Comparación de prestaciones entre productos comerciales y el prototipo desarrollado.
