@@ -34,9 +34,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 - [1.3 Productos comerciales disponibles](#13-productos-comerciales-disponibles)
 
-- [1.4 Comparación con el prototipo desarrollado](#14-comparación-con-el-prototipo-desarrollado)
-
-- [1.5 Alcance y limitaciones](#15-alcance-y-limitaciones)
+- [1.4 Alcance y limitaciones](#14-alcance-y-limitaciones)
 
 [Capítulo 2: Introducción específica](#capítulo-2-introducción-específica)
 
@@ -97,6 +95,8 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
   - [3.2.4 Módulo de visualización mediante display LCD](#324-módulo-de-visualización-mediante-display-lcd)
 
   - [3.2.5 Módulo de actuadores y alarmas](#325-módulo-de-actuadores-y-alarmas)
+ 
+  - [3.2.6 Módulo de sistema](#326-módulo-de-sistema)
 
 [Capítulo 4: Ensayos y resultados](#capítulo-4-ensayos-y-resultados)
 
@@ -191,7 +191,7 @@ Se realizo una búsqueda de productos que cuenten con todas las características
 * Características: Pequeña pantalla para control de temperatura. Sistema de circulación, oxigenación y filtrado de agua. Iluminación mediante leds RGB, lo que permite al usuario elegir un color. Gabinete para almacenar y dosificar los alimentos. Sistema de configuración para filtrado, iluminación y alimentación automática. **Producto importado**.
 * Costo aproximado: ~$708.000 ARS ($464 USD).
 
-## 1.5 Alcance y limitaciones
+## 1.4 Alcance y limitaciones
 
 El trabajo abarca exclusivamente la electrónica de control, la interfaz de usuario y la lógica de registro e interrupciones, implementadas sobre una placa NUCLEO-F103RB y montadas en una maqueta experimental. Quedan fuera de alcance el diseño mecánico del alimentador y del filtro. También se dejó fuera del alcance la configuración de horarios de alimentación e iluminación por parte del usuario a través de la aplicación móvil y el chequeo del funcionamiento de los actuadores por parte del sistema al iniciarse.  
 
@@ -600,6 +600,34 @@ Durante el estado `ST_ACT_ON`, el actuador permanece activado hasta recibir el e
 En el caso del relé del filtro (`ID_RELAY_FILTER`), la máquina de estados controla su activación y desactivación mediante los eventos generados por el sistema, tanto en modo automático como manual, manteniendo el actuador en los estados `ST_ACT_OFF` o `ST_ACT_ON` según corresponda. Por su parte, el buzzer (`ID_BUZZER`) permanece normalmente en el estado `ST_ACT_OFF` y, cuando el módulo de temperatura detecta una condición de alarma, recibe el evento `EV_BUZZER_BLINK`, ingresando al estado `ST_ACT_BLINKING` para emitir una señal sonora intermitente. Una vez que la temperatura retorna al rango establecido, el sistema genera el evento `EV_BUZZER_OFF`, desactivando la alarma y retornando el buzzer al estado `ST_ACT_OFF`.
 
 De esta manera, el módulo centraliza el control de los actuadores y las alarmas del sistema mediante una única máquina de estados, permitiendo responder a los eventos generados por las demás tareas sin bloquear la ejecución del firmware.
+
+### 3.2.6 Módulo de sistema
+
+Este módulo del sistema funciona como el núcleo principal de control de la aplicación. Su responsabilidad es orquestar múltiples procesos al mismo tiempo mediante una función central task_system_update() que invoca tres máquinas de estado paralelas. Además, el sistema se apoya en una cola de eventos circular para recibir directivas de forma asincrónica.
+A continuación, se detallan las máquinas de estado paralelas, sus estados principales y las funciones clave del módulo.
+
+**1. Comunicación Bluetooth** (task_system_bluetooth_statechart)
+Esta máquina gestiona la conectividad externa y se encarga de conmutar los modos de operación global entre automático y manual.
+ - ST_SYS_BT_DISCONNECTED: Es el estado por defecto donde el sistema opera normalmente y espera un intento de conexión. Si recibe el evento EV_SYS_APP_CONNECTED, el sistema cambia su modo a MANUAL, apaga todos los actuadores (motor, filtro y luces) por seguridad para ceder el control y pasa al estado conectado.
+ - ST_SYS_BT_CONNECTED: En este estado, el sistema está bajo el control de la aplicación externa, a la espera de eventos por parte de la terminal Bluetooth para accionar los actuadores. Si llega el evento EV_SYS_APP_DISCONNECTED, el sistema retorna al modo AUTO, reinicia los temporizadores, vuelve a apagar los actuadores por seguridad, e informa por pantalla que el modo manual está desactivado.
+
+**2. Termómetro** (task_system_thermometer_statechart)
+Esta máquina se encarga de monitorear la temperatura solicitando lecturas al hardware cada 3 segundos (3000 ms) y evaluando los límites de seguridad.
+ - ST_SYS_THERM_IDLE: Estado inicial transitorio. Pide la primera lectura de temperatura de manera inmediata y configura la pantalla LCD con un mensaje de "Midiendo..". Luego guarda el tiempo actual y avanza de estado.
+ - ST_SYS_THERM_WAITING_CYCLE (Estado Normal): Es el ciclo de trabajo habitual. Tras cumplirse 3 segundos, actualiza el LCD con la temperatura obtenida y solicita una nueva lectura para el próximo ciclo. En este punto evalúa si la temperatura está fuera de los límites de seguridad configurados (TEMP_LIMIT_MAX o TEMP_LIMIT_MIN). Si se excede el límite, activa un buzzer, cambia el texto del display a "ALERTA!" y transita al estado de alerta.
+ - ST_SYS_THERM_ALERT (Estado de Alerta): Continúa su ciclo de 3 segundos para actualizar la pantalla y solicitar nuevas lecturas. Si detecta que la temperatura ha vuelto a un rango normal (mayor al mínimo y menor al máximo), apaga el buzzer, devuelve el texto del display a la normalidad y regresa al estado ST_SYS_THERM_WAITING_CYCLE.
+
+**3. Actuadores** (task_system_actuators_statechart)
+Esta máquina delega su lógica de control dependiendo de si el sistema está operando en AUTO o MANUAL. Ambas modalidades utilizan la misma función núcleo statechart() para manejar sus estados físicos, pero filtran los eventos entrantes (por ejemplo, en modo AUTO se rechazan los comandos enviados manualmente).
+Los estados del control físico son los siguientes (task_system_st_t):
+ - ST_SYS_IDLE: El sistema de filtrado y el alimentador están inactivos. Si recibe un evento EV_SYS_FILTER_ON, enciende el relé del filtro y pasa a ST_SYS_FILTERING. Si recibe EV_SYS_FEEDER_ON, enciende el motor PWM del alimentador y pasa a ST_SYS_FEEDING.
+ - ST_SYS_FILTERING: El filtro de agua está activo. Si recibe el comando de apagado (EV_SYS_FILTER_OFF), desactiva el relé y vuelve al estado IDLE. Si recibe una orden de alimentación (EV_SYS_FEEDER_ON), primero apaga el filtro, luego enciende el alimentador y transita a ST_SYS_FEEDING.
+ - ST_SYS_FEEDING: El alimentador está funcionando. Si finaliza (EV_SYS_FEEDER_OFF), apaga el motor y vuelve a IDLE. Si, estando en este estado, se solicita encender el filtro (EV_SYS_FILTER_ON), bloquea la acción por seguridad y envía un mensaje indicando que no se puede encender el filtro mientras se está alimentando.
+Iluminación: Tienen un control independiente, no tienen en cuenta los 3 estados mencionados anteriormente, se accionan con los eventos EV_SYS_LIGHT_ON y EV_SYS_LIGHT_OFF.
+
+<img width="1597" height="554" alt="image" src="https://github.com/user-attachments/assets/97e607b5-2e85-4000-895a-2d775bcd897f" />
+
+**Figura 3.3:** Diagrama de estados del sistema.
 
 # CAPÍTULO 4: Ensayos y resultados
 En este capítulo se presentan las pruebas realizadas al prototipo para verificar el correcto funcionamiento del hardware y del firmware desarrollados. Asimismo, se muestran los resultados obtenidos durante la integración de los diferentes módulos que conforman el sistema.
