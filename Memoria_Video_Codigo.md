@@ -197,7 +197,7 @@ El trabajo abarca exclusivamente la electrónica de control, la interfaz de usua
 
 # CAPÍTULO 2: Introducción específica
 
-Esta sección contiene los requisitos originales y los modificados en el informe de avances, además de los casos de uso.
+Esta sección contiene los requisitos del sistema, como se puede ver en la tabla 2.1. Además, en las tablas 2.2 a 2.7 se describen los casos de uso.
 
 ## 2.1 Requisitos del sistema
 
@@ -294,7 +294,7 @@ En esta sección se presenta una descripción de los diferentes componentes de h
 
 Esta placa integra un microcontrolador **STM32F103RB,** basado en la arquitectura ARM Cortex-M3, el cual fue utilizado para ejecutar la lógica de control del sistema, gestionar la adquisición de datos de los sensores y controlar los actuadores implementados en el prototipo. La elección de esta plataforma se debe a que fue la utilizada durante el curso de Sistemas Embebidos, contexto en el que se desarrolló este proyecto, lo que permitió aprovechar la experiencia previa adquirida y reducir el tiempo de implementación.
 
-Además, la NUCLEO-F103RB dispone de diversos periféricos, entre ellos entradas y salidas digitales, temporizadores, convertidores analógico-digitales e interfaces de comunicación como UART, SPI e I²C, los cuales facilitaron la integración de los diferentes módulos del sistema. Para el desarrollo del software se empleó el lenguaje **C**, haciendo uso de las herramientas proporcionadas para la familia de microcontroladores STM32.
+Además, como se observa en la figura 2.1 la NUCLEO-F103RB dispone de diversos periféricos, entre ellos entradas y salidas digitales, temporizadores, convertidores analógico-digitales e interfaces de comunicación como UART, SPI e I²C, los cuales facilitaron la integración de los diferentes módulos del sistema. Para el desarrollo del software se empleó el lenguaje **C**, haciendo uso de las herramientas proporcionadas para la familia de microcontroladores STM32.
 
 <img width="420" height="457" alt="image" src="https://github.com/user-attachments/assets/a5abb9af-09ba-4cf9-8bc8-1775c76e1b82" />
 
@@ -302,7 +302,7 @@ Además, la NUCLEO-F103RB dispone de diversos periféricos, entre ellos entradas
 
 ### 2.3.2 Servomotor SG90
 
-El servomotor SG90 fue seleccionado como el actuador encargado de accionar el mecanismo de alimentación automática del prototipo. Su función consiste en generar el movimiento necesario para abrir el dispensador de alimento, permitiendo la caída de una cantidad controlada de comida hacia la pecera. Una vez finalizada la alimentación, el servomotor retorna a su posición inicial, cerrando nuevamente el mecanismo y evitando la liberación involuntaria de alimento.
+La figura 2.2 ilustra el servomotor SG90 seleccionado como el actuador encargado de accionar el mecanismo de alimentación automática del prototipo. Su función consiste en generar el movimiento necesario para abrir el dispensador de alimento, permitiendo la caída de una cantidad controlada de comida hacia la pecera. Una vez finalizada la alimentación, el servomotor retorna a su posición inicial, cerrando nuevamente el mecanismo y evitando la liberación involuntaria de alimento.
 
 La elección de este servomotor se debe a que ofrece un control preciso de la posición angular, característica indispensable para garantizar una dosificación repetible y confiable en cada ciclo de alimentación. Además, presenta un tamaño compacto, bajo costo y un consumo reducido, lo que facilita su integración al sistema desarrollado.
 
@@ -314,7 +314,7 @@ El servomotor recibe la señal de control generada por la placa NUCLEO-F103RB me
 
 ### 2.3.3 Relé
 
-El relé fue incorporado al sistema para controlar la alimentación de una carga de 220V en corriente alterna (CA), representada en el prototipo mediante un foco que simula el funcionamiento del filtro de agua de la pecera. Debido a que este tipo de carga no puede ser accionada directamente por la placa NUCLEO-F103RB, el relé actúa como una interfaz de potencia que permite conmutar su alimentación a partir de una señal de control proveniente del microcontrolador.
+Se incorporó el relé de la figura 2.3 al sistema para controlar la alimentación de una carga de 220V en corriente alterna (CA), representada en el prototipo mediante un foco que simula el funcionamiento del filtro de agua de la pecera. Debido a que este tipo de carga no puede ser accionada directamente por la placa NUCLEO-F103RB, el relé actúa como una interfaz de potencia que permite conmutar su alimentación a partir de una señal de control proveniente del microcontrolador.
 
 El relé recibe la señal de activación desde una salida digital de la placa NUCLEO-F103RB, mientras que su circuito de accionamiento se alimenta mediante una fuente lineal externa y el circuito de potencia se conecta directamente a la línea de 220V CA. De esta manera, es posible encender o apagar el foco, el cual representa el funcionamiento del filtro de agua, manteniendo el aislamiento entre el circuito de control de baja tensión y la carga de corriente alterna.
 
@@ -326,11 +326,9 @@ La utilización de este componente permite validar el funcionamiento de la etapa
 
 ### 2.3.4 Pantalla LCD 16×2
 
-El display LCD 16×2 con módulo I²C utilizado en el proyecto desempeña un papel fundamental al proporcionar una interfaz visual para la presentación de datos. Con una capacidad de mostrar 16 caracteres distribuidos en 2 líneas, este módulo se emplea para presentar de forma clara y legible la información relevante para el usuario. 
+El display LCD 16×2 con módulo I²C utilizado en el proyecto desempeña un papel fundamental al proporcionar una interfaz visual para la presentación de datos, el mismo se representa en la figura 2.4. Con una capacidad de mostrar 16 caracteres distribuidos en 2 líneas, este módulo se emplea para presentar de forma clara y legible la información relevante para el usuario. 
 
 En particular, el display LCD 16×2 en este proyecto se utiliza para mostrar la temperatura medida por el sistema, permitiendo al usuario monitorear de manera sencilla esta variable durante el funcionamiento del prototipo. La información visualizada es enviada por la placa NUCLEO-F103RB, mientras que el módulo es alimentado con una tensión de 5V.
-
-El mismo se presenta en la **Figura 2.4**.
 
 <img width="320" height="352" alt="image" src="https://github.com/user-attachments/assets/58f369ea-98c3-47ec-995b-4876bc4256ad" />
 
@@ -338,7 +336,7 @@ El mismo se presenta en la **Figura 2.4**.
 
 ### **2.3.5 Sensor Digital Temperatura Ds18b20**
 
-El sensor digital de temperatura DS18B20 sumergible fue incorporado al sistema para realizar la medición de la temperatura del agua de la pecera. Este sensor permite obtener lecturas precisas de la temperatura y transmitir dicha información al sistema para su procesamiento. 
+El sensor digital de temperatura DS18B20 sumergible fue incorporado al sistema para realizar la medición de la temperatura del agua de la pecera, como se ilustra en la figura 2.5 cuenta con suficiente cable para introducirlo dentro. Este sensor permite obtener lecturas precisas de la temperatura y transmitir dicha información al sistema para su procesamiento. 
 
 En este proyecto, el sensor DS18B20 mide continuamente la temperatura del agua y envía la información a la placa NUCLEO-F103RB, donde los datos son procesados para posteriormente ser visualizados en el display LCD. De esta manera, el usuario puede monitorear la temperatura del agua en tiempo real y verificar el correcto funcionamiento del sistema.
 
