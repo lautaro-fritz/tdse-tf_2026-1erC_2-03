@@ -529,9 +529,11 @@ Durante el funcionamiento normal, el sistema mantiene activo el filtrado del agu
 
 ## 3.2 Firmware del sistema
 
-En esta sección se describen las principales características del firmware implementado en el sistema. Asimismo, se presenta la estructura lógica del software, basada en una arquitectura modular que divide el funcionamiento del sistema en diferentes módulos encargados de la gestión de los sensores, actuadores, comunicaciones y demás funciones implementadas en el prototipo. 
+En esta sección se describen las principales características del firmware implementado en el sistema. En la figura 3.3, se presenta la estructura lógica del software, basada en una arquitectura modular que divide el funcionamiento del sistema en diferentes módulos encargados de la gestión de los sensores, actuadores, comunicaciones y demás funciones implementadas en el prototipo. 
 
-<!-- ### 3.2.1 Lógica y estructura -->
+<img width="942" height="362" alt="image" src="https://github.com/user-attachments/assets/81582574-fd80-4983-8fb2-12261a491310" />
+
+**Figura 3.3:** Diagrama de secuencia del sistema.
 
 ### 3.2.1 Módulo de generación de señales PWM
 
@@ -607,17 +609,20 @@ Este módulo del sistema funciona como el núcleo principal de control de la apl
 A continuación, se detallan las máquinas de estado paralelas, sus estados principales y las funciones clave del módulo.
 
 **1. Comunicación Bluetooth** (task_system_bluetooth_statechart)
+
 Esta máquina gestiona la conectividad externa y se encarga de conmutar los modos de operación global entre automático y manual.
  - ST_SYS_BT_DISCONNECTED: Es el estado por defecto donde el sistema opera normalmente y espera un intento de conexión. Si recibe el evento EV_SYS_APP_CONNECTED, el sistema cambia su modo a MANUAL, apaga todos los actuadores (motor, filtro y luces) por seguridad para ceder el control y pasa al estado conectado.
  - ST_SYS_BT_CONNECTED: En este estado, el sistema está bajo el control de la aplicación externa, a la espera de eventos por parte de la terminal Bluetooth para accionar los actuadores. Si llega el evento EV_SYS_APP_DISCONNECTED, el sistema retorna al modo AUTO, reinicia los temporizadores, vuelve a apagar los actuadores por seguridad, e informa por pantalla que el modo manual está desactivado.
 
 **2. Termómetro** (task_system_thermometer_statechart)
+
 Esta máquina se encarga de monitorear la temperatura solicitando lecturas al hardware cada 3 segundos (3000 ms) y evaluando los límites de seguridad.
  - ST_SYS_THERM_IDLE: Estado inicial transitorio. Pide la primera lectura de temperatura de manera inmediata y configura la pantalla LCD con un mensaje de "Midiendo..". Luego guarda el tiempo actual y avanza de estado.
  - ST_SYS_THERM_WAITING_CYCLE (Estado Normal): Es el ciclo de trabajo habitual. Tras cumplirse 3 segundos, actualiza el LCD con la temperatura obtenida y solicita una nueva lectura para el próximo ciclo. En este punto evalúa si la temperatura está fuera de los límites de seguridad configurados (TEMP_LIMIT_MAX o TEMP_LIMIT_MIN). Si se excede el límite, activa un buzzer, cambia el texto del display a "ALERTA!" y transita al estado de alerta.
  - ST_SYS_THERM_ALERT (Estado de Alerta): Continúa su ciclo de 3 segundos para actualizar la pantalla y solicitar nuevas lecturas. Si detecta que la temperatura ha vuelto a un rango normal (mayor al mínimo y menor al máximo), apaga el buzzer, devuelve el texto del display a la normalidad y regresa al estado ST_SYS_THERM_WAITING_CYCLE.
 
 **3. Actuadores** (task_system_actuators_statechart)
+
 Esta máquina delega su lógica de control dependiendo de si el sistema está operando en AUTO o MANUAL. Ambas modalidades utilizan la misma función núcleo statechart() para manejar sus estados físicos, pero filtran los eventos entrantes (por ejemplo, en modo AUTO se rechazan los comandos enviados manualmente).
 Los estados del control físico son los siguientes (task_system_st_t):
  - ST_SYS_IDLE: El sistema de filtrado y el alimentador están inactivos. Si recibe un evento EV_SYS_FILTER_ON, enciende el relé del filtro y pasa a ST_SYS_FILTERING. Si recibe EV_SYS_FEEDER_ON, enciende el motor PWM del alimentador y pasa a ST_SYS_FEEDING.
