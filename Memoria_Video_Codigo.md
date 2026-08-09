@@ -48,7 +48,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
   - [2.3.2 Servomotor SG90](#232-servomotor-sg90)
 
-  - [2.3.3 Relé](#233-relé)
+  - [2.3.3 Módulo relé](#233-módulo-relé)
 
   - [2.3.4 Pantalla LCD 16×2](#234-pantalla-lcd-162)
 
@@ -134,6 +134,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 | **1.1** | Cambio a formato markdown | 11/7/2026 |
 | **1.2** | Versión final | 4/8/2026 |
 | **1.3** | Correcciones de formato | 6/8/2026 |
+| **1.4** | Correcciones de formato | 9/8/2026 |
 
 # CAPÍTULO 1: Introducción general
 
@@ -161,7 +162,8 @@ Objetivos principales:
 
 ## 1.3 Productos comerciales disponibles
 
-Se realizo una búsqueda de productos que cuenten con todas las características mencionadas. Actualmente se pueden encontrar muchas soluciones individuales o parciales, fueron muy pocos los casos donde se consigue alcanzar todos los requisitos. 
+Se realizo una búsqueda de productos que cuenten con todas las características mencionadas. Actualmente se pueden encontrar muchas soluciones individuales o parciales; fueron muy pocos los casos donde se consigue alcanzar todos los requisitos.  
+Las figuras 1.1, 1.2 y 1.3 ilustran las soluciones comerciales que se relevaron.  
 
 **1. Solución parcial 1:** [Link acuario inteligente temperatura, filtro y luces Rechale (Mercado Libre)](https://www.mercadolibre.com.ar/smart-aquarium-rechale-9l-with-humidifier-rgb-lights/p/MLA2079413312#polycard_client=search-desktop&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=2&type=product&tracking_id=f36d4f48-a425-4ff4-8433-f42b1d815f43&wid=MLA1743040327&sid=search)
 
@@ -175,7 +177,6 @@ Se realizo una búsqueda de productos que cuenten con todas las características
 **2. Solución parcial 2:** [Link alimentador inteligente ILONDA (Mercado Libre)](https://www.mercadolibre.com.ar/alimentador-automatico-ilonda-smart-wifi-usb-acuario-peces/up/MLAU3026319269#polycard_client=search-desktop&float_highlight=last_units&be_origin=backend&overlay_label=not_apply&search_layout=grid&position=25&type=product&tracking_id=f36d4f48-a425-4ff4-8433-f42b1d815f43&wid=MLA2019236970&sid=search)
 
 <img width="50%" height="50%" alt="image" src="https://github.com/user-attachments/assets/54b7baa4-427f-4924-8b14-2b1c3e1b7644" />
-
 
 **Figura 1.2:** Alimentador inteligente con control wifi mediante aplicación.
 
@@ -201,7 +202,7 @@ Esta sección contiene los requisitos del sistema, como se puede ver en la tabla
 
 ## 2.1 Requisitos del sistema
 
-**Tabla 2.1:** requerimientos iniciales del proyecto
+**Tabla 2.1:** requerimientos iniciales del proyecto.
 
 | Grupo | ID | Descripción |
 | :---- | :---- | :---- |
@@ -230,7 +231,7 @@ Esta sección contiene los requisitos del sistema, como se puede ver en la tabla
 
 ## 2.2 Casos de uso
 
-**Tabla 2.2:** Caso de uso 1: alimentación automática
+**Tabla 2.2:** Caso de uso 1: alimentación automática.
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -239,7 +240,7 @@ Esta sección contiene los requisitos del sistema, como se puede ver en la tabla
 | **Flujo principal** | El sistema inicia el ciclo de alimentación. Desactiva temporalmente el filtro de agua para evitar la dispersión del alimento, espera el tiempo establecido y acciona el servomotor para dispensar la cantidad programada. Finalizado el ciclo, reactiva el filtro de agua y notifica la ejecución de la alimentación a la aplicación móvil. |
 | **Flujos alternativos** | a. Si el sistema presenta un estado de error, el ciclo de alimentación no se ejecuta y se notifica la condición a la aplicación. |
 
-**Tabla 2.3:** Caso de uso 2: control de iluminación día/noche
+**Tabla 2.3:** Caso de uso 2: control de iluminación día/noche.
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -248,7 +249,7 @@ Esta sección contiene los requisitos del sistema, como se puede ver en la tabla
 | **Flujo principal** | El sistema enciende o apaga la iluminación según el horario establecido y mantiene dicho estado hasta el siguiente cambio programado. El nuevo estado se informa a la aplicación móvil. |
 | **Flujos alternativos** | a. Si ocurre un fallo en la iluminación, el sistema desactiva la salida correspondiente y notifica la condición a la aplicación. |
 
-**Tabla 2.4:** Caso de uso 3: control del sistema de filtrado
+**Tabla 2.4:** Caso de uso 3: control del sistema de filtrado.
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -257,7 +258,7 @@ Esta sección contiene los requisitos del sistema, como se puede ver en la tabla
 | **Flujo principal** | El sistema mantiene el filtro de agua en funcionamiento durante la operación normal. Cuando se inicia un ciclo de alimentación, el sistema desactiva temporalmente el filtro para evitar la dispersión del alimento y lo reactiva automáticamente al finalizar la alimentación. El estado del filtro se informa a la aplicación móvil. |
 | **Flujos alternativos** | a. Si se detecta un fallo en el accionamiento del relé, el sistema deshabilita el control automático del filtro y notifica la falla a la aplicación. |
 
-**Tabla 2.5:** Caso de uso 4: Monitoreo de temperatura y alarma
+**Tabla 2.5:** Caso de uso 4: Monitoreo de temperatura y alarma.
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -266,7 +267,7 @@ Esta sección contiene los requisitos del sistema, como se puede ver en la tabla
 | **Flujo principal** | El sistema monitorea continuamente la temperatura del agua. Cuando la temperatura supera el límite máximo o desciende por debajo del mínimo permitido, activa una alarma sonora mediante un buzzer y una alarma visual mediante un LED rojo, además de enviar una notificación a la aplicación móvil. Cuando la temperatura vuelve al rango permitido, las alarmas se desactivan automáticamente. |
 | **Flujos alternativos** | a. Si ocurre un fallo en el sensor de temperatura, el sistema informa la condición a la aplicación móvil y suspende el monitoreo automático hasta que el sensor vuelva a estar disponible. |
 
-**Tabla 2.6:** Caso de uso 5: configuración de parámetros
+**Tabla 2.6:** Caso de uso 5: configuración de parámetros.
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -276,7 +277,7 @@ Esta sección contiene los requisitos del sistema, como se puede ver en la tabla
 | **Flujos alternativos** | a. Si ocurre un fallo en la comunicación BLE, la orden no se ejecuta y el sistema informa el error al usuario. |
 |  | b. Si el actuador seleccionado ya se encuentra en el estado solicitado, el sistema no realiza ninguna acción. |
 
-**Tabla 2.7:** Caso de uso 6: control manual de actuadores
+**Tabla 2.7:** Caso de uso 6: control manual de actuadores.
 
 | Elemento | Definición |
 | :---- | :---- |
@@ -310,11 +311,11 @@ El servomotor recibe la señal de control generada por la placa NUCLEO-F103RB me
 
 <img width="482" height="342" alt="image" src="https://github.com/user-attachments/assets/13dceca0-43aa-4ca3-9a49-91fc9fa42c79" />
 
-**Figura 2.2:** Servomotor SG90
+**Figura 2.2:** Servomotor SG90.
 
-### 2.3.3 Relé
+### 2.3.3 Módulo relé
 
-Se incorporó el relé de la figura 2.3 al sistema para controlar la alimentación de una carga de 220V en corriente alterna (CA), representada en el prototipo mediante un foco que simula el funcionamiento del filtro de agua de la pecera. Debido a que este tipo de carga no puede ser accionada directamente por la placa NUCLEO-F103RB, el relé actúa como una interfaz de potencia que permite conmutar su alimentación a partir de una señal de control proveniente del microcontrolador.
+Se incorporó el módulo relé de la figura 2.3 al sistema para controlar la alimentación de una carga de 220V en corriente alterna (CA), representada en el prototipo mediante un foco que simula el funcionamiento del filtro de agua de la pecera. Debido a que este tipo de carga no puede ser accionada directamente por la placa NUCLEO-F103RB, el relé actúa como una interfaz de potencia que permite conmutar su alimentación a partir de una señal de control proveniente del microcontrolador.
 
 El relé recibe la señal de activación desde una salida digital de la placa NUCLEO-F103RB, mientras que su circuito de accionamiento se alimenta mediante una fuente lineal externa y el circuito de potencia se conecta directamente a la línea de 220V CA. De esta manera, es posible encender o apagar el foco, el cual representa el funcionamiento del filtro de agua, manteniendo el aislamiento entre el circuito de control de baja tensión y la carga de corriente alterna.
 
@@ -322,80 +323,85 @@ La utilización de este componente permite validar el funcionamiento de la etapa
 
 <img width="366" height="276" alt="image" src="https://github.com/user-attachments/assets/e50c0258-41f9-4b3f-92dc-924bd32f7c3e" />
 
-**Figura 2.3:** Relé
+**Figura 2.3:** Módulo relé.
 
 ### 2.3.4 Pantalla LCD 16×2
 
-El display LCD 16×2 con módulo I²C utilizado en el proyecto desempeña un papel fundamental al proporcionar una interfaz visual para la presentación de datos, el mismo se representa en la figura 2.4. Con una capacidad de mostrar 16 caracteres distribuidos en 2 líneas, este módulo se emplea para presentar de forma clara y legible la información relevante para el usuario. 
+El display LCD 16×2 con módulo I²C utilizado en el proyecto desempeña un papel fundamental al proporcionar una interfaz visual para la presentación de datos; el mismo se representa en la figura 2.4. Con una capacidad de mostrar 16 caracteres distribuidos en 2 líneas, este módulo se emplea para presentar de forma clara y legible la información relevante para el usuario. 
 
 En particular, el display LCD 16×2 en este proyecto se utiliza para mostrar la temperatura medida por el sistema, permitiendo al usuario monitorear de manera sencilla esta variable durante el funcionamiento del prototipo. La información visualizada es enviada por la placa NUCLEO-F103RB, mientras que el módulo es alimentado con una tensión de 5V.
 
 <img width="320" height="352" alt="image" src="https://github.com/user-attachments/assets/58f369ea-98c3-47ec-995b-4876bc4256ad" />
 
-**Figura 2.4:** Pantalla LCD 16×2
+**Figura 2.4:** Pantalla LCD 16×2.
 
 ### **2.3.5 Sensor Digital Temperatura Ds18b20**
 
-El sensor digital de temperatura DS18B20 sumergible fue incorporado al sistema para realizar la medición de la temperatura del agua de la pecera, como se ilustra en la figura 2.5 cuenta con suficiente cable para introducirlo dentro. Este sensor permite obtener lecturas precisas de la temperatura y transmitir dicha información al sistema para su procesamiento. 
+El sensor digital de temperatura DS18B20 sumergible fue incorporado al sistema para realizar la medición de la temperatura del agua de la pecera, como se ilustra en la figura 2.5. Cuenta con suficiente cable para introducirlo dentro. Este sensor permite obtener lecturas precisas de la temperatura y transmitir dicha información al sistema para su procesamiento. 
 
 En este proyecto, el sensor DS18B20 mide continuamente la temperatura del agua y envía la información a la placa NUCLEO-F103RB, donde los datos son procesados para posteriormente ser visualizados en el display LCD. De esta manera, el usuario puede monitorear la temperatura del agua en tiempo real y verificar el correcto funcionamiento del sistema.
 
 <img width="521" height="335" alt="image" src="https://github.com/user-attachments/assets/6e0bbcd8-8ffd-4c85-9db8-04fb605f3474" />
 
-**Figura 2.5:** Sensor Digital Temperatura Ds18b20
+**Figura 2.5:** Sensor Digital Temperatura Ds18b20.
 
 ### 2.3.6 Aro De Luz Led
 
-El aro de luz LED fue incorporado al sistema para simular el ciclo de iluminación de la pecera, representando los periodos de día y noche durante el funcionamiento del prototipo. 
+El aro de luz LED, mostrado en la figura 2.6, fue incorporado al sistema para simular el ciclo de iluminación de la pecera, representando los periodos de día y noche durante el funcionamiento del prototipo. 
 
 El aro de luz LED recibe la señal de activación desde la placa NUCLEO-F103RB, mientras que su alimentación se realiza mediante una fuente de corriente continua (CC) externa. De esta manera, es posible controlar su encendido y apagado de forma automática de acuerdo con la lógica implementada en el sistema, simulando el ciclo diario de iluminación de la pecera.
 
-**Figura 2.6:** Aro De Luz Led
+<img width="25%" height="25%" alt="image" src="https://github.com/user-attachments/assets/096dd137-81ff-4bfc-9d3e-50b88671e9ae" />
+
+**Figura 2.6:** Aro de luz LED.
 
 ### 2.3.7 Foco de Corriente Alterna
 
-El foco de corriente alterna fue incorporado al prototipo como una carga representativa del filtro de agua de la pecera. Su función es simular el funcionamiento del filtro durante las pruebas, permitiendo verificar el correcto accionamiento del relé y de la etapa de potencia implementada en el sistema. 
+El foco de corriente alterna fue incorporado al prototipo como una carga representativa del filtro de agua de la pecera. Su función es simular el funcionamiento del filtro durante las pruebas, permitiendo verificar el correcto accionamiento del relé y de la etapa de potencia implementada en el sistema. El mismo está representado en la figura 2.7.
 
 <img width="300" height="237" alt="image" src="https://github.com/user-attachments/assets/384b219c-a3de-4f04-9e6a-aba5f017217d" />
 
-**Figura 2.7:** Foco de corriente alterna 
+**Figura 2.7:** Foco de corriente alterna. 
 
 ### 2.3.8 Módulo Bluetooth HM-10
 
-En el trabajo realizado se empleó el módulo Bluetooth HM-10, el cual se muestra en la **Figura 2.7**. Este módulo permite establecer una comunicación inalámbrica entre la placa NUCLEO-F103RB y un dispositivo móvil, posibilitando el monitoreo del sistema y el envío de comandos de control.
+En el trabajo realizado se empleó el módulo Bluetooth HM-10, el cual se muestra en la figura 2.8. Este módulo permite establecer una comunicación inalámbrica entre la placa NUCLEO-F103RB y un dispositivo móvil, posibilitando el monitoreo del sistema y el envío de comandos de control.
 
 Mediante esta comunicación es posible visualizar si la temperatura medida salió de los valores normales, conocer el estado de funcionamiento del prototipo y controlar el encendido y apagado del filtro y del alimentador. Asimismo, permite seleccionar el modo de operación manual o automático. 
 
 <img width="301" height="237" alt="image" src="https://github.com/user-attachments/assets/b71bef09-e8ea-4f14-800c-016f424d4391" />
 
-**Figura 2.8:** Módulo Bluetooth HM-10
+**Figura 2.8:** Módulo Bluetooth HM-10.
 
 ### 2.3.9 Buzzer TMB12A05
 
-El buzzer fue incorporado al sistema como un dispositivo de alerta audible, cuya función es emitir una señal sonora cuando el sistema detecta una condición de alarma. De esta manera, proporciona una indicación inmediata al usuario sobre la presencia de un evento que requiere atención.
+El buzzer de la figura 2.9 fue incorporado al sistema como un dispositivo de alerta audible, cuya función es emitir una señal sonora cuando el sistema detecta una condición de alarma. De esta manera, proporciona una indicación inmediata al usuario sobre la presencia de un evento que requiere atención.
 
 En este proyecto, el buzzer es accionado por la placa NUCLEO-F103RB y se activa cuando la temperatura del agua supera los límites establecidos o cuando el sistema entra en estado de alarma.
 
 <img width="270" height="221" alt="image" src="https://github.com/user-attachments/assets/bbe50405-10ba-49e1-8acd-7a5f0181c984" />
 
-**Figura 2.9:** Buzzer TMB12A05 
+**Figura 2.9:** Buzzer TMB12A05. 
 
 ### 2.3.10 LED Rojo
 
-El LED rojo fue incorporado al sistema como un dispositivo de alerta visual, cuya función es indicar de manera inmediata cuando el sistema detecta una condición de alarma. De esta forma, proporciona al usuario una señal luminosa que permite identificar rápidamente la presencia de una condición anómala.
+El LED rojo de la figura 2.10 fue incorporado al sistema como un dispositivo de alerta visual, cuya función es indicar de manera inmediata cuando el sistema detecta una condición de alarma. De esta forma, proporciona al usuario una señal luminosa que permite identificar rápidamente la presencia de una condición anómala.
 
 <img width="167" height="212" alt="image" src="https://github.com/user-attachments/assets/3cc99bba-c770-4307-bfd0-c964b754023a" />
 
-**Figura 2.10:** Led rojo 
+**Figura 2.10:** LED rojo. 
 
 ### 2.3.11 PCB
 
-Se diseñó y confeccionó una placa de circuito impreso específica para el proyecto para integrar los distintos componentes electrónicos del sistema en un único soporte para mejorar la presentación del mismo.
+Se diseñó y confeccionó una placa de circuito impreso específica para el proyecto para integrar los distintos componentes electrónicos del sistema en un único soporte para mejorar la presentación del mismo. En la figura 2.11 se muestra el layout de PCB que se utilizó para la placa. En la figura 2.12 se ilustra la placa terminada.
 
-<img width="310" height="207" alt="image" src="https://github.com/user-attachments/assets/1d149fc8-75da-4446-8de3-64e4b1faafc1" />
 <img width="310" height="207" alt="image" src="https://github.com/user-attachments/assets/fc5d955a-f773-4913-9a07-64780b331805" />
 
-**Figura 2.11:** PCB
+**Figura 2.11:** Layout de PCB.  
+
+<img width="310" height="207" alt="image" src="https://github.com/user-attachments/assets/1d149fc8-75da-4446-8de3-64e4b1faafc1" />
+
+**Figura 2.12:** PCB terminada.  
 
 ## 2.4 Software utilizado
 
@@ -405,7 +411,7 @@ En esta sección se describen los diferentes componentes de software empleados p
 
 La plataforma de desarrollo NUCLEO-F103RB, basada en el microcontrolador STM32F103RB, se integra con el entorno de desarrollo STM32CubeIDE. Este entorno proporciona un conjunto de herramientas específicamente diseñadas para el desarrollo de aplicaciones embebidas sobre microcontroladores ARM Cortex-M, ofreciendo una plataforma eficiente para el diseño, compilación, depuración y programación de aplicaciones.
 
-El desarrollo del software se realizó utilizando este entorno de desarrollo, el cual incorpora un editor de código, un compilador y herramientas de depuración que facilitan el proceso de programación y verificación de las aplicaciones. Una vez compilado, el código fuente es traducido a lenguaje máquina y programado en la memoria del microcontrolador, permitiendo que las instrucciones desarrolladas se ejecuten y se conviertan en acciones sobre los periféricos y dispositivos conectados al sistema. Para este proyecto, el desarrollo se realizó empleando el lenguaje de programación C
+El desarrollo del software se realizó utilizando este entorno de desarrollo, el cual incorpora un editor de código, un compilador y herramientas de depuración que facilitan el proceso de programación y verificación de las aplicaciones. Una vez compilado, el código fuente es traducido a lenguaje máquina y programado en la memoria del microcontrolador, permitiendo que las instrucciones desarrolladas se ejecuten y se conviertan en acciones sobre los periféricos y dispositivos conectados al sistema. Para este proyecto, el desarrollo se realizó empleando el lenguaje de programación C.
 
 ### 2.4.2 Entorno de desarrollo módulo BLT HM-10
 
@@ -413,17 +419,21 @@ El HM-10 incorpora un microcontrolador interno con un firmware encargado de impl
 
 # CAPÍTULO 3: Diseño e implementación
 
-<img width="1292" height="745" alt="image" src="https://github.com/user-attachments/assets/5abbab4d-75ba-488a-8917-4aa40a99b3ef" />
-
-**Figura 3.1:** Diagrama de conexiones de todos los componentes de hardware.
+En este capítulo se detalla el proceso de diseño y la construcción del prototipo, abordando de manera integral tanto la arquitectura física como la estructura lógica del sistema.  
 
 ## 3.1 Hardware del sistema
 
-En esta sección se describen las principales características del hardware empleado en el desarrollo del sistema. Asimismo, en la **Figura 3.1** se presenta un diagrama en bloques que muestra la arquitectura general y la interconexión de los diferentes componentes que conforman el prototipo.
+En esta sección se describen las principales características del hardware empleado en el desarrollo del sistema. Asimismo, en la figura 3.1 se presenta un diagrama de conexiones de todos los componentes de hardware. Por su parte, en la figura 3.2 se presenta un diagrama en bloques que muestra la arquitectura general y la interconexión de los diferentes componentes que conforman el prototipo.
+
+<img width="1280" height="723" alt="image" src="https://github.com/user-attachments/assets/b0bc5292-1a0b-47af-a1ab-1e37a85e22dc" />
+
+**Figura 3.1:** Diagrama de conexiones de todos los componentes de hardware.
 
 <img width="747" height="472" alt="image" src="https://github.com/user-attachments/assets/73a96c61-2fb7-44b4-a691-9fe6f7796cd3" />
 
 **Figura 3.2:** Diagrama en bloques de los componentes de hardware del sistema.
+
+La tabla 3.1 resume las conexiones del módulo Bluetooth HM-10 a la placa NUCLEO.  
 
 **Tabla 3.1:** Resumen de conexiones del módulo Bluetooth HM-10.
 
@@ -436,6 +446,8 @@ En esta sección se describen las principales características del hardware empl
 
 Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento de la comunicación del módulo Bluetooth HM-10.  
 
+La tabla 3.2 resume las conexiones del buzzer y LED de alarma.  
+
 **Tabla 3.2:** Resumen de conexiones del buzzer y LED de alarma. 
 
 | Buzzer y LED de alarma | Conexión |
@@ -446,6 +458,8 @@ Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento 
 
 La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base para el correcto accionamiento del dispositivo. 
 
+La tabla 3.3 resume las conexiones del servomotor SG90.  
+
 **Tabla 3.3:** Resumen de conexiones del servomotor SG90. 
 
 | Servomotor SG90 | Conexión |
@@ -455,6 +469,8 @@ La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base
 | GND | GND común |
 
 La línea de control incorpora una resistencia *pull-up* para garantizar el correcto funcionamiento de la señal PWM del servomotor, mientras que la alimentación se realiza mediante una fuente externa de 5V para evitar incrementar la demanda de corriente sobre la placa NUCLEO-F103RB. 
+
+La tabla 3.4 resume las conexiones del módulo relé.  
 
 **Tabla 3.4:** Resumen de conexiones del módulo relé. 
 
@@ -468,6 +484,8 @@ La línea de control incorpora una resistencia *pull-up* para garantizar el corr
 
 La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base para el correcto accionamiento del dispositivo. 
 
+La tabla 3.5 resume las conexiones del aro de luces LED.
+
 **Tabla 3.5:** Resumen de conexiones de luces LEDs.  
 
 | Aro LED | Conexión |
@@ -478,6 +496,8 @@ La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base
 
 La etapa de control incorpora un transistor 2N2222 y una resistencia de base para el correcto accionamiento del aro LED. Además, su alimentación se realiza mediante una fuente externa de 5V para evitar incrementar la demanda de corriente sobre la placa NUCLEO-F103RB.
 
+La tabla 3.6 resume las conexiones del termómetro sumergible.  
+
 **Tabla 3.6:** Resumen de conexiones del termómetro DS1820.
 
 | Termómetro DS1820 | Conexión |
@@ -487,6 +507,8 @@ La etapa de control incorpora un transistor 2N2222 y una resistencia de base par
 | GND | GND común |
 
 Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento de la comunicación del termómetro DS1820.
+
+La tabla 3.7 resume las conexiones del display LCD.  
 
 **Tabla 3.7:** Resumen de conexiones del display LCD mediante interfaz I2C. 
 
@@ -501,7 +523,7 @@ El display LCD utiliza la interfaz de comunicación I2C mediante las líneas SDA
 
 ### 3.1.1 Dispensador de alimento
 
-En esta subsección se describe el dispensador de alimento implementado en el sistema. La **Figura 3.X** presenta una vista del mecanismo desarrollado para el prototipo. El dispensador está constituido por una tolva destinada al almacenamiento del alimento y una compuerta ubicada en su parte inferior, la cual regula la salida del alimento hacia la pecera.
+En esta subsección se describe el dispensador de alimento implementado en el sistema. El dispensador está constituido por una tolva destinada al almacenamiento del alimento y una compuerta ubicada en su parte inferior, la cual regula la salida del alimento hacia la pecera.
 
 El funcionamiento del mecanismo se basa en el accionamiento de un servomotor SG90, encargado de abrir y cerrar la compuerta de la tolva. La cantidad de alimento dispensada puede regularse modificando el tiempo durante el cual la compuerta permanece abierta o el ángulo de apertura alcanzado por el servomotor, permitiendo obtener una dosificación más precisa y adaptada a las necesidades del sistema.
 
@@ -511,7 +533,7 @@ Asimismo, el sistema supervisa el estado de operación del mecanismo de alimenta
 
 ### 3.1.2 Luces LED para el ciclo día y noche
 
-En esta subsección se describe el sistema de iluminación implementado en el prototipo. La Figura 3.X presenta el aro de luz LED utilizado para simular el ciclo de día y noche de la pecera. Este dispositivo permite proporcionar una iluminación artificial en aquellos casos en que el acuario se encuentre en ambientes con escasa o nula iluminación natural.
+En esta subsección se describe el sistema de iluminación implementado en el prototipo. Este dispositivo permite proporcionar una iluminación artificial en aquellos casos en que el acuario se encuentre en ambientes con escasa o nula iluminación natural.
 
 El aro LED es controlado por la placa NUCLEO-F103RB, la cual genera señales PWM de encendido y apagado de acuerdo con la lógica implementada en el sistema. Además, estas pueden operarse mediante órdenes enviadas por el usuario desde la aplicación móvil vía Bluetooth. De esta manera, es posible operar tanto en modo automático, respetando los horarios programados, como en modo manual. 
 
@@ -603,37 +625,39 @@ De esta manera, el módulo centraliza el control de los actuadores y las alarmas
 
 ### 3.2.6 Módulo de sistema
 
-Este módulo del sistema funciona como el núcleo principal de control de la aplicación. Su responsabilidad es orquestar múltiples procesos al mismo tiempo mediante una función central task_system_update() que invoca tres máquinas de estado paralelas. Además, el sistema se apoya en una cola de eventos circular para recibir directivas de forma asincrónica.
+Este módulo del sistema funciona como el núcleo principal de control de la aplicación. Su responsabilidad es orquestar múltiples procesos al mismo tiempo mediante una función central `task_system_update()` que invoca tres máquinas de estado paralelas. Además, el sistema se apoya en una cola de eventos circular para recibir directivas de forma asincrónica.
 A continuación, se detallan las máquinas de estado paralelas, sus estados principales y las funciones clave del módulo.
 
-**1. Comunicación Bluetooth** (task_system_bluetooth_statechart)
+**1. Comunicación Bluetooth** (`task_system_bluetooth_statechart`)
 
 Esta máquina gestiona la conectividad externa y se encarga de conmutar los modos de operación global entre automático y manual.
- - ST_SYS_BT_DISCONNECTED: Es el estado por defecto donde el sistema opera normalmente y espera un intento de conexión. Si recibe el evento EV_SYS_APP_CONNECTED, el sistema cambia su modo a MANUAL, apaga todos los actuadores (motor, filtro y luces) por seguridad para ceder el control y pasa al estado conectado.
- - ST_SYS_BT_CONNECTED: En este estado, el sistema está bajo el control de la aplicación externa, a la espera de eventos por parte de la terminal Bluetooth para accionar los actuadores. Si llega el evento EV_SYS_APP_DISCONNECTED, el sistema retorna al modo AUTO, reinicia los temporizadores, vuelve a apagar los actuadores por seguridad, e informa por pantalla que el modo manual está desactivado.
+ - `ST_SYS_BT_DISCONNECTED`: Es el estado por defecto donde el sistema opera normalmente y espera un intento de conexión. Si recibe el evento `EV_SYS_APP_CONNECTED`, el sistema cambia su modo a `MANUAL`, apaga todos los actuadores (motor, filtro y luces) por seguridad para ceder el control y pasa al estado conectado.
+ - `ST_SYS_BT_CONNECTED`: En este estado, el sistema está bajo el control de la aplicación externa, a la espera de eventos por parte de la terminal Bluetooth para accionar los actuadores. Si llega el evento `EV_SYS_APP_DISCONNECTED`, el sistema retorna al modo `AUTO`, reinicia los temporizadores, vuelve a apagar los actuadores por seguridad, e informa por pantalla que el modo manual está desactivado.
 
-**2. Termómetro** (task_system_thermometer_statechart)
+**2. Termómetro** (`task_system_thermometer_statechart`)
 
 Esta máquina se encarga de monitorear la temperatura solicitando lecturas al hardware cada 3 segundos (3000 ms) y evaluando los límites de seguridad.
- - ST_SYS_THERM_IDLE: Estado inicial transitorio. Pide la primera lectura de temperatura de manera inmediata y configura la pantalla LCD con un mensaje de "Midiendo..". Luego guarda el tiempo actual y avanza de estado.
- - ST_SYS_THERM_WAITING_CYCLE (Estado Normal): Es el ciclo de trabajo habitual. Tras cumplirse 3 segundos, actualiza el LCD con la temperatura obtenida y solicita una nueva lectura para el próximo ciclo. En este punto evalúa si la temperatura está fuera de los límites de seguridad configurados (TEMP_LIMIT_MAX o TEMP_LIMIT_MIN). Si se excede el límite, activa un buzzer, cambia el texto del display a "ALERTA!" y transita al estado de alerta.
- - ST_SYS_THERM_ALERT (Estado de Alerta): Continúa su ciclo de 3 segundos para actualizar la pantalla y solicitar nuevas lecturas. Si detecta que la temperatura ha vuelto a un rango normal (mayor al mínimo y menor al máximo), apaga el buzzer, devuelve el texto del display a la normalidad y regresa al estado ST_SYS_THERM_WAITING_CYCLE.
+ - `ST_SYS_THERM_IDLE`: Estado inicial transitorio. Pide la primera lectura de temperatura de manera inmediata y configura la pantalla LCD con un mensaje de "Midiendo..". Luego guarda el tiempo actual y avanza de estado.
+ - `ST_SYS_THERM_WAITING_CYCLE` (Estado Normal): Es el ciclo de trabajo habitual. Tras cumplirse 3 segundos, actualiza el LCD con la temperatura obtenida y solicita una nueva lectura para el próximo ciclo. En este punto evalúa si la temperatura está fuera de los límites de seguridad configurados (`TEMP_LIMIT_MAX` o `TEMP_LIMIT_MIN`). Si se excede el límite, activa un buzzer, cambia el texto del display a "ALERTA!" y transita al estado de alerta.
+ - `ST_SYS_THERM_ALERT` (Estado de Alerta): Continúa su ciclo de 3 segundos para actualizar la pantalla y solicitar nuevas lecturas. Si detecta que la temperatura ha vuelto a un rango normal (mayor al mínimo y menor al máximo), apaga el buzzer, devuelve el texto del display a la normalidad y regresa al estado `ST_SYS_THERM_WAITING_CYCLE`.
 
-**3. Actuadores** (task_system_actuators_statechart)
+**3. Actuadores** (`task_system_actuators_statechart`)
 
-Esta máquina delega su lógica de control dependiendo de si el sistema está operando en AUTO o MANUAL. Ambas modalidades utilizan la misma función núcleo statechart() para manejar sus estados físicos, pero filtran los eventos entrantes (por ejemplo, en modo AUTO se rechazan los comandos enviados manualmente).
-Los estados del control físico son los siguientes (task_system_st_t):
- - ST_SYS_IDLE: El sistema de filtrado y el alimentador están inactivos. Si recibe un evento EV_SYS_FILTER_ON, enciende el relé del filtro y pasa a ST_SYS_FILTERING. Si recibe EV_SYS_FEEDER_ON, enciende el motor PWM del alimentador y pasa a ST_SYS_FEEDING.
- - ST_SYS_FILTERING: El filtro de agua está activo. Si recibe el comando de apagado (EV_SYS_FILTER_OFF), desactiva el relé y vuelve al estado IDLE. Si recibe una orden de alimentación (EV_SYS_FEEDER_ON), primero apaga el filtro, luego enciende el alimentador y transita a ST_SYS_FEEDING.
- - ST_SYS_FEEDING: El alimentador está funcionando. Si finaliza (EV_SYS_FEEDER_OFF), apaga el motor y vuelve a IDLE. Si, estando en este estado, se solicita encender el filtro (EV_SYS_FILTER_ON), bloquea la acción por seguridad y envía un mensaje indicando que no se puede encender el filtro mientras se está alimentando.
-Iluminación: Tienen un control independiente, no tienen en cuenta los 3 estados mencionados anteriormente, se accionan con los eventos EV_SYS_LIGHT_ON y EV_SYS_LIGHT_OFF.
+Esta máquina delega su lógica de control dependiendo de si el sistema está operando en `AUTO` o `MANUAL`. Ambas modalidades utilizan la misma función núcleo `statechart()` para manejar sus estados físicos, pero filtran los eventos entrantes (por ejemplo, en modo `AUTO` se rechazan los comandos enviados manualmente).
+Los estados del control físico son los siguientes (`task_system_st_t`):
+ - `ST_SYS_IDLE`: El sistema de filtrado y el alimentador están inactivos. Si recibe un evento `EV_SYS_FILTER_ON`, enciende el relé del filtro y pasa a `ST_SYS_FILTERING`. Si recibe `EV_SYS_FEEDER_ON`, enciende el motor PWM del alimentador y pasa a ST_SYS_FEEDING.
+ - `ST_SYS_FILTERING`: El filtro de agua está activo. Si recibe el comando de apagado (`EV_SYS_FILTER_OFF`), desactiva el relé y vuelve al estado IDLE. Si recibe una orden de alimentación (`EV_SYS_FEEDER_ON`), primero apaga el filtro, luego enciende el alimentador y transita a `ST_SYS_FEEDING`.
+ - `ST_SYS_FEEDING`: El alimentador está funcionando. Si finaliza (`EV_SYS_FEEDER_OFF`), apaga el motor y vuelve a `IDLE`. Si, estando en este estado, se solicita encender el filtro (`EV_SYS_FILTER_ON`), bloquea la acción por seguridad y envía un mensaje indicando que no se puede encender el filtro mientras se está alimentando.
+Iluminación: Tienen un control independiente, no tienen en cuenta los 3 estados mencionados anteriormente, sino que se accionan mediante los eventos `EV_SYS_LIGHT_ON` y `EV_SYS_LIGHT_OFF`.
+
+Las cuestiones anteriormente mencionadas son presentadas en la figura 3.4 a continuación:  
 
 <img width="1597" height="554" alt="image" src="https://github.com/user-attachments/assets/97e607b5-2e85-4000-895a-2d775bcd897f" />
 
-**Figura 3.3:** Diagrama de estados del sistema.
+**Figura 3.4:** Diagrama de estados del sistema.
 
 # CAPÍTULO 4: Ensayos y resultados
-En este capítulo se presentan las pruebas realizadas al prototipo para verificar el correcto funcionamiento del hardware y del firmware desarrollados. Asimismo, se muestran los resultados obtenidos durante la integración de los diferentes módulos que conforman el sistema.
+En este capítulo se presentan las pruebas realizadas al prototipo para verificar el correcto funcionamiento del hardware y del firmware desarrollados. Asimismo, se muestran los resultados obtenidos durante la integración de los diferentes módulos que conforman el sistema. La figura 4.1 muestra una vista general del prototipo desarrollado.  
 
 <img width="827" height="566" alt="image" src="https://github.com/user-attachments/assets/2565fc4a-3c98-4b5e-83a9-5b9e2faa2de6" />
 
@@ -642,8 +666,8 @@ En este capítulo se presentan las pruebas realizadas al prototipo para verifica
 ## 4.1 Pruebas funcionales del firmware
 
 **Pruebas de comunicación BLE**  
-En esta sección se presentan las pruebas realizadas para verificar el correcto funcionamiento del firmware implementado en el sistema. Se comprobó la ejecución de las tareas, la comunicación mediante Bluetooth Low Energy (BLE) y la respuesta del sistema ante las órdenes enviadas desde la aplicación móvil.
-
+En esta sección se presentan las pruebas realizadas para verificar el correcto funcionamiento del firmware implementado en el sistema. Se comprobó la ejecución de las tareas, la comunicación mediante Bluetooth Low Energy (BLE) y la respuesta del sistema ante las órdenes enviadas desde la aplicación móvil.  
+En la figura 4.2 se puede ver intercambios de mensajes entre el sistema y la aplicación móvil.  
 <img width="302" height="572" alt="image" src="https://github.com/user-attachments/assets/0a94a548-a9c7-450a-8989-bc4a8ece67e5" />
 
 **Figura 4.2:** Prueba de comunicación BLE.
@@ -651,6 +675,7 @@ En esta sección se presentan las pruebas realizadas para verificar el correcto 
 **Pruebas de sensor con interfaz del usuario**  
 
 En esta prueba se verificó el correcto funcionamiento del módulo de medición de temperatura. Se comprobó la adquisición de datos desde el sensor DS18B20, la visualización de la temperatura en la pantalla LCD y la respuesta del sistema cuando la temperatura se encuentra dentro y fuera de los límites configurados.
+La figura 4.3 muestra una medición dentro del rango aceptable de temperatura, mientras que la 4.4 ilustra una por fuera de dicho rango.  
 
 <img width="1327" height="47" alt="image" src="https://github.com/user-attachments/assets/17b52bdf-9a92-4354-a309-8ae854561e31" />
 
@@ -680,7 +705,7 @@ En esta prueba se verificó el funcionamiento del sistema de alimentación imple
 
 **Prueba del sistema de filtrado**
 
-Como se mencionó anteriormente, el sistema de filtrado fue representado mediante un foco de corriente alterna (CA), el cual simula el funcionamiento del filtro de agua durante las pruebas del prototipo.
+Como se mencionó anteriormente, el sistema de filtrado fue representado mediante un foco de corriente alterna (CA), el cual simula el funcionamiento del filtro de agua durante las pruebas del prototipo. En la figura 4.7, el sistema de filtrado está activado. En la 4.8, está desactivado.  
 
 <img width="857" height="646" alt="image" src="https://github.com/user-attachments/assets/efe68572-dfa6-4069-b334-82ec9878b64b" />
 
@@ -692,19 +717,19 @@ Como se mencionó anteriormente, el sistema de filtrado fue representado mediant
 
 **Prueba del sistema de iluminación (día y noche)**
 
-En esta prueba se verificó el funcionamiento del sistema de iluminación implementado mediante un aro LED, el cual simula los ciclos de día y noche de la pecera de acuerdo con la lógica de control desarrollada.
+En esta prueba se verificó el funcionamiento del sistema de iluminación implementado mediante un aro LED, el cual simula los ciclos de día y noche de la pecera de acuerdo con la lógica de control desarrollada. La figura 4.9 ilustra el sistema de iluminación encendido, mientras que la 4.10 lo muestra apagado.  
 
 <img width="485" height="600" alt="image" src="https://github.com/user-attachments/assets/b84e0268-9156-42d2-ace9-bea6343d3e82" />
 
-**Figura 4.9:** Sistema de iluminación activado.
+**Figura 4.9:** Sistema de iluminación encendido.
 
 <img width="485" height="620" alt="image" src="https://github.com/user-attachments/assets/23c44002-39e1-4519-ac97-12874deb0440" />
 
-**Figura 4.10:** Sistema de iluminación desactivado.
+**Figura 4.10:** Sistema de iluminación apagado.
 
 **Prueba del sistema de alarma**
 
-En esta prueba se verificó el funcionamiento del sistema de alarma, compuesto por un buzzer y un LED rojo, los cuales se activan cuando el sistema detecta una temperatura superior o inferior a los límites configurados.
+En esta prueba se verificó el funcionamiento del sistema de alarma, compuesto por un buzzer y un LED rojo, los cuales se activan cuando el sistema detecta una temperatura superior o inferior a los límites configurados. La figura 4.11 representa al sistema de alarma activado. La 4.12 lo representa desactivado.  
 
 <img width="857" height="505" alt="image" src="https://github.com/user-attachments/assets/de7fdeb3-4eeb-4683-8398-8b63e96e0ebf" />
 
@@ -737,7 +762,8 @@ En la Tabla 4.1 se presenta el cumplimiento de los casos de uso definidos en la 
 
 ## 4.4 Console and Build Analyzer
 
-La Figura 4.13 muestra el reporte de uso de memoria del build. Se observa un uso bajo de RAM y FLASH (≈17,58% y ≈18,99%), dejando margen para futuras extensiones.
+La figura 4.13 muestra el reporte de uso de memoria del build. Se observa un uso bajo de RAM y FLASH (≈17,58% y ≈18,99%), dejando margen para futuras extensiones.  
+La figura 4.14 presenta la ocupación de sectores de las distintas secciones de memoria.  
 
 <img width="720" height="151" alt="image" src="https://github.com/user-attachments/assets/32d8ac47-fc97-429e-a179-95f9d7dbf51a" />
 
@@ -751,7 +777,7 @@ La Figura 4.13 muestra el reporte de uso de memoria del build. Se observa un uso
 
 Para medir peor tiempo de ejecución (WCET) de cada tarea, se utilizó el DWT (Data Watchpoint and Trace), el cual permite medir el tiempo con alta precisión. El código programa comienza a contar el tiempo con precisión desde que cada tarea se ejecuta hasta que finaliza. Si el valor obtenido es mayor que el anteriormente guardado, se actualiza el registro, de lo contrario, se continúa sin guardar el valor.
 
-La sumatoria de todos los WCET da un total de 739 μs, por debajo de los 1000 μs que exige el ejecutor cíclico. Se aprecia que la última tarea (correspondiente al display LCD) es la que más demora.
+La sumatoria de todos los WCET da un total de 739 μs, por debajo de los 1000 μs que exige el ejecutor cíclico. Se aprecia que la última tarea (correspondiente al display LCD) es la que más demora. Esto se muestra en la figura 4.15.  
 
 <img width="1670" height="287" alt="image" src="https://github.com/user-attachments/assets/c737217a-a93f-42bf-bfd2-8ee385955336" />
 <img width="1710" height="302" alt="image" src="https://github.com/user-attachments/assets/36dd9744-4fae-4f15-8428-5b90499cb5c8" />
@@ -786,6 +812,8 @@ En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 
 ## 4.7 Cumplimiento de requisitos
 
+En la tabla 4.3 se puede apreciar el cumplimiento de los requerimientos planteados para el proyecto:  
+
 **Tabla 4.3** Cumplimiento de los requerimientos planteados.
 
 | Grupo | ID | Descripción | ¿Se cumplió? |
@@ -804,6 +832,8 @@ En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 
 ## 4.8 Comparación con sistemas similares
 
+A continuación, la tabla 4.4 presenta una comparación con las prestaciones que ofrece la solución comercial integral (la tercera de las presentadas en la sección 1.3):  
+
 **Tabla 4.4:** Comparación de prestaciones entre productos comerciales y el prototipo desarrollado.
 
 | Característica | Solución importada | Prototipo desarrollado |
@@ -819,7 +849,6 @@ En la Tabla 4.2 se presentan los consumos medidos de cada actuador.
 | **Costo y disponibilidad** | ~$708.000 ARS ($464 USD), 21 días de envío | Prototipo de laboratorio |
 
 A partir de la comparación realizada, se destaca que el prototipo desarrollado incorpora funcionalidades que no se encuentran especificadas en la solución comercial relevada, particularmente el control manual de los actuadores mediante una aplicación móvil. Esto permite al usuario intervenir directamente sobre el funcionamiento de la pecera. De esta manera, el prototipo busca ofrecer un mayor grado de interacción y control sobre el sistema, manteniendo al mismo tiempo las funcionalidades básicas de monitoreo y automatización.
-
 
 # CAPÍTULO 5: Conclusiones
 
