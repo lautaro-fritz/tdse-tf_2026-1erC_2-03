@@ -16,8 +16,7 @@ Memoria del Trabajo Final:
 
 **José Francisco López García** **\- n20240046**
 
-*Este trabajo fue realizado en las Ciudad Autónoma de Buenos Aires,*   
-*entre marzo y agosto del 2026\.*
+*Este trabajo fue realizado en las Ciudad Autónoma de Buenos Aires, entre marzo y agosto del 2026\.*
 
 # RESUMEN
 
@@ -29,15 +28,19 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 [Capítulo 1: Introducción general](#capítulo-1introducción-general)
 
-- [1.1 Análisis de necesidad y objetivo](#11-análisis-de-necesidad-y-objetivo)
+- [1.1 Análisis de necesidad](#11-análisis-de-necesidad)
 
-- [1.2 Motivación](#12-motivación)
+- [1.2 Objetivos] (#12-objetivos)
 
-- [1.3 Alcance y limitaciones](#13-alcance-y-limitaciones)
+- [1.3 Productos comerciales disponibles](#13-productos-comerciales-disponibles)
+
+- [1.4 Comparación con el prototipo desarrollado](#14-comparación-con-el-prototipo-desarrollado)
+
+- [1.5 Alcance y limitaciones](#15-alcance-y-limitaciones)
 
 [Capítulo 2: Introducción específica](#capítulo-2-introducción-específica)
 
-- [2.1 Requisitos](#21-requisitos)
+- [2.1 Requisitos del sistema](#21-requisitos-del-sistema)
 
 - [2.2 Casos de uso](#22-casos-de-uso)
 
@@ -132,7 +135,13 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 
 # CAPÍTULO 1: Introducción general
 
-## 1.1 Análisis de necesidad y objetivo
+## 1.1 Análisis de necesidad
+
+Actualmente existen en el mercado internacional diversas soluciones de automatización para acuarios, pero su disponibilidad, costo y soporte pueden representar una limitación para los usuarios locales. En este contexto, surge la necesidad de desarrollar una pecera inteligente de fabricación nacional, que permita automatizar y monitorear variables como la temperatura, la iluminación y la alimentación de los peces.
+
+Una solución desarrollada localmente permitiría adaptar el producto a las necesidades del mercado nacional, reducir la dependencia de equipos importados y facilitar tanto su mantenimiento como su futura ampliación. Además, el desarrollo de tecnología propia brinda la posibilidad de integrar componentes y servicios disponibles localmente, disminuyendo costos y simplificando el acceso a soporte técnico.
+
+## 1.2 Objetivos
 
 El proyecto busca desarrollar un sistema embebido para la automatización y monitoreo de una pecera doméstica, integrando el control de actuadores, adquisición de datos y comunicación inalámbrica mediante una única plataforma de procesamiento.
 
@@ -148,11 +157,33 @@ Objetivos principales:
 
 - Permitir la configuración y supervisión del sistema mediante una interfaz inalámbrica.
 
-## 1.2 Motivación
+## 1.3 Productos comerciales disponibles
 
-En la actualidad existen soluciones comerciales orientadas a la automatización y monitoreo de peceras domésticas, incluyendo sistemas de control de filtrado, iluminación, alimentación y supervisión ambiental. Sin embargo, gran parte de estas soluciones corresponden a productos importados, lo que implica elevados costos de adquisición, limitada disponibilidad en el mercado local y menor flexibilidad para su personalización o mantenimiento.
+Se relevó la oferta disponible en el mercado argentino e internacional para ofrecer una comparación de los puntos clave:
 
-## 1.3 Alcance y limitaciones
+1. [Pecera inteligente (importada desde China)](https://articulo.mercadolibre.com.ar/MLA-3130228464-pecera-inteligente-7l-alimentacion-automatica-control-app-mi-_JM)
+
+Como se mencionó anteriormente, si bien existen soluciones que proporcionan la mayoría de las funcionalidades que ofrece nuestro prototipo, estas son de fabricación internacional, lo que resulta en una mayor dependencia de productos importados, con posibles limitaciones en cuanto a costos, disponibilidad, mantenimiento y soporte técnico. Además, al tratarse de productos diseñados para otros mercados, las posibilidades de adaptación y modificación de sus funcionalidades son limitadas.
+
+En este contexto, el desarrollo de una alternativa nacional permite ofrecer una solución adaptable a las necesidades del mercado local, facilitando el acceso a soporte técnico y la incorporación de nuevas funcionalidades, al mismo tiempo que reduce la dependencia de soluciones desarrolladas en el exterior.
+
+## 1.4 Comparación con el prototipo desarrollado
+
+**Tabla 1.1:** Comparación de prestaciones entre productos comerciales y el prototipo desarrollado.
+
+| Característica | Solución importada | Prototipo desarrollado |
+| :---- | :---- | :---- |
+| **Sistema de alimentación integrado** | Sí | Sí |
+| **Monitoreo de temperatura del agua** | Sí | Sí |
+| **Filtrado de agua** | Sí | Sí |
+| **Ciclo de iluminación día/noche** | No especificado | Sí |
+| **Control manual de actuadores mediante aplicación móvil** | No especificado | Sí |
+| **Configuración de horarios de alimentación mediante aplicación móvil** | Sí | Planificado, dejado fuera de alcance |
+| **Costo y disponibilidad** | Precio base + envío + impuestos, ~$300.000 | Prototipo de laboratorio |
+
+A partir de la comparación realizada, se destaca que el prototipo desarrollado incorpora funcionalidades que no se encuentran especificadas en la solución comercial relevada, particularmente el control manual de los actuadores mediante una aplicación móvil. Esto permite al usuario intervenir directamente sobre el funcionamiento de la pecera. De esta manera, el prototipo busca ofrecer un mayor grado de interacción y control sobre el sistema, manteniendo al mismo tiempo las funcionalidades básicas de monitoreo y automatización.
+
+## 1.5 Alcance y limitaciones
 
 El trabajo abarca exclusivamente la electrónica de control, la interfaz de usuario y la lógica de registro e interrupciones, implementadas sobre una placa NUCLEO-F103RB y montadas en una maqueta experimental. Quedan fuera de alcance el diseño mecánico del alimentador y del filtro. También se dejó fuera del alcance la configuración de horarios de alimentación e iluminación por parte del usuario a través de la aplicación móvil y el chequeo del funcionamiento de los actuadores por parte del sistema al iniciarse.  
 
@@ -160,7 +191,7 @@ El trabajo abarca exclusivamente la electrónica de control, la interfaz de usua
 
 Esta sección contiene los requisitos originales y los modificados en el informe de avances, además de los casos de uso.
 
-## 2.1 Requisitos
+## 2.1 Requisitos del sistema
 
 **Tabla 2.1:** requerimientos iniciales del proyecto
 
