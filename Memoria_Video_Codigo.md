@@ -883,7 +883,15 @@ Implementación de comunicación mediante Wi-Fi: Reemplazar o complementar la co
 Mejora de las capacidades de supervisión: Incorporar nuevas funciones de monitoreo y registro de datos que permitan obtener mayor información sobre el comportamiento del sistema y facilitar el diagnóstico de posibles fallas.
 
 # CAPÍTULO 6: Uso de herramientas de IA
-Se hizo un uso responsable de herramientas de IA como apoyo tanto en la generación y revisión del código del _firmware_ del proyecto como en la redacción del presente informe y para los nombres de los _commits_, siempre manteniendo el criterio y cautela.  
+Se utilizó la asistencia de Inteligencia Artificial en los siguientes casos:
+
+**Diseño de software y código:** Ayudó a simplificar la implementación de las máquinas de estado paralelas, a desarrollar código no bloqueante, a integrar librerías de GitHub para el control de sensores y en la depuración de fallos.
+
+**Electrónica e integración de hardware:** Asistió en el diseño de conexiones seguras para actuadores y sensores, sugiriendo alternativas superadoras y eficientes a las ideas de diseño iniciales.
+
+**Redacción del informe y documentación técnica:** Colaboró principalmente en la descripción detallada de los módulos del sistema y en la definición formal de las máquinas de estado.
+
+Esto permitió acelerar el desarrollo del trabajo final. 
 
 # CAPÍTULO 7: Bibliografía y referencias
 
