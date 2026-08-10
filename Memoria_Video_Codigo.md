@@ -889,7 +889,7 @@ Se utilizó la asistencia de Inteligencia Artificial en los siguientes casos:
 
 **Electrónica e integración de hardware:** Asistió en el diseño de conexiones seguras para actuadores y sensores, sugiriendo alternativas superadoras y eficientes a las ideas de diseño iniciales.
 
-**Redacción del informe y documentación técnica:** Colaboró principalmente en la descripción detallada de los módulos del sistema y en la definición formal de las máquinas de estado.
+**Redacción del informe y documentación técnica:** Colaboró principalmente en la descripción detallada de los módulos del sistema y en la definición formal de las máquinas de estado así como también en los mensajes de los commits al repositorio.
 
 Esto permitió acelerar el desarrollo del trabajo final. 
 
