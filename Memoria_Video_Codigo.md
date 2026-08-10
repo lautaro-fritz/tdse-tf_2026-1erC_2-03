@@ -510,16 +510,16 @@ Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento 
 
 La tabla 3.7 resume las conexiones del display LCD.  
 
-**Tabla 3.7:** Resumen de conexiones del display LCD mediante interfaz I2C. 
+**Tabla 3.7:** Resumen de conexiones del display LCD mediante interfaz I²C. 
 
-| Display LCD I2C | Conexión |
+| Display LCD I²C | Conexión |
 | :---- | :---- |
-| SCL | NUCLEO Board pin (D14)  \- Línea de reloj de comunicación I2C |
-| SDA | NUCLEO Board pin (D15)  \- Línea de datos de comunicación I2C |
+| SCL | NUCLEO Board pin (D14)  \- Línea de reloj de comunicación I²C |
+| SDA | NUCLEO Board pin (D15)  \- Línea de datos de comunicación I²C |
 | VCC | Fuente de 5V |
 | GND | GND común |
 
-El display LCD utiliza la interfaz de comunicación I2C mediante las líneas SDA y SCL, permitiendo la transmisión de datos y sincronización con la NUCLEO-F103RB utilizando únicamente dos señales de comunicación. La alimentación del módulo se realiza mediante una fuente de 5V con referencia común de GND.
+El display LCD utiliza la interfaz de comunicación I²C mediante las líneas SDA y SCL, permitiendo la transmisión de datos y sincronización con la NUCLEO-F103RB utilizando únicamente dos señales de comunicación. La alimentación del módulo se realiza mediante una fuente de 5V con referencia común de GND.
 
 ### 3.1.1 Dispensador de alimento
 
@@ -599,13 +599,13 @@ Finalmente, luego del procesamiento del comando recibido, la comunicación UART 
 
 ### 3.2.4 Módulo de visualización mediante display LCD
 
-El módulo de visualización fue implementado mediante una arquitectura dividida en dos capas principales: la capa lógica desarrollada en `task_lcd.c`, encargada de gestionar la actualización de la información mostrada, y la capa de hardware implementada en `i2c_lcd.c`, responsable de la comunicación con el display mediante el protocolo I2C.
+El módulo de visualización fue implementado mediante una arquitectura dividida en dos capas principales: la capa lógica desarrollada en `task_lcd.c`, encargada de gestionar la actualización de la información mostrada, y la capa de hardware implementada en `i2c_lcd.c`, responsable de la comunicación con el display mediante el protocolo I²C.
 
 La máquina de estados del módulo está compuesta por dos estados principales: `ST_LCD_IDLE` y `ST_LCD_UPDATE`. En el estado inicial `ST_LCD_IDLE`, el módulo permanece en espera hasta que se cumple el tiempo establecido para realizar una nueva actualización del display. Este control se realiza mediante la función `HAL_GetTick()`, permitiendo ejecutar la actualización de forma periódica sin bloquear la ejecución del sistema.
 
 Cuando se alcanza el tiempo de actualización, el módulo pasa al estado `ST_LCD_UPDATE`, donde obtiene la información necesaria para mostrar en pantalla. Por ejemplo, un valor de temperatura sensado, esta es tomada desde la variable global `task_thermometer_dta_list[ID_THERM_A].temperature` para luego ser formateada mediante la función `sprintf()`, generando la cadena de caracteres que será enviada al display.
 
-La comunicación con el display LCD es gestionada por el archivo `i2c_lcd.c`, donde la función `lcd_send_string()` realiza la conversión de los datos al formato requerido por el controlador del display y prepara el buffer de transmisión. Luego, mediante la función `HAL_I2C_Master_Transmit_DMA()`, los datos son enviados utilizando `DMA`, permitiendo que la transferencia por I2C se realice sin bloquear al procesador.
+La comunicación con el display LCD es gestionada por el archivo `i2c_lcd.c`, donde la función `lcd_send_string()` realiza la conversión de los datos al formato requerido por el controlador del display y prepara el buffer de transmisión. Luego, mediante la función `HAL_I2C_Master_Transmit_DMA()`, los datos son enviados utilizando `DMA`, permitiendo que la transferencia por I²C se realice sin bloquear al procesador.
 
 Una vez finalizada la actualización de la información mostrada, la máquina de estados retorna al estado `ST_LCD_IDLE`, quedando preparada para realizar una nueva actualización. De esta manera, el módulo permite visualizar periódicamente los datos del sistema manteniendo la ejecución simultánea de otras tareas, como la lectura de sensores, comunicación Bluetooth y control de actuadores.
 
