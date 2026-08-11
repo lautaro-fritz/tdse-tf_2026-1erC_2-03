@@ -135,6 +135,7 @@ El objetivo del presente proyecto es diseñar e implementar un sistema embebido 
 | **1.2** | Versión final | 4/8/2026 |
 | **1.3** | Correcciones de formato | 6/8/2026 |
 | **1.4** | Correcciones de formato | 9/8/2026 |
+| **1.5** | Correcciones finales de formato | 11/8/2026 |
 
 # CAPÍTULO 1: Introducción general
 
@@ -315,9 +316,9 @@ El servomotor recibe la señal de control generada por la placa NUCLEO-F103RB me
 
 ### 2.3.3 Módulo relé
 
-Se incorporó el módulo relé de la figura 2.3 al sistema para controlar la alimentación de una carga de 220V en corriente alterna (CA), representada en el prototipo mediante un foco que simula el funcionamiento del filtro de agua de la pecera. Debido a que este tipo de carga no puede ser accionada directamente por la placa NUCLEO-F103RB, el relé actúa como una interfaz de potencia que permite conmutar su alimentación a partir de una señal de control proveniente del microcontrolador.
+Se incorporó el módulo relé de la figura 2.3 al sistema para controlar la alimentación de una carga de 220 V en corriente alterna, representada en el prototipo mediante un foco que simula el funcionamiento del filtro de agua de la pecera. Debido a que este tipo de carga no puede ser accionada directamente por la placa NUCLEO-F103RB, el relé actúa como una interfaz de potencia que permite conmutar su alimentación a partir de una señal de control proveniente del microcontrolador.
 
-El relé recibe la señal de activación desde una salida digital de la placa NUCLEO-F103RB, mientras que su circuito de accionamiento se alimenta mediante una fuente lineal externa y el circuito de potencia se conecta directamente a la línea de 220V CA. De esta manera, es posible encender o apagar el foco, el cual representa el funcionamiento del filtro de agua, manteniendo el aislamiento entre el circuito de control de baja tensión y la carga de corriente alterna.
+El relé recibe la señal de activación desde una salida digital de la placa NUCLEO-F103RB, mientras que su circuito de accionamiento se alimenta mediante una fuente lineal externa y el circuito de potencia se conecta directamente a la línea de 220 V. De esta manera, es posible encender o apagar el foco, el cual representa el funcionamiento del filtro de agua, manteniendo el aislamiento entre el circuito de control de baja tensión y la carga de corriente alterna.
 
 La utilización de este componente permite validar el funcionamiento de la etapa de control y potencia del sistema sin necesidad de conectar el filtro real, mejorando la seguridad durante las pruebas y la confiabilidad del prototipo.
 
@@ -329,7 +330,7 @@ La utilización de este componente permite validar el funcionamiento de la etapa
 
 El display LCD 16×2 con módulo I²C utilizado en el proyecto desempeña un papel fundamental al proporcionar una interfaz visual para la presentación de datos; el mismo se representa en la figura 2.4. Con una capacidad de mostrar 16 caracteres distribuidos en 2 líneas, este módulo se emplea para presentar de forma clara y legible la información relevante para el usuario. 
 
-En particular, el display LCD 16×2 en este proyecto se utiliza para mostrar la temperatura medida por el sistema, permitiendo al usuario monitorear de manera sencilla esta variable durante el funcionamiento del prototipo. La información visualizada es enviada por la placa NUCLEO-F103RB, mientras que el módulo es alimentado con una tensión de 5V.
+En particular, el display LCD 16×2 en este proyecto se utiliza para mostrar la temperatura medida por el sistema, permitiendo al usuario monitorear de manera sencilla esta variable durante el funcionamiento del prototipo. La información visualizada es enviada por la placa NUCLEO-F103RB, mientras que el módulo es alimentado con una tensión de 5 V.
 
 <img width="320" height="352" alt="image" src="https://github.com/user-attachments/assets/58f369ea-98c3-47ec-995b-4876bc4256ad" />
 
@@ -387,7 +388,7 @@ En este proyecto, el buzzer es accionado por la placa NUCLEO-F103RB y se activa 
 
 El LED rojo de la figura 2.10 fue incorporado al sistema como un dispositivo de alerta visual, cuya función es indicar de manera inmediata cuando el sistema detecta una condición de alarma. De esta forma, proporciona al usuario una señal luminosa que permite identificar rápidamente la presencia de una condición anómala.
 
-<img width="167" height="212" alt="image" src="https://github.com/user-attachments/assets/3cc99bba-c770-4307-bfd0-c964b754023a" />
+<img width="25%" height="25%" alt="image" src="https://github.com/user-attachments/assets/3cc99bba-c770-4307-bfd0-c964b754023a" />
 
 **Figura 2.10:** LED rojo. 
 
@@ -395,11 +396,11 @@ El LED rojo de la figura 2.10 fue incorporado al sistema como un dispositivo de 
 
 Se diseñó y confeccionó una placa de circuito impreso específica para el proyecto para integrar los distintos componentes electrónicos del sistema en un único soporte para mejorar la presentación del mismo. En la figura 2.11 se muestra el layout de PCB que se utilizó para la placa. En la figura 2.12 se ilustra la placa terminada.
 
-<img width="310" height="207" alt="image" src="https://github.com/user-attachments/assets/fc5d955a-f773-4913-9a07-64780b331805" />
+<img width="50%" height="50%" alt="image" src="https://github.com/user-attachments/assets/fc5d955a-f773-4913-9a07-64780b331805" />
 
 **Figura 2.11:** Layout de PCB.  
 
-<img width="310" height="207" alt="image" src="https://github.com/user-attachments/assets/1d149fc8-75da-4446-8de3-64e4b1faafc1" />
+<img width="50%" height="50%" alt="image" src="https://github.com/user-attachments/assets/1d149fc8-75da-4446-8de3-64e4b1faafc1" />
 
 **Figura 2.12:** PCB terminada.  
 
@@ -441,7 +442,7 @@ La tabla 3.1 resume las conexiones del módulo Bluetooth HM-10 a la placa NUCLEO
 | :---- | :---- |
 | TXD | RX NUCLEO Board pin (D0) |
 | RXD | TX NUCLEO Board pin (D1) |
-| VCC | Fuente externa de 5V |
+| VCC | Fuente externa de 5 V |
 | GND | GND común |
 
 Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento de la comunicación del módulo Bluetooth HM-10.  
@@ -453,7 +454,7 @@ La tabla 3.2 resume las conexiones del buzzer y LED de alarma.
 | Buzzer y LED de alarma | Conexión |
 | :---- | :---- |
 | Entrada de control | NUCLEO Board pin (D8) |
-| VCC | Fuente externa de 5V |
+| VCC | Fuente externa de 5 V |
 | GND | GND común |
 
 La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base para el correcto accionamiento del dispositivo. 
@@ -465,10 +466,10 @@ La tabla 3.3 resume las conexiones del servomotor SG90.
 | Servomotor SG90 | Conexión |
 | :---- | :---- |
 | Señal PWM | NUCLEO Board pin (D4) |
-| VCC | Fuente externa de 5V |
+| VCC | Fuente externa de 5 V |
 | GND | GND común |
 
-La línea de control incorpora una resistencia *pull-up* para garantizar el correcto funcionamiento de la señal PWM del servomotor, mientras que la alimentación se realiza mediante una fuente externa de 5V para evitar incrementar la demanda de corriente sobre la placa NUCLEO-F103RB. 
+La línea de control incorpora una resistencia *pull-up* para garantizar el correcto funcionamiento de la señal PWM del servomotor, mientras que la alimentación se realiza mediante una fuente externa de 5 V para evitar incrementar la demanda de corriente sobre la placa NUCLEO-F103RB. 
 
 La tabla 3.4 resume las conexiones del módulo relé.  
 
@@ -477,9 +478,9 @@ La tabla 3.4 resume las conexiones del módulo relé.
 | Módulo relé | Conexión |
 | :---- | :---- |
 | Entrada de control (IN) | NUCLEO Board pin (D5) |
-| VCC | Fuente externa de 5V |
+| VCC | Fuente externa de 5 V |
 | GND | GND común |
-| COM | Línea de alimentación de 220V CA |
+| COM | Línea de alimentación de 220 V |
 | NO | Foco de corriente alterna (simulación del filtro de agua) |
 
 La etapa de control utiliza un transistor (2n2222 NPN) y una resistencia de base para el correcto accionamiento del dispositivo. 
@@ -491,10 +492,10 @@ La tabla 3.5 resume las conexiones del aro de luces LED.
 | Aro LED | Conexión |
 | :---- | :---- |
 | Entrada de control | NUCLEO Board pin (D10)  |
-| VCC | Fuente externa de 5V |
+| VCC | Fuente externa de 5 V |
 | GND | GND común |
 
-La etapa de control incorpora un transistor 2N2222 y una resistencia de base para el correcto accionamiento del aro LED. Además, su alimentación se realiza mediante una fuente externa de 5V para evitar incrementar la demanda de corriente sobre la placa NUCLEO-F103RB.
+La etapa de control incorpora un transistor 2N2222 y una resistencia de base para el correcto accionamiento del aro LED. Además, su alimentación se realiza mediante una fuente externa de 5 V para evitar incrementar la demanda de corriente sobre la placa NUCLEO-F103RB.
 
 La tabla 3.6 resume las conexiones del termómetro sumergible.  
 
@@ -503,7 +504,7 @@ La tabla 3.6 resume las conexiones del termómetro sumergible.
 | Termómetro DS1820 | Conexión |
 | :---- | :---- |
 | Entrada de control | NUCLEO Board pin (D7)  |
-| VCC | Fuente externa de 5V |
+| VCC | Fuente externa de 5 V |
 | GND | GND común |
 
 Se utiliza una resistencia *pull-up* para garantizar el correcto funcionamiento de la comunicación del termómetro DS1820.
@@ -516,10 +517,10 @@ La tabla 3.7 resume las conexiones del display LCD.
 | :---- | :---- |
 | SCL | NUCLEO Board pin (D14)  \- Línea de reloj de comunicación I²C |
 | SDA | NUCLEO Board pin (D15)  \- Línea de datos de comunicación I²C |
-| VCC | Fuente de 5V |
+| VCC | Fuente de 5 V |
 | GND | GND común |
 
-El display LCD utiliza la interfaz de comunicación I²C mediante las líneas SDA y SCL, permitiendo la transmisión de datos y sincronización con la NUCLEO-F103RB utilizando únicamente dos señales de comunicación. La alimentación del módulo se realiza mediante una fuente de 5V con referencia común de GND.
+El display LCD utiliza la interfaz de comunicación I²C mediante las líneas SDA y SCL, permitiendo la transmisión de datos y sincronización con la NUCLEO-F103RB utilizando únicamente dos señales de comunicación. La alimentación del módulo se realiza mediante una fuente de 5 V con referencia común de GND.
 
 ### 3.1.1 Dispensador de alimento
 
