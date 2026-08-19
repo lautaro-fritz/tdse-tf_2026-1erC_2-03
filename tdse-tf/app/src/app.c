@@ -34,6 +34,7 @@
 
 /********************** inclusions *******************************************/
 /* Project includes */
+#include <task_bluetooth.h>
 #include "main.h"
 
 /* Demo includes */
@@ -43,9 +44,12 @@
 /* Application & Tasks includes */
 #include "board.h"
 #include "task_sensor.h"
+#include "task_timer.h"
 #include "task_system.h"
 #include "task_actuator.h"
 #include "task_pwm.h"
+#include "task_thermometer.h"
+#include "task_lcd.h"
 
 /********************** macros and definitions *******************************/
 #define G_APP_CNT_INI		0ul
@@ -75,9 +79,13 @@ typedef struct {
 /********************** internal data declaration ****************************/
 const task_cfg_t task_cfg_list[]	= {
 		{task_sensor_init, 		task_sensor_update, 	NULL},
+		{task_timer_init, 		task_timer_update, 	NULL},
+		{task_bluetooth_init, 		task_bluetooth_update, 	NULL},
+		{task_thermometer_init,	task_thermometer_update, 	NULL},
 		{task_system_init, 		task_system_update, 	NULL},
 		{task_actuator_init,	task_actuator_update, 	NULL},
-		{task_pwm_init,	task_pwm_update, 	NULL}
+		{task_pwm_init,	task_pwm_update, 	NULL},
+		{task_lcd_init,	task_lcd_update, 	NULL}
 };
 
 #define TASK_QTY	(sizeof(task_cfg_list)/sizeof(task_cfg_t))
@@ -103,16 +111,16 @@ void app_init(void)
 	uint32_t index;
 
 	/* Print out: Application Initialized */
-	LOGGER_INFO(" ");
+	/*LOGGER_INFO(" ");
 	LOGGER_INFO("%s is running - Tick [mS] = %lu", GET_NAME(app_init), HAL_GetTick());
 
 	LOGGER_INFO(" %s is a %s", GET_NAME(app), p_app);
 	LOGGER_INFO(" %s is a %s", GET_NAME(app), p_app_);
 	LOGGER_INFO(" %s is a %s", GET_NAME(app), p_app__);
-
+*/
 	/* Init & Print out: Application execution counter */
 	g_app_cnt = G_APP_CNT_INI;
-	LOGGER_INFO(" %s = %lu", GET_NAME(g_app_cnt), g_app_cnt);
+	//LOGGER_INFO(" %s = %lu", GET_NAME(g_app_cnt), g_app_cnt);
 
 	/* Init Cycle Counter */
 	cycle_counter_init();
@@ -184,7 +192,7 @@ void app_update(void)
 
 			g_app_runtime_us += task_dta_list[index].LET;
 		}
-		HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
+		//HAL_PWR_EnterSLEEPMode(0, PWR_SLEEPENTRY_WFI);
 
 		/* Protect shared resource */
 		__asm("CPSID i");	/* disable interrupts */

@@ -46,22 +46,24 @@ extern "C" {
 
 /********************** typedef **********************************************/
 /* Events to excite Task PWM */
-typedef enum task_pwm_ev {EV_PWM_IDLE, EV_PWM_MOVE} task_pwm_ev_t;
+typedef enum task_pwm_ev {EV_PWM_OFF, EV_PWM_ON} task_pwm_ev_t;
 
 /* States of Task PWM */
-typedef enum task_pwm_st {ST_PWM_IDLE,
-							   ST_PWM_MOVING} task_pwm_st_t;
+typedef enum task_pwm_st {ST_PWM_OFF,
+							   ST_PWM_MOVING, ST_PWM_ON} task_pwm_st_t;
 
 /* Identifier of Task PWM */
-typedef enum task_pwm_id {ID_PWM_MOTOR} task_pwm_id_t;
+typedef enum task_pwm_id {ID_PWM_MOTOR, ID_PWM_LIGHT} task_pwm_id_t;
 
 typedef struct
 {
 	task_pwm_id_t	identifier;
 	GPIO_TypeDef *		gpio_port;
 	uint16_t			pin;
-	float				current_angle;
-	float				target_angle;
+	float               min_value;
+	float				max_value;
+	float				current_value;
+	float               target_value;
 	TIM_HandleTypeDef *htim;
 	uint32_t channel;
 } task_pwm_cfg_t;

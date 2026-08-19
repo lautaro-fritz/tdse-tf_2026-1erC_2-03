@@ -76,8 +76,10 @@ void init_event_task_system(void)
 	event_task_system_queue.tail = 0;
 	event_task_system_queue.count = 0;
 
+	task_system_ev_t empty = {EMPTY, EMPTY};
+
 	for (i = 0; i < QUEUE_LENGTH; i++)
-		event_task_system_queue.queue[i] = EMPTY;
+		event_task_system_queue.queue[i] = empty;
 }
 
 void put_event_task_system(task_system_ev_t event)
@@ -95,7 +97,8 @@ task_system_ev_t get_event_task_system(void)
 
 	event_task_system_queue.count--;
 	event = event_task_system_queue.queue[event_task_system_queue.tail];
-	event_task_system_queue.queue[event_task_system_queue.tail++] = EMPTY;
+	task_system_ev_t empty = {EMPTY, EMPTY};
+	event_task_system_queue.queue[event_task_system_queue.tail++] = empty;
 
 	if (QUEUE_LENGTH == event_task_system_queue.tail)
 		event_task_system_queue.tail = 0;

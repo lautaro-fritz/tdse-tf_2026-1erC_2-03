@@ -79,6 +79,11 @@ extern "C" {
 #define REL_LAMP_ON			GPIO_PIN_SET
 #define REL_LAMP_OFF		GPIO_PIN_RESET
 
+#define BUZZER_PIN		BUZZER_1_GPIO_Port
+#define BUZZER_PORT		BUZZER_1_Pin
+#define BUZZER_ON		GPIO_PIN_SET
+#define BUZZER_OFF		GPIO_PIN_RESET
+
 #endif
 
 /* STM32 Nucleo Boards - 144 Pins */

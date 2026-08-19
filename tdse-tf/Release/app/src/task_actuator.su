@@ -1,0 +1,4 @@
+../app/src/task_actuator.c:136:6:task_actuator_sc_generic	16	static
+../app/src/task_actuator.c:171:6:task_actuator_sc_buzzer	16	static
+../app/src/task_actuator.c:84:6:task_actuator_init	24	static
+../app/src/task_actuator.c:123:6:task_actuator_update	8	static

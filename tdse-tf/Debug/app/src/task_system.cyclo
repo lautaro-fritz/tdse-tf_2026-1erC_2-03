@@ -1,4 +1,9 @@
-../app/src/task_system.c:80:6:task_system_init	3
-../app/src/task_system.c:124:6:task_system_update	2
-../app/src/task_system.c:143:6:task_system_normal_statechart	11
-../app/src/task_system.c:213:6:task_system_set_mode	1
+../app/src/task_system.c:91:6:task_system_init	2
+../app/src/task_system.c:136:6:task_system_update	1
+../app/src/task_system.c:148:6:task_system_bluetooth_statechart	11
+../app/src/task_system.c:213:6:task_system_auto_statechart	4
+../app/src/task_system.c:237:6:task_system_manual_statechart	4
+../app/src/task_system.c:260:6:task_system_actuators_statechart	3
+../app/src/task_system.c:279:6:task_system_thermometer_statechart	11
+../app/src/task_system.c:353:6:statechart	21
+../app/src/task_system.c:428:6:task_system_set_mode	1

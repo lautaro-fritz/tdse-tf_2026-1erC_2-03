@@ -82,12 +82,12 @@ void task_sensor_init(void *parameters)
 	task_sensor_ev_t event;
 
 	/* Print out: Task Initialized */
-	LOGGER_INFO(" ");
+	/*LOGGER_INFO(" ");
 	LOGGER_INFO("  %s is running - Tick [mS] = %lu", GET_NAME(task_sensor_init), HAL_GetTick());
 	LOGGER_INFO("   %s is a %s", GET_NAME(task_sensor), p_task_sensor);
 	LOGGER_INFO("   %s is a %s", GET_NAME(task_sensor), p_task_sensor_);
 	LOGGER_INFO("   %s is a %s", GET_NAME(task_sensor), p_task_sensor__);
-
+*/
 	for (index = 0; SENSOR_DTA_QTY > index; index++)
 	{
 		/* Update Task Sensor Data Pointer */
@@ -100,11 +100,12 @@ void task_sensor_init(void *parameters)
 		event = EV_BTN_UP;
 		p_task_sensor_dta->event = event;
 
-		LOGGER_INFO(" ");
+		/*LOGGER_INFO(" ");
 		LOGGER_INFO("   %s = %lu   %s = %lu   %s = %lu",
 				    GET_NAME(index), index,
 					GET_NAME(state), (uint32_t)state,
 					GET_NAME(event), (uint32_t)event);
+		*/
 	}
 }
 
@@ -164,7 +165,8 @@ void task_sensor_statechart(uint32_t index)
 					p_task_sensor_dta->tick  = DEL_BTN_MIN;
 					p_task_sensor_dta->state = ST_BTN_IDLE;
 				} else if (EV_BTN_DOWN == p_task_sensor_dta->event) {
-					put_event_task_system(p_task_sensor_cfg->signal_down);
+					task_system_ev_t event = {p_task_sensor_cfg->signal_down, MANUAL};
+					put_event_task_system(event);
 					p_task_sensor_dta->tick  = DEL_BTN_MIN;
 					p_task_sensor_dta->state = ST_BTN_ACTIVE;
 				}
@@ -195,7 +197,8 @@ void task_sensor_statechart(uint32_t index)
 				if (EV_BTN_UP == p_task_sensor_dta->event) {
 					p_task_sensor_dta->tick  = DEL_BTN_MIN;
 					p_task_sensor_dta->state = ST_BTN_IDLE;
-					put_event_task_system(p_task_sensor_cfg->signal_up);
+					task_system_ev_t event = {p_task_sensor_cfg->signal_up, MANUAL};
+					put_event_task_system(event);
 				} else if (EV_BTN_DOWN == p_task_sensor_dta->event) {
 					p_task_sensor_dta->tick  = DEL_BTN_MIN;
 					p_task_sensor_dta->state = ST_BTN_ACTIVE;
